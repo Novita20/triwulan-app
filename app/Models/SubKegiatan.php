@@ -11,6 +11,8 @@ class SubKegiatan extends Model
 {
     use HasFactory;
 
+    protected $table = 'subkegiatan';
+
     protected $fillable = [
         'kegiatan_id',
         'no_rekening',

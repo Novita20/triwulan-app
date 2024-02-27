@@ -11,6 +11,8 @@ class Program extends Model
 {
     use HasFactory;
 
+    protected $table = 'program';
+
     protected $fillable = [
         'no_rekening',
         'nama_program',

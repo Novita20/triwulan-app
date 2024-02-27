@@ -11,6 +11,8 @@ class Realisasi extends Model
 {
     use HasFactory;
 
+    protected $table = 'realisasi';
+
     protected $fillable = [
         'id_triwulan',
         'kinerja',

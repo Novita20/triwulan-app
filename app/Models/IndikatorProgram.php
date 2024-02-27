@@ -10,6 +10,8 @@ class IndikatorProgram extends Model
 {
     use HasFactory;
 
+    protected $table = 'indikator_program';
+
     protected $fillable = [
         'program_id',
         'indikator',

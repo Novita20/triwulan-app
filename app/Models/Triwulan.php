@@ -10,6 +10,8 @@ class Triwulan extends Model
 {
     use HasFactory;
 
+    protected $table = 'triwulan';
+
     protected $fillable = [
         'triwulan',
         'status'

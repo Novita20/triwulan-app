@@ -11,6 +11,8 @@ class IndikatorKinerja extends Model
 {
     use HasFactory;
 
+    protected $table = 'indikator_kinerja';
+
     protected $fillable = [
         'subkegiatan_id',
         'indikator',

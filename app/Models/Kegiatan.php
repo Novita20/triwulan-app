@@ -12,6 +12,8 @@ class Kegiatan extends Model
 {
     use HasFactory;
 
+    protected $table = 'kegiatan';
+
     protected $fillable = [
         'program_id',
         'no_rekening',
