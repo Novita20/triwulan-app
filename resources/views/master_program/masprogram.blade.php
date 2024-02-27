@@ -56,7 +56,7 @@
                     </div>
 
 
-                    <a href="{{ url('master_program/create') }}" class="btn btn-sm btn-success my-2">Tambah Data</a>
+                    <a href="{{ url('program/create') }}" class="btn btn-sm btn-success my-2">Tambah Data</a>
 
                     <table class="table table-bordered table-striped">
                         <thead>
@@ -77,10 +77,10 @@
 
                                         <td>
                                             <!-- Bikin tombol edit dan delete -->
-                                            <a href="{{ url('/master_program/' . $t->id . '/edit') }}"
+                                            <a href="{{ url('/program/' . $t->id . '/edit') }}"
                                                 class="btn btn-sm btn-warning">edit</a>
 
-                                            <form method="POST" action="{{ url('/master_program/' . $t->id) }}">
+                                            <form method="POST" action="{{ url('/program/' . $t->id) }}">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-sm btn-danger"

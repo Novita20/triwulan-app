@@ -28,19 +28,19 @@ Route::get('/', function () {
 });
 
 // Route Program
-Route::prefix('program')->group(function () {
+Route::prefix('/program')->group(function () {
     Route::resource('/', ProgramController::class);
     Route::resource('/indikator', IndikatorProgramController::class);
 });
 
 // Route Kegiatan
-Route::prefix('kegiatan')->group(function () {
+Route::prefix('/kegiatan')->group(function () {
     Route::resource('/', KegiatanController::class);
     Route::resource('/indikator', IndikatorKegiatanController::class);
 });
 
 // Route Sub Kegiatan dan Kinerja
-Route::prefix('sub_kegiatan')->group(function () {
+Route::prefix('/sub_kegiatan')->group(function () {
     Route::resource('/', SubKegiatanController::class);
     Route::resource('/kinerja', IndikatorKinerjaController::class);
 });
