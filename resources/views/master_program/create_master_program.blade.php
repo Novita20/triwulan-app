@@ -61,8 +61,8 @@
                 </div>
                 <div class="form-group">
                     <label>No Rekening</label>
-                    <input class="form-control @error('nomor_rekening') is-invalid @enderror" value="{{ isset($master_program)? $master_program->nomor_rekening : old('nomor_rekening') }}" name="nomor_rekening" type="text" />
-                    @error('nomor_rekening')
+                    <input class="form-control @error('no_rekening') is-invalid @enderror" value="{{ isset($master_program)? $master_program->no_rekening : old('no_rekening') }}" name="no_rekening" type="text" />
+                    @error('no_rekening')
                         <span class="error invalid-feedback">{{ $message }} </span>
                     @enderror
                 </div>

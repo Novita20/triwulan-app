@@ -38,22 +38,22 @@ Auth::routes();
 // });
 
 // Route Program
-
-    Route::resource('/program', ProgramController::class);
-    Route::resource('/indikator_program', IndikatorProgramController::class);
-
+Route::prefix('/program')->group(function () {
+    Route::resource('/', ProgramController::class);
+    Route::resource('/indikator', IndikatorProgramController::class);
+});
 
 // Route Kegiatan
-
-    Route::resource('/kegiatan', KegiatanController::class);
-    Route::resource('/indikator_kegiatan', IndikatorKegiatanController::class);
-
+Route::prefix('/kegiatan')->group(function () {
+    Route::resource('/', KegiatanController::class);
+    Route::resource('/indikator', IndikatorKegiatanController::class);
+});
 
 // Route Sub Kegiatan dan Kinerja
-
-    Route::resource('/sub_kegiatan', SubKegiatanController::class);
-    Route::resource('/indikator_kinerja', IndikatorKinerjaController::class);
-
+Route::prefix('/sub_kegiatan')->group(function () {
+    Route::resource('/', SubKegiatanController::class);
+    Route::resource('/kinerja', IndikatorKinerjaController::class);
+});
 
 // Route Realisasi
 Route::resource('realisasi', RealisasiController::class);
