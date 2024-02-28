@@ -11,13 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('indikator_program', function (Blueprint $table) {
+        Schema::create('bidang', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('program_id')->constrained('program')->cascadeOnDelete();
-            $table->string('indikator');
-            $table->double('target');
-            $table->string('satuan');
-            $table->double('pagu');
+            $table->string('nama_bidang');
             $table->timestamps();
         });
     }
@@ -27,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('indikator_program');
+        Schema::dropIfExists('bidang');
     }
 };

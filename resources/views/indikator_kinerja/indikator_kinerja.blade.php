@@ -69,8 +69,8 @@
                             @foreach ($data as $i => $datas)
                                 <tr>
                                     <td>{{ ++$i }}</td>
-                                    <td>{{ $datas->nomor_rekening }}</td>
-                                    <td>{{ $datas->sub_kegiatan }}</td>
+                                    <td>{{ $datas->subkegiatan->no_rekening }}</td>
+                                    <td>{{ $datas->subkegiatan->nama_subkegiatan }}</td>
                                     <td>{{ $datas->indikator }}</td>
                                     <td>{{ $datas->target }}</td>
                                     <td>{{ $datas->satuan }}</td>
