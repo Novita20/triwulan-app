@@ -10,6 +10,7 @@ use App\Http\Controllers\SubKegiatanController;
 use App\Http\Controllers\TriwulanController;
 use App\Models\IndikatorKegiatan;
 use App\Models\IndikatorProgram;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,6 +27,15 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+// Route::group(['middleware' => 'roles:admin'], function(){
+//     Route::prefix('program')->group(function () {
+//         Route::resource('/', ProgramController::class);
+//         Route::resource('/indikator', IndikatorProgramController::class);
+//     })->name('program');
+// });
 
 // Route Program
 Route::prefix('/program')->group(function () {

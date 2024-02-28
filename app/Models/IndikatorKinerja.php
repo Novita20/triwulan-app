@@ -13,13 +13,16 @@ class IndikatorKinerja extends Model
 
     protected $table = 'indikator_kinerja';
 
-    protected $fillable = [
-        'subkegiatan_id',
-        'indikator',
-        'target',
-        'satuan',
-        'pagu'
-    ];
+    // protected $fillable = [
+    //     'subkegiatan_id',
+    //     'indikator',
+    //     'target',
+    //     'satuan',
+    //     'pagu',
+    //     'tanggal'
+    // ];
+
+    protected $guarded = ['id'];
 
     public function subkegiatan(): BelongsTo
     {

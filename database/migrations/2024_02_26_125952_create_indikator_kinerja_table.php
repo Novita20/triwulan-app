@@ -18,7 +18,6 @@ return new class extends Migration
             $table->double('target');
             $table->string('satuan');
             $table->double('pagu');
-            $table->date('tanggal');
             $table->timestamps();
         });
     }
