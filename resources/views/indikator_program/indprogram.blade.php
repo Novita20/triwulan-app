@@ -55,8 +55,8 @@
                     </div>
 
 
-                    <a href="{{ url('indikator_program/create') }}" class="btn btn-sm btn-success my-2">Tambah Data</a>
-                    
+                    <a href="{{ url('program/indikator/create') }}" class="btn btn-sm btn-success my-2">Tambah Data</a>
+
                     <table class="table table-bordered table-striped">
                         <thead>
                             <tr>

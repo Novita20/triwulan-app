@@ -34,7 +34,7 @@ class ProgramController extends Controller
     public function create()
     {
         return view('master_program.create_master_program')
-            ->with('url_form', url('/master_program'));
+            ->with('url_form', url('/program'));
     }
 
     /**
@@ -46,17 +46,19 @@ class ProgramController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'tahun' => 'required|string|max:4',
-            'nomor_rekening' => 'required|string|max:30',
+
+            'no_rekening' => 'required|string|max:30',
             'nama_program' => 'required|string',
+            'tahun' => 'required|string|max:4'
 
         ]);
-        Master_program::create([
-            'tahun' => $request->post('tahun'),
-            'nomor_rekening' => $request->post('nomor_rekening'),
-            'nama_program' => $request->post('nama_program')
+        Program::create([
+
+            'no_rekening' => $request->input('no_rekening'),
+            'nama_program' => $request->input('nama_program'),
+            'tahun' => $request->input('tahun')
         ]);
-        return redirect('master_program')
+        return redirect('program')
             ->with('success', 'Data master Program Berhasil Ditambahkan');
     }
 
@@ -66,7 +68,7 @@ class ProgramController extends Controller
      * @param  \App\Models\Master_program  $master_program
      * @return \Illuminate\Http\Response
      */
-    public function show(Master_program $master_program)
+    public function show(Program $master_program)
     {
         //
     }
@@ -74,15 +76,15 @@ class ProgramController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Master_program  $master_program
+     * @param  string  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(string $id)
     {
-        $master_program = Master_program::find($id);
+        $master_program = Program::find($id);
         return view('master_program.create_master_program')
             ->with('master_program', $master_program)
-            ->with('url_form', url('/master_program/' . $id));
+            ->with('url_form', url('/program/' . $id));
     }
 
     /**
@@ -95,14 +97,15 @@ class ProgramController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'tahun' => 'required|string|max:4',
-            'nomor_rekening' => 'required|string|max:30',
+
+            'no_rekening' => 'required|string|max:30',
             'nama_program' => 'required|string',
+            'tahun' => 'required|string|max:4'
 
         ]);
 
-        $data = Master_program::where('id', '=', $id)->update($request->except(['_token', '_method']));
-        return redirect('master_program')
+        $data = Program::where('id', '=', $id)->update($request->except(['_token', '_method']));
+        return redirect('program')
             ->with('success', 'Data Master Program Berhasil Diubah');
     }
 
@@ -114,8 +117,8 @@ class ProgramController extends Controller
      */
     public function destroy($id)
     {
-        Master_program::where('id', '=', $id)->delete();
-        return redirect('master_program')
+        Program::where('id', '=', $id)->delete();
+        return redirect('program')
             ->with('success', 'data Berhasil Dihapus');
     }
 }
