@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('no_rekening');
             $table->string('nama_program');
-            $table->string('tahun');
+            $table->integer('tahun');
             $table->timestamps();
         });
     }
