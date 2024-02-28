@@ -10,6 +10,7 @@ use App\Http\Controllers\SubKegiatanController;
 use App\Http\Controllers\TriwulanController;
 use App\Models\IndikatorKegiatan;
 use App\Models\IndikatorProgram;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,23 +28,32 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Auth::routes();
+
+// Route::group(['middleware' => 'roles:admin'], function(){
+//     Route::prefix('program')->group(function () {
+//         Route::resource('/', ProgramController::class);
+//         Route::resource('/indikator', IndikatorProgramController::class);
+//     })->name('program');
+// });
+
 // Route Program
-Route::prefix('program')->group(function () {
-    Route::resource('/', ProgramController::class);
-    Route::resource('/indikator', IndikatorProgramController::class);
-});
+
+    Route::resource('/program', ProgramController::class);
+    Route::resource('/indikator_program', IndikatorProgramController::class);
+
 
 // Route Kegiatan
-Route::prefix('kegiatan')->group(function () {
-    Route::resource('/', KegiatanController::class);
-    Route::resource('/indikator', IndikatorKegiatanController::class);
-});
+
+    Route::resource('/kegiatan', KegiatanController::class);
+    Route::resource('/indikator_kegiatan', IndikatorKegiatanController::class);
+
 
 // Route Sub Kegiatan dan Kinerja
-Route::prefix('sub_kegiatan')->group(function () {
-    Route::resource('/', SubKegiatanController::class);
-    Route::resource('/kinerja', IndikatorKinerjaController::class);
-});
+
+    Route::resource('/sub_kegiatan', SubKegiatanController::class);
+    Route::resource('/indikator_kinerja', IndikatorKinerjaController::class);
+
 
 // Route Realisasi
 Route::resource('realisasi', RealisasiController::class);
