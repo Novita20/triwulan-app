@@ -55,7 +55,7 @@
                     </div>
 
 
-                    <a href="{{ url('master_subkegiatan/create') }}" class="btn btn-sm btn-success my-2">Tambah Data</a>
+                    <a href="{{ url('sub_kegiatan/create') }}" class="btn btn-sm btn-success my-2">Tambah Data</a>
 
                     <table class="table table-bordered table-striped">
                         <thead>
@@ -75,18 +75,18 @@
                                 @foreach ($master_subkegiatan as $i => $t)
                                     <tr>
                                         <td>{{ ++$i }}</td>
-                                        <td>{{ $t->rekening_program }}</td>
-                                        <td>{{ $t->nama_program }}</td>
-                                        <td>{{ $t->rekening_kegiatan }}</td>
-                                        <td>{{ $t->nama_kegiatan }}</td>
-                                        <td>{{ $t->rekening_subkegiatan }}</td>
+                                        <td>{{ $t->kegiatan->program->no_rekening }}</td>
+                                        <td>{{ $t->kegiatan->program->nama_program }}</td>
+                                        <td>{{ $t->kegiatan->no_rekening }}</td>
+                                        <td>{{ $t->kegiatan->nama_kegiatan }}</td>
+                                        <td>{{ $t->no_rekening }}</td>
                                         <td>{{ $t->nama_subkegiatan }}</td>
                                         <td>
                                             <!-- Bikin tombol edit dan delete -->
-                                            <a href="{{ url('/master_subkegiatan/' . $t->id . '/edit') }}"
+                                            <a href="{{ url('/sub_kegiatan/' . $t->id . '/edit') }}"
                                                 class="btn btn-sm btn-warning">edit</a>
 
-                                            <form method="POST" action="{{ url('/master_subkegiatan/' . $t->id) }}">
+                                            <form method="POST" action="{{ url('/sub_kegiatan/' . $t->id) }}">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-sm btn-danger"

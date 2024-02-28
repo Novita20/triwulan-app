@@ -72,34 +72,34 @@
                     </div>
                     <div class="form-group">
                         <label>Pilih Program</label>
-                        <select class="form-control" name="nama_program" id="nama_program" onchange="pilihProgram()">
+                        <select class="form-control" name="program_id" id="program_id" onchange="pilihProgram()">
                             <option selected>--PILIH--</option>
                             @foreach($program as $p)
                             <option value="{{ $p->id }}">{{ $p->nama_program }}</option>
                             @endforeach
                           </select>
-                        @error('nama_program')
+                        @error('program_id')
                             <span class="error invalid-feedback">{{ $message }} </span>
                         @enderror
                     </div>
                     <div class="form-group">
                         <label>Pilih Kegiatan</label>
-                        <select class="form-control" name="nama_kegiatan" id="nama_kegiatan">
+                        <select class="form-control" name="kegiatan_id" id="kegiatan_id">
                             <option selected>--PILIH--</option>
                             @foreach($master_kegiatan as $k)
                             <option value="{{ $k->id }}">{{ $k->nama_kegiatan }}</option>
                             @endforeach
                           </select>
-                        @error('nama_kegiatan')
+                        @error('kegiatan_id')
                             <span class="error invalid-feedback">{{ $message }} </span>
                         @enderror
                     </div>
                     <div class="form-group">
                         <label>Nomor Rekening</label>
-                        <input class="form-control @error('rekening_subkegiatan') is-invalid @enderror"
-                            value="{{ isset($master_subkegiatan) ? $master_subkegiatan->rekening_subkegiatan : old('rekening_subkegiatan') }}"
-                            name="rekening_subkegiatan" type="text" />
-                        @error('rekening_subkegiatan')
+                        <input class="form-control @error('no_rekening') is-invalid @enderror"
+                            value="{{ isset($master_subkegiatan) ? $master_subkegiatan->no_rekening : old('no_rekening') }}"
+                            name="no_rekening" type="text" />
+                        @error('no_rekening')
                             <span class="error invalid-feedback">{{ $message }} </span>
                         @enderror
                     </div>
