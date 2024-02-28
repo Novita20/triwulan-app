@@ -35,7 +35,7 @@
                             <div class="card-body">
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>
-                                        <tr>
+                                        <tr>`
                                             <th>No</th>
                                             <th>Rekening Program</th>
                                             <th>Nama Program</th>
@@ -55,6 +55,12 @@
                                                 <td>
                                                     <a href="{{ url('/kegiatan/' . $item->id, '/edit') }}"
                                                         class="btn btn-sm btn-warning">edit</a>
+                                                    <form method="POST" action="{{ url('/kegiatan/' . $item->id) }}">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-sm btn-danger"
+                                                            onclick="confirmDelete()">hapus</button>
+                                                    </form>
                                                 </td>
                                             </tr>
                                         @endforeach

@@ -23,7 +23,7 @@
 
                         <div class="form-group">
                             <label>Pilih Kegiatan</label>
-                            <select name="kegiatan" class="form-control select3">
+                            <select name="kegiatan" id="kegiatan" class="form-control select3">
                                 <option>--PILIH--</option>
                                 @foreach ($master_kegiatan as $d)
                                     <option value="{{ $d->id }}">{{ $d->nama_kegiatan }}</option>
