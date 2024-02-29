@@ -49,7 +49,7 @@
                         </div>
                     </form>
 
-                    <a href="{{ url('indikator_kinerja/create') }}" class="btn btn-sm btn-success my-2">Tambah
+                    <a href="{{ url('/indikator_kinerja/create') }}" class="btn btn-sm btn-success my-2">Tambah
                         Indikator</a>
 
                     <table class="table table-bordered table-striped">
