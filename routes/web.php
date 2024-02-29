@@ -44,6 +44,14 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/kegiatan', KegiatanController::class);
     Route::resource('/indikator_kegiatan', IndikatorKegiatanController::class);
 
+// Route Kegiatan
+Route::prefix('/kegiatan')->group(function () {
+    Route::get('/{kegiatan}/edit', [KegiatanController::class, 'edit'])->name('kegiatan.edit');
+    Route::resource('/', KegiatanController::class);
+    Route::resource('/indikator', IndikatorKegiatanController::class);
+});
+
+
     // Route Sub Kegiatan dan Kinerja
     Route::resource('/sub_kegiatan', SubKegiatanController::class);
     Route::resource('/indikator_kinerja', IndikatorKinerjaController::class);

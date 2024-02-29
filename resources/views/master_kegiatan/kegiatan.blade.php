@@ -53,8 +53,14 @@
                                                 <td>{{ $item->no_rekening }}</td>
                                                 <td>{{ $item->nama_kegiatan }}</td>
                                                 <td>
-                                                    <a href="{{ url('/kegiatan/' . $item->id, '/edit') }}"
+                                                    <a href="{{ url('/kegiatan/' . $item->id . '/edit') }}"
                                                         class="btn btn-sm btn-warning">edit</a>
+                                                    <form method="POST" action="{{ url('/kegiatan/' . $item->id) }}">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-sm btn-danger"
+                                                            onclick="confirmDelete()">hapus</button>
+                                                    </form>
                                                 </td>
                                             </tr>
                                         @endforeach
