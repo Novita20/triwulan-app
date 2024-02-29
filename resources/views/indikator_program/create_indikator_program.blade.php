@@ -23,10 +23,10 @@
 
                         <div class="form-group">
                             <label>Pilih Program</label>
-                            <select name="nama_program" class="form-control select3">
+                            <select name="program" class="form-control select3">
                                 <option>--PILIH--</option>
                                 @foreach ($master_program as $d)
-                                    <option value="{{ $d->id }}">{{ $d->nama_program }}</option>
+                                    <option value="{{ $d->id }}" {{isset($indikator_program) ? $indikator_program->program_id == $d->id ? 'selected' : '' : ''}}>{{ $d->nama_program }}</option>
                                 @endforeach
                             </select>
                         </div>

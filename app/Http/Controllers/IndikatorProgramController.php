@@ -35,7 +35,7 @@ class IndikatorProgramController extends Controller
         $master_program = Program::all();
 
         return view('indikator_program.create_indikator_program')
-                    ->with('url_form', url('/indikator'))
+                    ->with('url_form', url('/program/indikator'))
                     ->with('master_program', $master_program);
     }
 
@@ -48,7 +48,7 @@ class IndikatorProgramController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama_program' => 'required',
+            'program'=> 'required',
             'indikator' => 'required',
             'target' => 'required|numeric',
             'satuan' => 'required',
@@ -59,17 +59,16 @@ class IndikatorProgramController extends Controller
         // return redirect('indikator_program')
         //                 ->with('success', 'Data Indikator Program Berhasil Ditambahkan');
         $cariProgram = IndikatorProgram::where('id', $request->nama_program)->first();
-        $insert = IndikatorProgram::create([
-            'rekening_program' => $cariProgram->rekening_program,
-            'nomor_rekening' => $cariProgram->nomor_rekening,
-            'nama_program' => $cariProgram->nama_program,
-            'indikator' => $request->input('indikator'),
-            'target' => $request->input('target'),
-            'satuan' => $request->input('satuan'),
-            'pagu' => $request->input('pagu'),
-        ]);
+        $insert = new IndikatorProgram();
+        $insert -> program_id = $request->program;
+        $insert -> indikator = $request->indikator;
+        $insert -> target = $request-> target;
+        $insert -> satuan = $request-> satuan;
+        $insert -> pagu = $request-> pagu;
+        $insert->save();
+
         if ($insert) {
-            return redirect('indikator_program')
+            return redirect('program/indikator')
                 ->with('success', 'Data Indikator program berhasil disimpan');
         } else {
             return back()->with('error', 'Data Gagal Disimpan');
@@ -80,7 +79,7 @@ class IndikatorProgramController extends Controller
         /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Indikator_program  $indikator_program
+     * @param  \App\Models\IndikatorProgram  $indikator_program
      * @return \Illuminate\Http\Response
      */
     public function show(IndikatorProgram $indikator_program)
@@ -91,7 +90,7 @@ class IndikatorProgramController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Indikator_program  $indikator_program
+     * @param  \App\Models\IndikatorProgram  $indikator_program
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -100,7 +99,7 @@ class IndikatorProgramController extends Controller
         $master_program = Program::all();
         return view('indikator_program.create_indikator_program')
                     ->with('indikator_program', $indikator_program)
-                    ->with('url_form', url('/indikator_program/'. $id))
+                    ->with('url_form', url('/program/indikator/'. $id))
                     ->with('master_program', $master_program);
 
     }
@@ -115,29 +114,40 @@ class IndikatorProgramController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'nama_program' => 'required|string|max:20',
+            'program' => 'required',
             'indikator' => 'required|string|max:20',
             'target' => 'required|string|max:20',
             'satuan' => 'required|string|max:20',
             'pagu' => 'required|string|max:20',
         ]);
 
-        $data = IndikatorProgram::where('id', '=', $id)->update($request->except(['_token', '_method']));
-        return redirect('indikator_program')
-                        ->with('success', 'Data Indikator Program Berhasil Diubah');
+        $update = IndikatorProgram::where('id', $id)->update([
+            'program_id' => $request->program,
+            'indikator' => $request->indikator,
+            'target' => $request->target,
+            'satuan' => $request->satuan,
+            'pagu' => $request->pagu
+
+        ]);
+
+        if ($update) {
+            return redirect('program/indikator')->with('success', 'Data Berhasil Ditambahkan');
+        } else {
+            return back()->with('error', 'Data Gagal Ditambahkan');
+        }
 
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Indikator_program $indikator_program
+     * @param  \App\Models\IndikatorProgram $indikator_program
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         IndikatorProgram::where('id', '=', $id)->delete();
-        return redirect('indikator_program')
+        return redirect('program/indikator')
                         ->with('success', 'data Berhasil Dihapus');
     }
 
