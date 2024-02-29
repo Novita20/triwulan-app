@@ -94,7 +94,7 @@ class KegiatanController extends Controller
         $master_kegiatan = Kegiatan::where('id', $id)->first();
 
         return view('master_kegiatan.create_kegiatan')
-            ->with('url_form', url('/kegiatan' . $id))
+            ->with('url_form', url('/kegiatan/' . $id))
             ->with('master_kegiatan', $master_kegiatan)
             ->with('program', $program);
     }
@@ -117,15 +117,14 @@ class KegiatanController extends Controller
         $cariProgram = Program::where('id', $request->program)->first();
 
         $update = Kegiatan::where('id', $id)->update([
-            'rekening_program' => $cariProgram->no_rekening,
-            'nama_program' => $cariProgram->nama_program,
-            'rekening_kegiatan' => $request->rekening_kegiatan,
+            'program_id' => $request->program,
+            'no_rekening' => $request->no_rekening,
             'nama_kegiatan' => $request->nama_kegiatan
-            
+
         ]);
 
         if ($update) {
-            return redirect('master_kegiatan')->with('success', 'Data Berhasil Ditambahkan');
+            return redirect('kegiatan')->with('success', 'Data Berhasil Ditambahkan');
         } else {
             return back()->with('error', 'Data Gagal Ditambahkan');
         }
@@ -139,8 +138,8 @@ class KegiatanController extends Controller
      */
     public function destroy($id)
     {
-        Kegiatan::where('id', '=', $id)->delete();
-        return redirect('master_kegiatan')
+        Kegiatan::where('id', $id)->delete();
+        return redirect('kegiatan')
             ->with('success', 'data Berhasil Dihapus');
     }
 }

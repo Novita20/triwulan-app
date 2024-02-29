@@ -23,20 +23,23 @@
 
                         <div class="form-group">
                             <label>Pilih Kegiatan</label>
-                            <select name="kegiatan" class="form-control select3">
+                            <select name="kegiatan" id="kegiatan" class="form-control select3">
                                 <option>--PILIH--</option>
                                 @foreach ($master_kegiatan as $d)
-                                    <option value="{{ $d->id }}">{{ $d->nama_kegiatan }}</option>
+                                    <option value="{{ $d->id }}"
+                                        {{ isset($indikator_kegiatan) ? ($indikator_kegiatan->kegiatan_id == $d->id ? 'selected' : '') : '' }}>
+                                        {{ $d->nama_kegiatan }}
+                                    </option>
                                 @endforeach
                             </select>
                         </div>
 
                         <div class="form-group">
                             <label>Indikator</label>
-                            <input class="form-control @error('ind') is-invalid @enderror"
-                                value="{{ isset($indikator_kegiatan) ? $indikator_kegiatan->indikator : old('ind') }}"
-                                name="ind" type="text" />
-                            @error('ind')
+                            <input class="form-control @error('indikator') is-invalid @enderror"
+                                value="{{ isset($indikator_kegiatan) ? $indikator_kegiatan->indikator : old('indikator') }}"
+                                name="indikator" type="text" />
+                            @error('indikator')
                                 <span class="error invalid-feedback">{{ $message }}</span>
                             @enderror
                         </div>

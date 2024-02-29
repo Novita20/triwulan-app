@@ -42,12 +42,12 @@
                         <p class="text-light">Kabupaten Malang</p>
                     </div>
                     <h2 class="title-form text-center">Selamat Datang 👋</h2>
-                    <p class="desc-form text-center">Masukkan Username dan Password</p>
+                    <p class="desc-form text-center">Masukkan Name dan Password</p>
 
                     <form action="{{ url('/login') }}" method="post">
                         @csrf
                         <div class="input-group mb-4">
-                            <input name="username" type="text" class="form-control" placeholder="username">
+                            <input name="name" type="text" class="form-control" placeholder="name">
                         </div>
                         <div class="input-group mb-4">
                             <input name="password" type="password" class="form-control" placeholder="password">

@@ -106,11 +106,9 @@ class SubKegiatanController extends Controller
 
     public function destroy($id)
     {
-        $subKegiatan = SubKegiatan::findOrFail($id);
-        $subKegiatan->delete();
-    
-        return redirect('sub_kegiatan')->with('success', 'Data SubKegiatan Berhasil Dihapus');
+        Kegiatan::where('id', '=', $id)->delete();
+        return redirect('sub_kegiatan')
+                        ->with('success', 'data Berhasil Dihapus');
     }
-    
     
 }

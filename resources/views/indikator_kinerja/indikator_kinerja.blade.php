@@ -49,7 +49,7 @@
                         </div>
                     </form>
 
-                    <a href="{{ url('indikator_kinerja/create') }}" class="btn btn-sm btn-success my-2">Tambah
+                    <a href="{{ url('/indikator_kinerja/create') }}" class="btn btn-sm btn-success my-2">Tambah
                         Indikator</a>
 
                     <table class="table table-bordered table-striped">
@@ -69,8 +69,8 @@
                             @foreach ($data as $i => $datas)
                                 <tr>
                                     <td>{{ ++$i }}</td>
-                                    <td>{{ $datas->nomor_rekening }}</td>
-                                    <td>{{ $datas->sub_kegiatan }}</td>
+                                    <td>{{ $datas->subkegiatan->no_rekening }}</td>
+                                    <td>{{ $datas->subkegiatan->nama_subkegiatan }}</td>
                                     <td>{{ $datas->indikator }}</td>
                                     <td>{{ $datas->target }}</td>
                                     <td>{{ $datas->satuan }}</td>
@@ -91,21 +91,8 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="row">
-                    {{-- <div class="col-md-12">
-                        {{ $indikator_kegiatan->links() }}
-                    </div> --}}
-                </div>
-                <!-- /.card-body -->
-                {{-- <div class="card-footer">
-                    Terima Kasih
-                </div> --}}
-                <!-- /.card-footer-->
             </div>
-            <!-- /.card -->
-
         </section>
-        <!-- /.content -->
     </div>
 @endsection
 
@@ -120,4 +107,3 @@
         }
     </script>
 @endpush
-

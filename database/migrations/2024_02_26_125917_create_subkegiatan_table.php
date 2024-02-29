@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('kegiatan_id')->constrained('kegiatan')->cascadeOnDelete();
             $table->string('no_rekening');
-            $table->string('nana_subkegiatan');
+            $table->string('nama_subkegiatan');
+            $table->string('nama_bidang');
+            $table->string('tahun');
             $table->timestamps();
         });
     }

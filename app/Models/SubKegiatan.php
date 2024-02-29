@@ -13,11 +13,13 @@ class SubKegiatan extends Model
 
     protected $table = 'subkegiatan';
 
-    protected $fillable = [
-        'kegiatan_id',
-        'no_rekening',
-        'nama_subkegiatan'
-    ];
+    // protected $fillable = [
+    //     'kegiatan_id',
+    //     'no_rekening',
+    //     'nama_subkegiatan'
+    // ];
+
+    protected $guarded = ['id'];
 
     public function kegiatan(): BelongsTo
     {

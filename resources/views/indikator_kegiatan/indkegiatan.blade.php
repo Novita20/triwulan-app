@@ -30,82 +30,64 @@
             @endif
 
             <!-- Default box -->
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">LIST</h3>
-                </div>
+            <div class="card-body">
+                <form action="" style="display: flex">
+                    <div class="col-2">
+                        <select name="tahun" class="form-control" placeholder="Cari Tahun">
+                            <option value="2021">2021</option>
+                            <option value="2022">2022</option>
+                            <option value="2023">2023</option>
+                        </select>
+                    </div>
+                    <div class="col-3">
+                        <button class="btn btn-success">Pilih Tahun</button>
+                    </div>
+                </form>
 
-                <div class="card-body">
-                    <form action="" style="display: flex">
-                        <div class="col-2">
-                            <select name="tahun" class="form-control" placeholder="Cari Tahun">
-                                <option value="2021">2021</option>
-                                <option value="2022">2022</option>
-                                <option value="2023">2023</option>
-                            </select>
-                        </div>
-                        <div class="col-3">
-                            <button class="btn btn-success">Pilih Tahun</button>
-                        </div>
-                    </form>
+                <a href="{{ url('/kegiatan/indikator/create') }}" class="btn btn-sm btn-success my-2">Tambah
+                    Indikator</a>
 
-                    <a href="{{ url('indikator_kegiatan/create') }}" class="btn btn-sm btn-success my-2">Tambah
-                        Indikator</a>
-
-                    <table class="table table-bordered table-striped">
-                        <thead>
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>No Rekening</th>
+                            <th>Kegiatan</th>
+                            <th>Indikator </th>
+                            <th>Target</th>
+                            <th>Satuan</th>
+                            <th>Pagu Anggaran (Rp)</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($data as $i => $datas)
                             <tr>
-                                <th>No</th>
-                                <th>No Rekening</th>
-                                <th>Kegiatan</th>
-                                <th>Indikator </th>
-                                <th>Target</th>
-                                <th>Satuan</th>
-                                <th>Pagu Anggaran (Rp)</th>
-                                <th>Aksi</th>
+                                <td>{{ $i + 1 }}</td>
+                                <td>{{ $datas->kegiatan->no_rekening }}</td>
+                                <td>{{ $datas->kegiatan->nama_kegiatan }}</td>
+                                <td>{{ $datas->indikator }}</td>
+                                <td>{{ $datas->target }}</td>
+                                <td>{{ $datas->satuan }}</td>
+                                <td>{{ $datas->pagu }}</td>
+                                <td style="display: flex">
+                                    <a href="{{ url('/kegiatan/indikator/' . $datas->id . '/edit') }}"
+                                        class="btn btn-sm btn-warning" style="margin-right: 10px"><i class="fas fa-pen"
+                                            style="color: white"></i></a>
+
+                                    <form method="POST" action="{{ url('/kegiatan/indikator/' . $datas->id) }}">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-sm btn-danger" onclick="confirmDelete()"><i
+                                                class="fas fa-trash"></i></button>
+                                    </form>
+                                </td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($data as $i => $datas)
-                                <tr>
-                                    <td>{{ ++$i }}</td>
-                                    <td>{{ $datas->rekening_program }}</td>
-                                    <td>{{ $datas->kegiatan }}</td>
-                                    <td>{{ $datas->indikator }}</td>
-                                    <td>{{ $datas->target }}</td>
-                                    <td>{{ $datas->satuan }}</td>
-                                    <td>{{ $datas->pagu }}</td>
-                                    <td>
-                                        <a href="{{ url('/indikator_kegiatan/' . $datas->id . '/edit') }}"
-                                            class="btn btn-sm btn-warning">edit</a>
-
-                                        <form method="POST" action="{{ url('/indikator_kegiatan/' . $datas->id) }}">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-danger"
-                                                onclick="confirmDelete()">hapus</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-                <div class="row">
-                    {{-- <div class="col-md-12">
-                        {{ $indikator_kegiatan->links() }}
-                    </div> --}}
-                </div>
-                <!-- /.card-body -->
-                {{-- <div class="card-footer">
-                    Terima Kasih
-                </div> --}}
-                <!-- /.card-footer-->
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
-            <!-- /.card -->
-
         </section>
-        <!-- /.content -->
     </div>
 @endsection
 

@@ -154,16 +154,16 @@
                         @csrf
                         <!-- Input fields for registration -->
                         <div class="input-group mb-3">
-                            <input name="username" type="text"
-                                class="form-control @error('username') is-invalid @enderror" placeholder="Username">
-                        </div>
-                        <div class="input-group mb-3">
                             <input name="name" type="text"
                                 class="form-control @error('name') is-invalid @enderror" placeholder="Name">
                         </div>
                         <div class="input-group mb-3">
                             <input name="email" type="email"
                                 class="form-control @error('email') is-invalid @enderror" placeholder="Email">
+                        </div>
+                        <div class="input-group mb-3">
+                            <input name="status" type="text"
+                                class="form-control @error('status') is-invalid @enderror" placeholder="Status">
                         </div>
                         <div class="input-group mb-3">
                             <input name="password" type="password"
