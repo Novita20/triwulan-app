@@ -48,8 +48,8 @@
                     <div class="row g-3 align-items-center">
                         <div class="col-auto">
                             <form action="/indikator_program" method="GET">
-                                <input type="indikator_program" id="indikator_program" name="indikator_program" class="form-control"
-                                    placeholder="Cari...">
+                                <input type="indikator_program" id="indikator_program" name="indikator_program"
+                                    class="form-control" placeholder="Cari...">
                             </form>
                         </div>
                     </div>
@@ -75,8 +75,8 @@
                                 @foreach ($indikator_program as $i => $t)
                                     <tr>
                                         <td>{{ ++$i }}</td>
-                                        <td>{{ $t->nomor_rekening }}</td>
-                                        <td>{{ $t->nama_program }}</td>
+                                        <td>{{ $t->program->no_rekening }}</td>
+                                        <td>{{ $t->program->nama_program }}</td>
                                         <td>{{ $t->indikator }}</td>
                                         <td>{{ $t->target }}</td>
                                         <td>{{ $t->satuan }}</td>
@@ -128,16 +128,16 @@
         th {}
 
         /* .card{
-              background:green;
-              color:aliceblue;
-              transition: 0.5s;
-          }
+                          background:green;
+                          color:aliceblue;
+                          transition: 0.5s;
+                      }
 
-          .card:hover{
-              background: aqua;
-              color: blue;
-              transform:scale(0.9);
-          } */
+                      .card:hover{
+                          background: aqua;
+                          color: blue;
+                          transform:scale(0.9);
+                      } */
     </style>
 @endpush
 
@@ -150,10 +150,9 @@
         function confirmDelete() {
             if (confirm('Apakah Anda yakin? Data akan dihapus. Apakah Anda ingin melanjutkan?')) {
                 document.getElementById('form').submit();
-            }else {
+            } else {
                 event.preventDefault();
             }
         }
     </script>
 @endpush
-

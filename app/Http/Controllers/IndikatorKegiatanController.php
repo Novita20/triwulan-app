@@ -30,7 +30,7 @@ class IndikatorKegiatanController extends Controller
         $master_kegiatan = Kegiatan::all();
 
         return view('indikator_kegiatan.create_indikator_kegiatan')
-            ->with('url_form', url('/indikator'))
+            ->with('url_form', url('/kegiatan/indikator'))
             ->with('master_kegiatan', $master_kegiatan);
     }
 
@@ -43,26 +43,23 @@ class IndikatorKegiatanController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'kegiatan_id' => 'required',
+            'kegiatan' => 'required',
             'indikator' => 'required',
             'target' => 'required|numeric',
             'satuan' => 'required',
             'pagu' => 'required|numeric',
         ]);
 
-        $cariKegiatan = Kegiatan::where('id', $request->kegiatan)->first();
-
-        $insert = IndikatorKegiatan::create([
-            'rekening_program' => $cariKegiatan->no_rekening,
-            'kegiatan' => $cariKegiatan->nama_kegiatan,
-            'indikator' => $request->input('indikator'),
-            'target' => $request->input('target'),
-            'satuan' => $request->input('satuan'),
-            'pagu' => $request->input('pagu'),
-        ]);
+        $insert = new IndikatorKegiatan();
+        $insert->kegiatan_id = $request->kegiatan;
+        $insert->indikator = $request->indikator;
+        $insert->target = $request->target;
+        $insert->satuan = $request->satuan;
+        $insert->pagu = $request->pagu;
+        $insert->save();
 
         if ($insert) {
-            return redirect('indikator_kegiatan')
+            return redirect('kegiatan/indikator')
                 ->with('success', 'Data Indikator Kegiatan berhasil disimpan');
         } else {
             return back()->with('error', 'Data Gagal Disimpan');
@@ -92,7 +89,7 @@ class IndikatorKegiatanController extends Controller
         $indikator_kegiatan = IndikatorKegiatan::where('id', $id)->first();
 
         return view('indikator_kegiatan.create_indikator_kegiatan')
-            ->with('url_form', url('/indikator' . $id))
+            ->with('url_form', url('/kegiatan/indikator/' . $id))
             ->with('master_kegiatan', $master_kegiatan)
             ->with('indikator_kegiatan', $indikator_kegiatan);
     }
@@ -114,11 +111,8 @@ class IndikatorKegiatanController extends Controller
             'pagu' => 'required|numeric',
         ]);
 
-        $cariKegiatan = Kegiatan::where('id', $request->kegiatan)->first();
-
         $update = IndikatorKegiatan::where('id', $id)->update([
-            'rekening_program' => $cariKegiatan->no_rekening,
-            'nama_kegiatan' => $cariKegiatan->nama_kegiatan,
+            'kegiatan_id' => $request->input('kegiatan'),
             'indikator' => $request->input('indikator'),
             'target' => $request->input('target'),
             'satuan' => $request->input('satuan'),
@@ -126,8 +120,8 @@ class IndikatorKegiatanController extends Controller
         ]);
 
         if ($update) {
-            return redirect('indikator_kegiatan')
-                ->with('success', 'Data Indikator Kegiatan berhasil disimpan');
+            return redirect('kegiatan/indikator')
+                ->with('success', 'Data Indikator Kegiatan berhasil diedit');
         } else {
             return back()->with('error', 'Data Gagal Disimpan');
         }
@@ -144,7 +138,7 @@ class IndikatorKegiatanController extends Controller
         $delete = IndikatorKegiatan::where('id', $id)->delete();
 
         if ($delete) {
-            return redirect('indikator_kegiatan')
+            return redirect('kegiatan/indikator')
                 ->with('success', 'Data Indikator Kegiatan berhasil dihapus');
         } else {
             return back()->with('error', 'Data Gagal dihapus');

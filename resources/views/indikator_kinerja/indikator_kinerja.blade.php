@@ -91,21 +91,8 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="row">
-                    {{-- <div class="col-md-12">
-                        {{ $indikator_kegiatan->links() }}
-                    </div> --}}
-                </div>
-                <!-- /.card-body -->
-                {{-- <div class="card-footer">
-                    Terima Kasih
-                </div> --}}
-                <!-- /.card-footer-->
             </div>
-            <!-- /.card -->
-
         </section>
-        <!-- /.content -->
     </div>
 @endsection
 
@@ -120,4 +107,3 @@
         }
     </script>
 @endpush
-

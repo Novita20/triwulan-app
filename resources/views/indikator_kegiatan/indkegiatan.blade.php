@@ -63,21 +63,23 @@
                     <tbody>
                         @foreach ($data as $i => $datas)
                             <tr>
-                                <td>{{ ++$i }}</td>
-                                <td>{{ $datas->Kegiatan }}</td>
+                                <td>{{ $i + 1 }}</td>
+                                <td>{{ $datas->kegiatan->no_rekening }}</td>
+                                <td>{{ $datas->kegiatan->nama_kegiatan }}</td>
                                 <td>{{ $datas->indikator }}</td>
                                 <td>{{ $datas->target }}</td>
                                 <td>{{ $datas->satuan }}</td>
                                 <td>{{ $datas->pagu }}</td>
-                                <td>
-                                    <a href="{{ url('/kegiatan/indikator/edit' . $datas->id . '/edit') }}"
-                                        class="btn btn-sm btn-warning">edit</a>
+                                <td style="display: flex">
+                                    <a href="{{ url('/kegiatan/indikator/' . $datas->id . '/edit') }}"
+                                        class="btn btn-sm btn-warning" style="margin-right: 10px"><i class="fas fa-pen"
+                                            style="color: white"></i></a>
 
-                                    <form method="POST" action="{{ url('/kegiatan' . $datas->id) }}">
+                                    <form method="POST" action="{{ url('/kegiatan/indikator/' . $datas->id) }}">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-danger"
-                                            onclick="confirmDelete()">hapus</button>
+                                        <button type="submit" class="btn btn-sm btn-danger" onclick="confirmDelete()"><i
+                                                class="fas fa-trash"></i></button>
                                     </form>
                                 </td>
                             </tr>
@@ -85,21 +87,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="row">
-                {{-- <div class="col-md-12">
-                        {{ $indikator_kegiatan->links() }}
-                    </div> --}}
-            </div>
-            <!-- /.card-body -->
-            {{-- <div class="card-footer">
-                    Terima Kasih
-                </div> --}}
-            <!-- /.card-footer-->
-    </div>
-    <!-- /.card -->
-
-    </section>
-    <!-- /.content -->
+        </section>
     </div>
 @endsection
 

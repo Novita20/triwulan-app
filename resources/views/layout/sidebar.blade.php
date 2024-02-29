@@ -59,15 +59,15 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ url('/master_program') }}"
-                                class="nav-link {{ request()->is('/') ? 'active' : '' }}" class="nav-link">
+                            <a href="{{ url('/program') }}" class="nav-link {{ request()->is('/') ? 'active' : '' }}"
+                                class="nav-link">
                                 <i class="fas fa-file nav-icon"></i>
                                 <p>Program</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ url('/master_kegiatan') }}"
-                                class="nav-link {{ request()->is('/') ? 'active' : '' }}" class="nav-link">
+                            <a href="{{ url('/kegiatan') }}" class="nav-link {{ request()->is('/') ? 'active' : '' }}"
+                                class="nav-link">
                                 <i class="fas fa-file nav-icon"></i>
                                 <p>Kegiatan</p>
                             </a>
@@ -93,21 +93,21 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ url('/indikator_program') }}"
+                            <a href="{{ url('/program/indikator') }}"
                                 class="nav-link {{ request()->is('/') ? 'active' : '' }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Program</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ url('/indikator_kegiatan') }}"
+                            <a href="{{ url('/kegiatan/indikator') }}"
                                 class="nav-link {{ request()->is('/') ? 'active' : '' }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Kegiatan</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ url('/indikator_kinerja') }}"
+                            <a href="{{ url('/sub_kegiatan/kinerja') }}"
                                 class="nav-link {{ request()->is('/') ? 'active' : '' }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Kinerja</p>
