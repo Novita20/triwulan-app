@@ -55,7 +55,7 @@
                     </div>
 
 
-                    <a href="{{ url('program/indikator/create') }}" class="btn btn-sm btn-success my-2">Tambah Data</a>
+                    <a href="{{ url('/program/indikator/create') }}" class="btn btn-sm btn-success my-2">Tambah Data</a>
 
                     <table class="table table-bordered table-striped">
                         <thead>
@@ -75,18 +75,18 @@
                                 @foreach ($indikator_program as $i => $t)
                                     <tr>
                                         <td>{{ ++$i }}</td>
-                                        <td>{{ $t->nomor_rekening }}</td>
-                                        <td>{{ $t->nama_program }}</td>
+                                        <td>{{ $t->program->no_rekening }}</td>
+                                        <td>{{ $t->program->nama_program }}</td>
                                         <td>{{ $t->indikator }}</td>
                                         <td>{{ $t->target }}</td>
                                         <td>{{ $t->satuan }}</td>
                                         <td>{{ $t->pagu }}</td>
                                         <td>
                                             <!-- Bikin tombol edit dan delete -->
-                                            <a href="{{ url('/indikator_program/' . $t->id . '/edit') }}"
+                                            <a href="{{ url('/program/indikator/' . $t->id . '/edit') }}"
                                                 class="btn btn-sm btn-warning">edit</a>
 
-                                            <form method="POST" action="{{ url('/indikator_program/' . $t->id) }}">
+                                            <form method="POST" action="{{ url('/program/indikator/' . $t->id) }}">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-sm btn-danger"
@@ -142,10 +142,6 @@
 @endpush
 
 @push('custom_js')
-    {{-- <script>
-  alert('Halaman Home')
-</script> --}}
-
     <script>
         function confirmDelete() {
             if (confirm('Apakah Anda yakin? Data akan dihapus. Apakah Anda ingin melanjutkan?')) {
