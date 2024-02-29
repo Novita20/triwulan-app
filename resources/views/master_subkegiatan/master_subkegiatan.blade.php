@@ -47,7 +47,7 @@
 
                     <div class="row g-3 align-items-center">
                         <div class="col-auto">
-                            <form action="/master_subkegiatan" method="GET">
+                            <form action="/sub_kegiatan/" method="GET">
                                 <input type="master_subkegiatan" id="master_subkegiatan" name="master_subkegiatan" class="form-control"
                                     placeholder="Cari...">
                             </form>

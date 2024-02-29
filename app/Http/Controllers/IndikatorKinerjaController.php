@@ -50,7 +50,7 @@ class IndikatorKinerjaController extends Controller
             'pagu' => $request->input('pagu'),
         ]);
         if ($insert) {
-            return redirect('indikator_kinerja')
+            return redirect('/indikator_kinerja')
                 ->with('success', 'Data Indikator program berhasil disimpan');
         } else {
             return back()->with('error', 'Data Gagal Disimpan');
@@ -69,7 +69,7 @@ class IndikatorKinerjaController extends Controller
         $indikator_kinerja = IndikatorKinerja::where('id', $id)->first();
 
         return view('indikator_kinerja.create_indikator_kinerja')
-            ->with('url_form', url('/indikator_kinerja/' . $id))
+            ->with('url_form', url('/indikator_kinerja' . $id))
             ->with('master_subkegiatan', $master_subkegiatan)
             ->with('indikator_kinerja', $indikator_kinerja);
     }
@@ -108,7 +108,7 @@ class IndikatorKinerjaController extends Controller
         ]);
 
         if ($update) {
-            return redirect('indikator_kinerja')
+            return redirect('/indikator_kinerja')
                 ->with('success', 'Data Indikator Kinerja berhasil disimpan');
         } else {
             return back()->with('error', 'Data Gagal Disimpan');
@@ -124,7 +124,7 @@ class IndikatorKinerjaController extends Controller
         $delete = IndikatorKinerja::where('id', $id)->delete();
 
         if ($delete) {
-            return redirect('indikator_kinerja')
+            return redirect('/indikator_kinerja')
                 ->with('success', 'Data Indikator Kinerja berhasil dihapus');
         } else {
             return back()->with('error', 'Data Gagal dihapus');
