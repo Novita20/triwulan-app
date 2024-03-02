@@ -13,11 +13,10 @@
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">TAMBAH</h3>
-                    <!-- Bagian Tombol pada Header Card -->
                 </div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ $url_form }}">
+                    <form action="{{ $url_form }}" method="POST">
                         @csrf
                         {!! isset($indikator_program) ? method_field('PUT') : '' !!}
 
@@ -26,7 +25,9 @@
                             <select name="program" class="form-control select3">
                                 <option>--PILIH--</option>
                                 @foreach ($master_program as $d)
-                                    <option value="{{ $d->id }}" {{isset($indikator_program) ? $indikator_program->program_id == $d->id ? 'selected' : '' : ''}}>{{ $d->nama_program }}</option>
+                                    <option value="{{ $d->id }}"
+                                        {{ isset($indikator_program) ? ($indikator_program->program_id == $d->id ? 'selected' : '') : '' }}>
+                                        {{ $d->nama_program }}</option>
                                 @endforeach
                             </select>
                         </div>

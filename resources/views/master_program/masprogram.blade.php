@@ -1,7 +1,6 @@
 @extends('layout.template')
 
 @section('content')
-
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
@@ -45,108 +44,69 @@
                 </div>
 
                 <div class="card-body">
-
                     <div class="row g-3 align-items-center">
                         <div class="col-auto">
-                            <form action="/master_program" method="GET">
-                                <input type="master_program" id="master_program" name="master_program" class="form-control"
-                                    placeholder="Cari...">
+                            <form action="{{ route('program.index') }}">
+                                <div class="input-group input-group-md">
+                                    <select name="tahun" class="form-control">
+                                        <option value="">Pilih Tahun</option>
+                                        @php
+                                            $currentYear = date('Y');
+                                            $startYear = 2022;
+                                        @endphp
+                                        @for ($tahun = $currentYear; $tahun >= $startYear; $tahun--)
+                                            <option value="{{ $tahun }}">{{ $tahun }}</option>
+                                        @endfor
+                                    </select>
+                                    <span class="input-group-append">
+                                        <button type="submit" class="btn btn-primary">Cari</button>
+                                    </span>
+                                </div>
                             </form>
                         </div>
+                        <a href="{{ url('program/create') }}" class="btn btn-md btn-success my-2">Tambah Data</a>
                     </div>
 
-
-                    <a href="{{ url('program/create') }}" class="btn btn-sm btn-success my-2">Tambah Data</a>
-
-                    <table class="table table-bordered table-striped">
+                    <table id="table-data" class="table table-bordered table-striped">
                         <thead>
                             <tr>
                                 <th>No</th>
                                 <th>Nomor Rekening</th>
-                                <th>Nama Program</th>
+                                <th>Program</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @if ($master_program->count() > 0)
-                                @foreach ($master_program as $i => $t)
-                                    <tr>
-                                        <td>{{ ++$i }}</td>
-                                        <td>{{ $t->no_rekening }}</td>
-                                        <td>{{ $t->nama_program }}</td>
-
-                                        <td>
-                                            <!-- Bikin tombol edit dan delete -->
-                                            <a href="{{ url('/program/' . $t->id . '/edit') }}"
-                                                class="btn btn-sm btn-warning">edit</a>
-
-                                            <form method="POST" action="{{ url('/program/' . $t->id) }}">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-danger"
-                                                    onclick="confirmDelete()">hapus</button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            @else
+                            @foreach ($program as $i => $programs)
                                 <tr>
-                                    <td colspan="6" class="text-center">Data tidak ada</td>
+                                    <td>{{ ++$i }}</td>
+                                    <td>{{ $programs->no_rekening }}</td>
+                                    <td>{{ $programs->nama_program }}</td>
+                                    <td>
+                                        <a href="{{ route('program.edit', $programs->id) }}" class="btn btn-sm btn-warning">
+                                            <i class="fas fa-pen" style="color: white"></i>
+                                        </a>
+                                        <form action="">
+                                            <button type="submit" class="btn btn-sm btn-danger" onclick="confirm()">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    </td>
                                 </tr>
-                            @endif
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
-
-                <div class="row">
-                    <div class="col-md-12">
-                        {{ $master_program->links() }}
-                    </div>
-                </div>
-                <!-- /.card-body -->
                 <div class="card-footer">
                     Terima Kasih
                 </div>
-                <!-- /.card-footer-->
             </div>
-            <!-- /.card -->
-
         </section>
-        <!-- /.content -->
     </div>
-
 @endsection
 
 @push('custom_css')
-    <style>
-        th {}
-
-        /* .card{
-                  background:green;
-                  color:aliceblue;
-                  transition: 0.5s;
-              }
-
-              .card:hover{
-                  background: aqua;
-                  color: blue;
-                  transform:scale(0.9);
-              } */
-    </style>
 @endpush
 
 @push('custom_js')
-    {{-- <script>
-  alert('Halaman Home')
-</script> --}}
-
-    <script>
-        function confirmDelete() {
-            if (confirm('Apakah Anda yakin? Data akan dihapus. Apakah Anda ingin melanjutkan?')) {
-                document.getElementById('form').submit();
-            } else {
-                event.preventDefault();
-            }
-        }
-    </script>
 @endpush

@@ -95,14 +95,14 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ url('/program/indikator') }}"
+                            <a href="{{ url('indikator_program') }}"
                                 class="nav-link {{ request()->is('/') ? 'active' : '' }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Program</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ url('/kegiatan/indikator') }}"
+                            <a href="{{ url('/indikator_kegiatan') }}"
                                 class="nav-link {{ request()->is('/') ? 'active' : '' }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Kegiatan</p>
