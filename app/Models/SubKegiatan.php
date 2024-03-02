@@ -26,8 +26,8 @@ class SubKegiatan extends Model
         return $this->belongsTo(Kegiatan::class);
     }
 
-    public function indikator_kerja(): HasOne
+    public function kinerja(): HasOne
     {
-        return $this->hasOne(IndikatorKinerja::class);
+        return $this->hasOne(Kinerja::class);
     }
 }

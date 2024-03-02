@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('realisasi', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_triwulan')->constrained('triwulan')->cascadeOnDelete();
+            $table->foreignId('kinerja_id')->constrained('kinerja')->cascadeOnDelete();
+            $table->enum('triwulan', ['1', '2', '3', '4']);
             $table->integer('kinerja');
             $table->string('satuan');
             $table->double('realisasi_anggaran');
@@ -22,6 +23,7 @@ return new class extends Migration
             $table->string('masalah');
             $table->string('solusi');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

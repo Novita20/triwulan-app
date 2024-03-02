@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('satuan');
             $table->double('pagu');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

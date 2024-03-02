@@ -4,8 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Realisasi extends Model
 {
@@ -24,13 +23,8 @@ class Realisasi extends Model
         'solusi'
     ];
 
-    public function triwulan(): BelongsTo
+    public function kinerja(): HasMany
     {
-        return $this->belongsTo(Triwulan::class);
-    }
-
-    public function realisasi_kinerja(): BelongsToMany
-    {
-        return $this->belongsToMany(IndikatorKinerja::class, 'realisasi_kinerja');
+        return $this->hasMany(Kinerja::class);
     }
 }

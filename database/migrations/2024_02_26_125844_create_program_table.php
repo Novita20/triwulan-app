@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('nama_program');
             $table->integer('tahun');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

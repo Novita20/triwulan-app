@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('indikator_kinerja', function (Blueprint $table) {
+        Schema::create('kinerja', function (Blueprint $table) {
             $table->id();
             $table->foreignId('subkegiatan_id')->constrained('subkegiatan')->cascadeOnDelete();
             $table->string('indikator');
@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('satuan');
             $table->double('pagu');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('indikator_kinerja');
+        Schema::dropIfExists('kinerja');
     }
 };

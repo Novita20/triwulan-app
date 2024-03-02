@@ -54,13 +54,13 @@ class KegiatanController extends Controller
     {
         $request->validate([
             'program' => 'required',
-            'rekening_kegiatan' => 'required|string|max:20',
+            'no_rekening' => 'required|string|max:20',
             'nama_kegiatan' => 'required|string|max:20',
         ]);
 
         $insert = new Kegiatan();
         $insert->program_id = $request->program;
-        $insert->no_rekening = $request->rekening_kegiatan;
+        $insert->no_rekening = $request->no_rekening;
         $insert->nama_kegiatan = $request->nama_kegiatan;
         $insert->save();
 

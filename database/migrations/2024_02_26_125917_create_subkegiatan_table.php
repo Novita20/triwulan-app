@@ -14,11 +14,12 @@ return new class extends Migration
         Schema::create('subkegiatan', function (Blueprint $table) {
             $table->id();
             $table->foreignId('kegiatan_id')->constrained('kegiatan')->cascadeOnDelete();
+            $table->foreignId('bidang_id')->constrained('bidang')->cascadeOnDelete();
             $table->string('no_rekening');
             $table->string('nama_subkegiatan');
-            $table->string('nama_bidang');
             $table->string('tahun');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('no_rekening');
             $table->string('nama_kegiatan');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
