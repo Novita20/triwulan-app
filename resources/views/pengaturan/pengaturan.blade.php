@@ -72,7 +72,7 @@
                                         <td>{{ ++$i }}</td>
                                         <td>{{ $t->triwulan }}</td>
                                         <td>
-                                            <!-- Bikin tombol edit dan delete -->
+                                            {{-- <!-- Bikin tombol edit dan delete -->
                                             <a href="{{ url('/pengaturan/' . $t->id . '/edit') }}"
                                                 class="btn btn-sm btn-warning">edit</a>
 
@@ -81,6 +81,10 @@
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-sm btn-danger"
                                                     onclick="confirmDelete()">hapus</button>
+                                            </form> --}}
+                                            <form method="POST" action="{{ url('/pengaturan/' . $t->id) }}">
+                                                <button type="submit" class="btn btn-sm btn-danger"
+                                                    onclick="confirmOpen()">Pengisian</button>
                                             </form>
                                         </td>
                                     </tr>
@@ -137,8 +141,8 @@
 </script> --}}
 
     <script>
-        function confirmDelete() {
-            if (confirm('Apakah Anda yakin? Data akan dihapus. Apakah Anda ingin melanjutkan?')) {
+        function confirmOpen() {
+            if (confirm('buka pengisian?')) {
                 document.getElementById('form').submit();
             }else {
                 event.preventDefault();

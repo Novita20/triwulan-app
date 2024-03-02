@@ -61,7 +61,7 @@
                         <li class="nav-item">
 
                             <a href="{{ url('/program') }}" class="nav-link {{ request()->is('/') ? 'active' : '' }}"
-                                class="nav-link
+                                class="nav-link">
                                 
                                 <i class="fas fa-file nav-icon"></i>
                                 <p>Program</p>
@@ -112,7 +112,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ url('/sub_kegiatan/kinerja') }}"
+                            <a href="{{ url('/indikator_kinerja') }}"
                                 class="nav-link {{ request()->is('/') ? 'active' : '' }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Kinerja</p>

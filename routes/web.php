@@ -36,28 +36,34 @@ Auth::routes();
 Route::middleware(['auth'])->group(function () {
     Route::get('/', [HomeController::class, 'index']);
 
-    // Route Program
-    Route::resource('/program', ProgramController::class);
-    Route::resource('/indikator_program', IndikatorProgramController::class);
 
     // Route Kegiatan
-    Route::resource('/kegiatan', KegiatanController::class);
-    Route::resource('/indikator_kegiatan', IndikatorKegiatanController::class);
+    Route::prefix('/program')->group(function () {
+        Route::resource('/', KegiatanController::class);
+        Route::resource('/indikator', IndikatorKegiatanController::class);
+    });
+    // // Route Program
+    // Route::resource('/program', ProgramController::class);
+    // Route::resource('/indikator_program', IndikatorProgramController::class);
 
-// Route Kegiatan
-Route::prefix('/kegiatan')->group(function () {
-    Route::get('/{kegiatan}/edit', [KegiatanController::class, 'edit'])->name('kegiatan.edit');
-    Route::resource('/', KegiatanController::class);
-    Route::resource('/indikator', IndikatorKegiatanController::class);
-});
+    // Route Kegiatan
+    // Route::resource('/kegiatan', KegiatanController::class);
+    // Route::resource('/indikator_kegiatan', IndikatorKegiatanController::class);
 
+    // Route Kegiatan
+    Route::prefix('/kegiatan')->group(function () {
+        Route::get('/{kegiatan}/edit', [KegiatanController::class, 'edit'])->name('kegiatan.edit');
+        Route::resource('/', KegiatanController::class);
+        Route::resource('/indikator', IndikatorKegiatanController::class);
+    });
 
     // Route Sub Kegiatan dan Kinerja
     Route::resource('/sub_kegiatan', SubKegiatanController::class);
     Route::resource('/indikator_kinerja', IndikatorKinerjaController::class);
 
     //Route Pengaturan
-    Route::resource('pengaturan', PengaturanController::class);
+    Route::resource('/pengaturan', PengaturanController::class);
+    // Route::post('/pengaturan/{id}', [namaclass, namamethod]);
 
     // Route Realisasi
     Route::resource('realisasi', RealisasiController::class);

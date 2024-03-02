@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pengaturan;
 use Illuminate\Http\Request;
 
 class PengaturanController extends Controller
@@ -14,9 +15,9 @@ class PengaturanController extends Controller
     public function index(Request $request)
     {
         if($request->has('pengaturan')){
-            $pengaturan = Pengaturan::where('triwulan', 'LIKE', $request->pengaturan.'%')->paginate(2)->withQueryString();
+            $pengaturan = Pengaturan::where('triwulan', 'LIKE', $request->pengaturan.'%')->paginate(4)->withQueryString();
         }else{
-            $pengaturan = Pengaturan::paginate(2);
+            $pengaturan = Pengaturan::paginate(4);
         }
         return view('pengaturan.pengaturan', [
             'pengaturan' => $pengaturan
@@ -107,5 +108,9 @@ class PengaturanController extends Controller
         Pengaturan::where('id', '=', $id)->delete();
         return redirect('pengaturan')
                         ->with('success', 'data Berhasil Dihapus');
+    }
+
+    public function open($id){
+        Pengaturan::where('id', '=', $id)->update(['status' => 'open']);
     }
 }
