@@ -19,7 +19,7 @@ class ProgramController extends Controller
         } else {
             $program = Program::all();
         }
-        return view('indikator_program.indprogram')
+        return view('master_program.masprogram')
             ->with('program', $program);
     }
 
