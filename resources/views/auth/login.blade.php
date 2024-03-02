@@ -53,7 +53,7 @@
                             <input name="password" type="password" class="form-control" placeholder="password">
                         </div>
 
-                    
+
                         <div class="row">
                             <!-- /.col -->
                             <div class="col-7">

@@ -14,16 +14,13 @@ class ProgramController extends Controller
      */
     public function index(Request $request)
     {
-        // if ($request->has('master_program')) {
-        //     $master_program = Master_program::where('nama_program', 'LIKE', $request->master_program . '%')->paginate(2)->withQueryString();
-        // } else {
-        //     $master_program = Master_program::paginate(10);
-        // }
-        $master_program = Program::paginate(10);
-
-        return view('master_program.masprogram', [
-            'master_program' => $master_program
-        ]);
+        if ($request->tahun != null) {
+            $program = Program::where('tahun', $request->tahun)->get();
+        } else {
+            $program = Program::all();
+        }
+        return view('indikator_program.indprogram')
+            ->with('program', $program);
     }
 
     /**
