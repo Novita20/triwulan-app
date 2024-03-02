@@ -86,7 +86,9 @@
                                         <a href="{{ route('program.edit', $programs->id) }}" class="btn btn-sm btn-warning">
                                             <i class="fas fa-pen" style="color: white"></i>
                                         </a>
-                                        <form action="">
+                                        <form action="{{ route('program.destroy', $programs->id) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-danger" onclick="confirm()">
                                                 <i class="fas fa-trash"></i>
                                             </button>
