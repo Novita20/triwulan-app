@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\IndikatorKegiatan;
 use App\Models\Kegiatan;
+use App\Models\Program;
 use Illuminate\Http\Request;
 
 class IndikatorKegiatanController extends Controller
@@ -13,11 +14,20 @@ class IndikatorKegiatanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = IndikatorKegiatan::all();
+        if ($request->tahun != null) {
+            $kegiatan = IndikatorKegiatan::whereHas('program', function ($q) use ($request) {
+                $q->where('tahun', $request->tahun);
+            })->get();
+        } else {
+            $kegiatan = IndikatorKegiatan::all();
+        }
 
-        return view('indikator_kegiatan.indkegiatan')->with('data', $data);
+        return view('indikator_kegiatan.indkegiatan', [
+            'kegiatan' => $kegiatan,
+            'selected_tahun' => $request->tahun
+        ]);
     }
 
     /**
@@ -27,11 +37,11 @@ class IndikatorKegiatanController extends Controller
      */
     public function create()
     {
-        $master_kegiatan = Kegiatan::all();
-
-        return view('indikator_kegiatan.create_indikator_kegiatan')
-            ->with('url_form', url('/kegiatan/indikator'))
-            ->with('master_kegiatan', $master_kegiatan);
+        $tahun = Program::all()->pluck('tahun')->unique();
+        return view('indikator_kegiatan.create_indikator_kegiatan', [
+            'url_form' => url('indikator_kegiatan'),
+            'tahun' => $tahun
+        ]);
     }
 
     /**

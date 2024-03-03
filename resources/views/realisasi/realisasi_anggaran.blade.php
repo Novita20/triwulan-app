@@ -76,34 +76,10 @@
 
                         </thead>
                         <tbody>
-                            @if ($realisasi->count() > 0)
-                                @foreach ($realisasi as $i => $t)
+                            @if ($data->count() > 0)
+                                @foreach ($data as $realisasi)
                                     <tr>
-                                        <td>{{ $t->program }}</td>
-                                        <td>{{ $t->sub_kegiatan }}</td>
-                                        <td>{{ $t->target }}</td>
-                                        <td>{{ $t->pagu }}</td>
-                                        <td>{{ $t->kinerja_t1 }}</td>
-                                        <td>{{ $t->anggaran_t1 }}</td>
-                                        <td>{{ $t->kinerja_t2 }}</td>
-                                        <td>{{ $t->anggaran_t2 }}</td>
-                                        <td>{{ $t->kinerja_t3 }}</td>
-                                        <td>{{ $t->anggaran_t3 }}</td>
-                                        <td>{{ $t->kinerja_t4 }}</td>
-                                        <td>{{ $t->anggaran_t4 }}</td>
-                                        <td>{{ $t->keterangan }}</td>
-                                        <td>
-                                            <!-- Bikin tombol edit dan delete -->
-                                            <a href="{{ url('/realisasi/' . $t->id . '/edit') }}"
-                                                class="btn btn-sm btn-warning">edit</a>
-
-                                            <form method="POST" action="{{ url('/realisasi/' . $t->id) }}">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-danger"
-                                                    onclick="confirmDelete()">hapus</button>
-                                            </form>
-                                        </td>
+                                        <td>{{ $realisasi->indkinerja->satuan }}</td>
                                     </tr>
                                 @endforeach
                             @else
@@ -114,20 +90,9 @@
                         </tbody>
                     </table>
                 </div>
-
-                <div class="row">
-                    <div class="col-md-12">
-                        {{ $realisasi->links() }}
-                    </div>
-                </div>
-                <!-- /.card-body -->
             </div>
-            <!-- /.card -->
-
         </section>
-        <!-- /.content -->
     </div>
-
 @endsection
 
 @push('custom_css')

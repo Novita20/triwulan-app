@@ -24,15 +24,44 @@
         </section>
         <!-- Main content -->
         <section class="content">
+            @if (session()->has('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
-                            <div class="card-header">
-                                <a href="{{ url('kegiatan/create') }}" class="btn btn-sm btn-success">Tambah Data</a>
-                            </div>
-                            <!-- /.card-header -->
                             <div class="card-body">
+                                <div class="row g-3 align-items-center">
+                                    <div class="col-auto">
+                                        <form action="{{ route('kegiatan.index') }}">
+                                            <div class="input-group input-group-sm">
+                                                <select name="tahun" class="form-control">
+                                                    <option value="">Pilih Tahun</option>
+                                                    @php
+                                                        $currentYear = date('Y');
+                                                        $startYear = 2022;
+                                                    @endphp
+                                                    @for ($tahun = $currentYear; $tahun >= $startYear; $tahun--)
+                                                        <option value="{{ $tahun }}"
+                                                            {{ $selected_tahun == $tahun ? 'selected' : '' }}>
+                                                            {{ $tahun }}</option>
+                                                    @endfor
+                                                </select>
+                                                <span class="input-group-append">
+                                                    <button type="submit" class="btn btn-primary">Cari</button>
+                                                </span>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <a href="{{ route('kegiatan.create') }}" class="btn btn-sm btn-success my-2">
+                                        Tambah Data
+                                    </a>
+                                </div>
+
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
@@ -69,15 +98,10 @@
                             </div>
                             <!-- /.card-body -->
                         </div>
-                        <!-- /.card -->
                     </div>
-                    <!-- /.col -->
                 </div>
-                <!-- /.row -->
             </div>
-            <!-- /.container-fluid -->
         </section>
-        <!-- /.content -->
     </div>
 @endsection
 
@@ -88,51 +112,4 @@
 @endpush
 
 @push('custom_js')
-    {{-- <script>
-  alert('Halaman Home')
-</script> --}}
-
-    <script>
-        function confirmDelete() {
-            if (confirm('Apakah Anda yakin? Data akan dihapus. Apakah Anda ingin melanjutkan?')) {
-                document.getElementById('form').submit();
-            } else {
-                event.preventDefault();
-            }
-        }
-    </script>
-@endpush
-
-@push('custom_js')
-    <script src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/jszip/jszip.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/pdfmake/pdfmake.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/pdfmake/vfs_fonts.js') }}"></script>
-    <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
-
-    <script>
-        $(function() {
-            $("#example1").DataTable({
-                "responsive": true,
-                "lengthChange": false,
-                "autoWidth": false,
-            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-            $('#example2').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "responsive": true,
-            });
-        });
-    </script>
 @endpush

@@ -11,94 +11,99 @@
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#"> Home</a></li>
-                            <li class="breadcrumb-item"><a href="#"> Tables</a></li>
-                            <li class="breadcrumb-item active">Data tables</li>
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active">Indikator Kegiatan</li>
                         </ol>
                     </div>
                 </div>
             </div><!-- /.container-fluid -->
         </section>
-
         <!-- Main content -->
         <section class="content">
-
             @if (session()->has('success'))
                 <div class="alert alert-success">
                     {{ session('success') }}
                 </div>
             @endif
 
-            <!-- Default box -->
-            <div class="card-body">
-                <form action="" style="display: flex">
-                    <div class="col-2">
-                        <select name="tahun" class="form-control" placeholder="Cari Tahun">
-                            <option value="2021">2021</option>
-                            <option value="2022">2022</option>
-                            <option value="2023">2023</option>
-                        </select>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row g-3 align-items-center">
+                                    <div class="col-auto">
+                                        <form action="{{ route('indikator_kegiatan.index') }}">
+                                            <div class="input-group input-group-sm">
+                                                <select name="tahun" class="form-control">
+                                                    <option value="">Pilih Tahun</option>
+                                                    @php
+                                                        $currentYear = date('Y');
+                                                        $startYear = 2022;
+                                                    @endphp
+                                                    @for ($tahun = $currentYear; $tahun >= $startYear; $tahun--)
+                                                        <option value="{{ $tahun }}"
+                                                            {{ $selected_tahun == $tahun ? 'selected' : '' }}>
+                                                            {{ $tahun }}</option>
+                                                    @endfor
+                                                </select>
+                                                <span class="input-group-append">
+                                                    <button type="submit" class="btn btn-primary">Cari</button>
+                                                </span>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <a href="{{ route('indikator_kegiatan.create') }}" class="btn btn-sm btn-success my-2">
+                                        Tambah Data
+                                    </a>
+                                </div>
+
+                                <table id="example1" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>No Rekening Kegiatan</th>
+                                            <th>Nama Kegiatan</th>
+                                            <th>Indikator</th>
+                                            <th>Target</th>
+                                            <th>Satuan</th>
+                                            <th>Pagu Anggaran (Rp)</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($kegiatan as $index => $item)
+                                            <tr>
+                                                <td>{{ $index + 1 }}</td>
+                                                <td>{{ $item->kegiatan->no_rekening }}</td>
+                                                <td>{{ $item->kegiatan->nama_kegiatan }}</td>
+                                                <td>{{ $item->indikator }}</td>
+                                                <td>{{ $item->target }}</td>
+                                                <td>{{ $item->satuan }}</td>
+                                                <td>{{ $item->pagu }}</td>
+                                                <td>
+                                                    <a href="{{ url('/kegiatan/' . $item->id . '/edit') }}"
+                                                        class="btn btn-sm btn-warning">edit</a>
+                                                    <form method="POST" action="{{ url('/kegiatan/' . $item->id) }}">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-sm btn-danger"
+                                                            onclick="confirmDelete()">hapus</button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
                     </div>
-                    <div class="col-3">
-                        <button class="btn btn-success">Pilih Tahun</button>
-                    </div>
-                </form>
-
-                <a href="{{ url('/kegiatan/indikator/create') }}" class="btn btn-sm btn-success my-2">Tambah
-                    Indikator</a>
-
-                <table class="table table-bordered table-striped">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>No Rekening</th>
-                            <th>Kegiatan</th>
-                            <th>Indikator </th>
-                            <th>Target</th>
-                            <th>Satuan</th>
-                            <th>Pagu Anggaran (Rp)</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($data as $i => $datas)
-                            <tr>
-                                <td>{{ $i + 1 }}</td>
-                                <td>{{ $datas->kegiatan->no_rekening }}</td>
-                                <td>{{ $datas->kegiatan->nama_kegiatan }}</td>
-                                <td>{{ $datas->indikator }}</td>
-                                <td>{{ $datas->target }}</td>
-                                <td>{{ $datas->satuan }}</td>
-                                <td>{{ $datas->pagu }}</td>
-                                <td style="display: flex">
-                                    <a href="{{ url('/kegiatan/indikator/' . $datas->id . '/edit') }}"
-                                        class="btn btn-sm btn-warning" style="margin-right: 10px"><i class="fas fa-pen"
-                                            style="color: white"></i></a>
-
-                                    <form method="POST" action="{{ url('/kegiatan/indikator/' . $datas->id) }}">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-danger" onclick="confirmDelete()"><i
-                                                class="fas fa-trash"></i></button>
-                                    </form>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                </div>
             </div>
         </section>
     </div>
 @endsection
 
 @push('custom_js')
-    <script>
-        function confirmDelete() {
-            if (confirm('Apakah Anda yakin? Data akan dihapus. Apakah Anda ingin melanjutkan?')) {
-                document.getElementById('form').submit();
-            } else {
-                event.preventDefault();
-            }
-        }
-    </script>
 @endpush

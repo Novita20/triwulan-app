@@ -4,7 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Realisasi extends Model
 {
@@ -13,6 +16,7 @@ class Realisasi extends Model
     protected $table = 'realisasi';
 
     protected $fillable = [
+        'kinerja_id',
         'id_triwulan',
         'kinerja',
         'satuan',
@@ -23,8 +27,8 @@ class Realisasi extends Model
         'solusi'
     ];
 
-    public function kinerja(): HasMany
+    public function indkinerja(): BelongsTo
     {
-        return $this->hasMany(Kinerja::class);
+        return $this->belongsTo(Kinerja::class,);
     }
 }

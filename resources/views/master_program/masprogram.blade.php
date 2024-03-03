@@ -30,24 +30,11 @@
 
             <!-- Default box -->
             <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">LIST</h3>
-
-                    <div class="card-tools">
-                        <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                            <i class="fas fa-minus"></i>
-                        </button>
-                        <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
-                            <i class="fas fa-times"></i>
-                        </button>
-                    </div>
-                </div>
-
                 <div class="card-body">
                     <div class="row g-3 align-items-center">
                         <div class="col-auto">
                             <form action="{{ route('program.index') }}">
-                                <div class="input-group input-group-md">
+                                <div class="input-group input-group-sm">
                                     <select name="tahun" class="form-control">
                                         <option value="">Pilih Tahun</option>
                                         @php
@@ -55,7 +42,10 @@
                                             $startYear = 2022;
                                         @endphp
                                         @for ($tahun = $currentYear; $tahun >= $startYear; $tahun--)
-                                            <option value="{{ $tahun }}">{{ $tahun }}</option>
+                                            <option value="{{ $tahun }}"
+                                                {{ $selected_tahun == $tahun ? 'selected' : '' }}>
+                                                {{ $tahun }}
+                                            </option>
                                         @endfor
                                     </select>
                                     <span class="input-group-append">
@@ -64,7 +54,7 @@
                                 </div>
                             </form>
                         </div>
-                        <a href="{{ url('program/create') }}" class="btn btn-md btn-success my-2">Tambah Data</a>
+                        <a href="{{ url('program/create') }}" class="btn btn-sm btn-success my-2">Tambah Data</a>
                     </div>
 
                     <table id="table-data" class="table table-bordered table-striped">

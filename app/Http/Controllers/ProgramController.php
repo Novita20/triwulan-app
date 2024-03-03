@@ -19,8 +19,10 @@ class ProgramController extends Controller
         } else {
             $program = Program::all();
         }
-        return view('master_program.masprogram')
-            ->with('program', $program);
+        return view('master_program.masprogram', [
+            'program' => $program,
+            'selected_tahun' => $request->tahun
+        ]);
     }
 
     /**
@@ -59,15 +61,11 @@ class ProgramController extends Controller
             ->with('success', 'Data master Program Berhasil Ditambahkan');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Master_program  $master_program
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Program $master_program)
+    public function getProgram(Request $request)
     {
-        //
+        $program = Program::where('tahun', $request->tahun)->get();
+
+        return response()->json($program);
     }
 
     /**

@@ -25,52 +25,30 @@
 
             <!-- Default box -->
             <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">TAMBAH</h3>
-
-                    <div class="card-tools">
-                        <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                            <i class="fas fa-minus"></i>
-                        </button>
-                        <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
-                            <i class="fas fa-times"></i>
-                        </button>
-                    </div>
-                </div>
-
                 <div class="card-body">
                     <form method="POST" action="{{ $url_form }}">
                         @csrf
                         {!! isset($master_kegiatan) ? method_field('PUT') : '' !!}
-
                         <div class="form-group">
-                            <label>Tahun Anggaran</label>
-                            <select class="form-control @error('tahun') is-invalid @enderror" name="tahun">
-                                <option value="" selected disabled>Pilih Tahun</option>
-                                {{-- @foreach ($tahun as $tahuns)
-                                    <option value="tahun">{{ $tahuns }}</option>
-                                @endforeach --}}
-                            </select>
-                            @error('tahun')
-                                <span class="error invalid-feedback">{{ $message }}</span>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label>Pilih Program</label>
-                            <select class="form-control" name="program" id="program" onchange="pilihProgram()">
-                                <option selected>--PILIH--</option>
-                                @foreach ($program as $p)
-                                    <option value="{{ $p->id }}"
-                                        {{ isset($master_kegiatan) ? ($p->id == $master_kegiatan->program_id ? 'selected' : '') : '' }}>
-                                        {{ $p->nama_program }}
+                            <label>Pilih Tahun</label>
+                            <select class="form-control pilih-tahun" name="tahun">
+                                <option value="" selected>--PILIH--</option>
+                                @foreach ($tahun as $t)
+                                    <option
+                                        value="{{ $t }}"{{ isset($master_kegiatan) ? ($master_kegiatan->program->tahun == $t ? 'selected' : '') : '' }}>
+                                        {{ $t }}
                                     </option>
                                 @endforeach
                             </select>
-                            @error('program')
-                                <span class="error invalid-feedback">{{ $message }} </span>
-                            @enderror
                         </div>
-
+                        @isset($master_kegiatan)
+                            <input type="hidden" id="program-id" value="{{ $master_kegiatan->program_id }}">
+                        @endisset
+                        <div class="form-group">
+                            <label>Pilih Program</label>
+                            <select class="form-control" name="program" id="program">
+                            </select>
+                        </div>
                         <div class="form-group">
                             <label>Rekening Kegiatan</label>
                             <input class="form-control @error('no_rekening') is-invalid @enderror"
@@ -100,26 +78,68 @@
     </div>
 @endsection
 
-@push('custom_css')
-    <style>
-        th {}
-
-        /* .card{
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              background:green;
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              color:aliceblue;
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              transition: 0.5s;
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          .card:hover{
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              background: aqua;
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              color: blue;
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              transform:scale(0.9);
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          } */
-    </style>
-@endpush
-
 @push('custom_js')
-    {{-- <script>
-  alert('Halaman Home')
-</script> --}}
+    <script>
+        $(document).ready(function() {
+            var program_id = $('#program-id').val();
+            var tahun = $('.pilih-tahun').val();
+
+            $.ajax({
+                url: '/get_program/',
+                type: 'GET',
+                data: {
+                    '_token': '{{ csrf_token() }}',
+                    'tahun': tahun
+                },
+                dataType: 'json',
+                success: function(data) {
+                    if (data) {
+                        $('#program').empty();
+                        $.each(data, function(index,
+                            program) {
+                            var selected = (program.id == program_id) ? 'selected' : '';
+                            $('#program').append('<option value="' +
+                                program.id + '" ' + selected + '>' + program.nama_program +
+                                '</option>');
+                        });
+                    } else {
+                        $('#program').empty();
+                    }
+                }
+            });
+
+            $('.pilih-tahun').on('change', function() {
+                var tahun = $(this).val();
+                if (tahun) {
+                    $.ajax({
+                        url: '/get_program/',
+                        type: 'GET',
+                        data: {
+                            '_token': '{{ csrf_token() }}',
+                            'tahun': tahun
+                        },
+                        dataType: 'json',
+                        success: function(data) {
+                            if (data) {
+                                $('#program').empty();
+                                $.each(data, function(index, program) {
+                                    var
+                                        selected = (program.id == program_id) ?
+                                        'selected' : '';
+                                    $('#program').append('<option value="' + program
+                                        .id + '" ' +
+                                        selected + '>' + program.nama_program +
+                                        '</option>');
+                                });
+                            } else {
+                                $('#program').empty();
+                            }
+                        }
+                    });
+                } else {
+                    $('#program').empty();
+                }
+            });
+        });
+    </script>
 @endpush

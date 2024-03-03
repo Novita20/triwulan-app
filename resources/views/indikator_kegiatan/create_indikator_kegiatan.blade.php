@@ -20,17 +20,34 @@
                     <form method="POST" action="{{ $url_form }}">
                         @csrf
                         {!! isset($indikator_kegiatan) ? method_field('PUT') : '' !!}
+                        <div class="form-group">
+                            <label>Pilih Tahun</label>
+                            <select name="tahun" class="form-control pilih-tahun">
+                                <option>--Pilih Tahun---</option>
+                                @foreach ($tahun as $t)
+                                    <option value="{{ $t }}">{{ $t }}</option>
+                                @endforeach
+                                @error('tahun')
+                                    <span class="error invalid-feedback">{{ $message }}</span>
+                                @enderror
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Pilih Program</label>
+                            <select name="program" id="program" class="form-control pilih-program">
+                                @error('program')
+                                    <span class="error invalid-feedback">{{ $message }}</span>
+                                @enderror
+                            </select>
+                        </div>
 
                         <div class="form-group">
                             <label>Pilih Kegiatan</label>
-                            <select name="kegiatan" id="kegiatan" class="form-control select3">
-                                <option>--PILIH--</option>
-                                @foreach ($master_kegiatan as $d)
-                                    <option value="{{ $d->id }}"
-                                        {{ isset($indikator_kegiatan) ? ($indikator_kegiatan->kegiatan_id == $d->id ? 'selected' : '') : '' }}>
-                                        {{ $d->nama_kegiatan }}
-                                    </option>
-                                @endforeach
+                            <select name="kegiatan" id="kegiatan" class="form-control pilih-kegiatan">
+                                @error('kegiatan')
+                                    <span class="error invalid-feedback">{{ $message }}</span>
+                                @enderror
                             </select>
                         </div>
 
@@ -84,14 +101,6 @@
     </div>
 @endsection
 
-@push('custom_css')
-    <style>
-        /* Tambahkan gaya CSS kustom Anda di sini */
-    </style>
-@endpush
-
 @push('custom_js')
-    {{-- <script>
-        // Tambahkan kode JavaScript kustom Anda di sini
-    </script> --}}
+    <script></script>
 @endpush

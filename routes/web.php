@@ -38,9 +38,10 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('program', ProgramController::class);
     Route::resource('indikator_program', IndikatorProgramController::class);
+    Route::get('get_program', [ProgramController::class, 'getProgram'])->name('getprogram');
 
     Route::resource('kegiatan', KegiatanController::class);
-    Route::resource('indikator_kegiatan', IndikatorKegiatan::class);
+    Route::resource('indikator_kegiatan', IndikatorKegiatanController::class);
 
     // Route Sub Kegiatan dan Kinerja
     Route::resource('/sub_kegiatan', SubKegiatanController::class);

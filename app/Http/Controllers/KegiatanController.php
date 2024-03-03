@@ -15,17 +15,24 @@ class KegiatanController extends Controller
      */
     public function index(Request $request)
     {
-        $master_kegiatan = Kegiatan::all();
+        if ($request->tahun != null) {
+            $master_kegiatan = Kegiatan::whereHas('program', function ($q) use ($request) {
+                $q->where('tahun', $request->tahun);
+            })->get();
+        } else {
+            $master_kegiatan = Kegiatan::all();
+        }
+
 
         return view('master_kegiatan.kegiatan', [
-            'master_kegiatan' => $master_kegiatan
+            'master_kegiatan' => $master_kegiatan,
+            'selected_tahun' => $request->tahun
         ]);
     }
 
     public function getKegiatan(Request $request)
     {
-        $program = $request->get('program');
-        $master_kegiatan = Kegiatan::where('nama_program', $program)->get();
+        $master_kegiatan = Kegiatan::where('program_id', $request->program_id)->get();
         return response()->json($master_kegiatan);
     }
 
@@ -36,8 +43,9 @@ class KegiatanController extends Controller
      */
     public function create()
     {
-        $tahun = Program::all()->pluck('tahun')->unique();
-        $program = Program::all();
+        $data = Program::all();
+        $program = $data->groupBy('tahun');
+        $tahun = $data->pluck('tahun')->unique();
         return view('master_kegiatan.create_kegiatan')
             ->with('url_form', url('/kegiatan'))
             ->with('tahun', $tahun)
@@ -90,13 +98,16 @@ class KegiatanController extends Controller
      */
     public function edit($id)
     {
-        $program = Program::all();
+        $data = Program::all();
+        $program = $data->groupBy('tahun');
+        $tahun = $data->pluck('tahun')->unique();
         $master_kegiatan = Kegiatan::where('id', $id)->first();
 
         return view('master_kegiatan.create_kegiatan')
             ->with('url_form', url('/kegiatan/' . $id))
             ->with('master_kegiatan', $master_kegiatan)
-            ->with('program', $program);
+            ->with('program', $program)
+            ->with('tahun', $tahun);
     }
 
     /**
