@@ -65,8 +65,8 @@ class KegiatanController extends Controller
     {
         $request->validate([
             'program' => 'required',
-            'no_rekening' => 'required|string|max:20',
-            'nama_kegiatan' => 'required|string|max:20',
+            'no_rekening' => 'required|string',
+            'nama_kegiatan' => 'required|string',
         ]);
 
         $insert = new Kegiatan();
@@ -124,8 +124,8 @@ class KegiatanController extends Controller
     {
         $request->validate([
             'program' => 'required',
-            'no_rekening' => 'required|string|max:20',
-            'nama_kegiatan' => 'required|string|max:20',
+            'no_rekening' => 'required|string',
+            'nama_kegiatan' => 'required|string',
         ]);
 
         $cariProgram = Program::where('id', $request->program)->first();

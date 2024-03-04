@@ -13,9 +13,9 @@ class SubKegiatanController extends Controller
     public function index(Request $request)
     {
         if($request->has('master_subkegiatan')){
-            $master_subkegiatan = SubKegiatan::where('nama_program', 'LIKE', $request->master_subkegiatan.'%')->with('kegiatan')->paginate(10)->withQueryString();
+            $master_subkegiatan = SubKegiatan::where('nama_program', 'LIKE', $request->master_subkegiatan.'%')->with('kegiatan')->paginate(200)->withQueryString();
         }else{
-            $master_subkegiatan = SubKegiatan::with('kegiatan')->paginate(10);
+            $master_subkegiatan = SubKegiatan::with('kegiatan')->paginate(200);
         }    
         // dd($master_subkegiatan);
         return view('master_subkegiatan.master_subkegiatan', [
