@@ -32,7 +32,10 @@ class KegiatanController extends Controller
 
     public function getKegiatan(Request $request)
     {
-        $master_kegiatan = Kegiatan::where('program_id', $request->program_id)->get();
+        $master_kegiatan = Kegiatan::whereHas('program', function ($q) use ($request) {
+            $q->where('tahun', $request->tahun);
+        })->get();
+
         return response()->json($master_kegiatan);
     }
 

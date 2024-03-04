@@ -1,7 +1,6 @@
 @extends('layout.template')
 
 @section('content')
-
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
@@ -60,8 +59,6 @@
                                 <th colspan="2">Triwulan 4</th>
                                 <th rowspan="2">Keterangan</th>
                                 <th rowspan="2">Aksi</th>
-
-
                             </tr>
                             <tr>
                                 <th>Kinerja</th>
@@ -77,11 +74,21 @@
                         </thead>
                         <tbody>
                             @if ($data->count() > 0)
-                                @foreach ($data as $realisasi)
-                                    <tr>
-                                        <td>{{ $realisasi->indkinerja->satuan }}</td>
-                                    </tr>
-                                @endforeach
+                                <tr>
+                                    @foreach ($data as $realisasi)
+                                        <td>{{ $realisasi->first()->indkinerja->subkegiatan->kegiatan->program->nama_program }}
+                                        </td>
+                                        <td>{{ $realisasi->first()->indkinerja->subkegiatan->nama_subkegiatan }}</td>
+                                        <td>{{ $realisasi->first()->indkinerja->target }}</td>
+                                        <td>{{ $realisasi->first()->indkinerja->pagu }}</td>
+                                        @foreach ($realisasi as $item)
+                                            <td>{{ $item->kinerja }}</td>
+                                            <td>{{ $item->realisasi_anggaran }}</td>
+                                        @endforeach
+                                        <td><a href="" class="btn btn-warning">Keterangan</a></td>
+                                        <td><a href="" class="btn btn-warning">Keterangan</a></td>
+                                    @endforeach
+                                </tr>
                             @else
                                 <tr>
                                     <td colspan="14" class="text-center">Data tidak ada</td>

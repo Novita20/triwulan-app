@@ -17,6 +17,9 @@
                 </div>
 
                 <div class="card-body">
+                    @isset($indikator_kegiatan)
+                        <input type="hidden" id="kegiatan-id" value="{{ $indikator_kegiatan->kegiatan_id }}">
+                    @endisset
                     <form method="POST" action="{{ $url_form }}">
                         @csrf
                         {!! isset($indikator_kegiatan) ? method_field('PUT') : '' !!}
@@ -28,15 +31,6 @@
                                     <option value="{{ $t }}">{{ $t }}</option>
                                 @endforeach
                                 @error('tahun')
-                                    <span class="error invalid-feedback">{{ $message }}</span>
-                                @enderror
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Pilih Program</label>
-                            <select name="program" id="program" class="form-control pilih-program">
-                                @error('program')
                                     <span class="error invalid-feedback">{{ $message }}</span>
                                 @enderror
                             </select>
@@ -102,5 +96,69 @@
 @endsection
 
 @push('custom_js')
-    <script></script>
+    <script>
+        $(document).ready(function() {
+            var kegiatan_id = $('#kegiatan-id').val()
+            var tahun = $('.pilih-tahun').val()
+
+            $.ajax({
+                url: '/get_kegiatan/',
+                type: 'GET',
+                data: {
+                    '_token': '{{ csrf_token() }}',
+                    'tahun': tahun
+                },
+                dataType: 'json',
+                success: function(data) {
+                    if (data) {
+                        $('#kegiatan').empty()
+                        $.each(data, function(index, kegiatan) {
+                            var selected = (kegiatan.id == kegiatan_id) ?
+                                'selected' : ''
+
+                            $('#kegiatan').append('<option value="' + kegiatan
+                                .id + '" ' +
+                                selected + '>' + kegiatan.nama_kegiatan +
+                                '</option>');
+                        })
+                    } else {
+                        $('kegiatan').empty()
+                    }
+                }
+            })
+
+            $('.pilih-tahun').on('change', function() {
+                var tahun = $(this).val()
+                if (tahun) {
+                    $.ajax({
+                        url: '/get_kegiatan/',
+                        type: 'GET',
+                        data: {
+                            '_token': '{{ csrf_token() }}',
+                            'tahun': tahun
+                        },
+                        dataType: 'json',
+                        success: function(data) {
+                            if (data) {
+                                $('#kegiatan').empty()
+                                $.each(data, function(index, kegiatan) {
+                                    var selected = (kegiatan.id == kegiatan_id) ?
+                                        'selected' : ''
+
+                                    $('#kegiatan').append('<option value="' + kegiatan
+                                        .id + '" ' +
+                                        selected + '>' + kegiatan.nama_kegiatan +
+                                        '</option>');
+                                })
+                            } else {
+                                $('kegiatan').empty()
+                            }
+                        }
+                    })
+                } else {
+                    $('kegiatan').empty()
+                }
+            })
+        })
+    </script>
 @endpush

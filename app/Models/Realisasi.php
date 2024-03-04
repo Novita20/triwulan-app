@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\BelongsToRelationship;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -17,7 +18,6 @@ class Realisasi extends Model
 
     protected $fillable = [
         'kinerja_id',
-        'id_triwulan',
         'kinerja',
         'satuan',
         'realisasi_anggaran',
@@ -29,6 +29,6 @@ class Realisasi extends Model
 
     public function indkinerja(): BelongsTo
     {
-        return $this->belongsTo(Kinerja::class,);
+        return $this->belongsTo(Kinerja::class, 'kinerja_id');
     }
 }
