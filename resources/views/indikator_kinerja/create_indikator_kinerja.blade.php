@@ -26,7 +26,7 @@
                             <select name="subkegiatan_id" class="form-control select3">
                                 <option>--PILIH--</option>
                                 @foreach ($master_subkegiatan as $d)
-                                    <option value="{{ $d->id }}">{{ $d->nama_subkegiatan }}</option>
+                                    <option value="{{ $d->id }}" {{isset($indikator_kinerja) ?($indikator_kinerja->subkegiatan_id == $d->id) ? 'selected':'':''}}>{{ $d->nama_subkegiatan }}</option>
                                 @endforeach
                             </select>
                         </div>
