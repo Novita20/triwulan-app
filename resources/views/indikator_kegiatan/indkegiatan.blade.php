@@ -82,9 +82,10 @@
                                                 <td>{{ $item->satuan }}</td>
                                                 <td>{{ $item->pagu }}</td>
                                                 <td>
-                                                    <a href="{{ url('/kegiatan/' . $item->id . '/edit') }}"
+                                                    <a href="{{ url('/indikator_kegiatan/' . $item->id . '/edit') }}"
                                                         class="btn btn-sm btn-warning">edit</a>
-                                                    <form method="POST" action="{{ url('/kegiatan/' . $item->id) }}">
+                                                    <form method="POST"
+                                                        action="{{ url('/indikator_kegiatan/' . $item->id) }}">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="btn btn-sm btn-danger"

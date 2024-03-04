@@ -74,8 +74,8 @@
                         </thead>
                         <tbody>
                             @if ($data->count() > 0)
-                                <tr>
-                                    @foreach ($data as $realisasi)
+                                @foreach ($data as $realisasi)
+                                    <tr>
                                         <td>{{ $realisasi->first()->indkinerja->subkegiatan->kegiatan->program->nama_program }}
                                         </td>
                                         <td>{{ $realisasi->first()->indkinerja->subkegiatan->nama_subkegiatan }}</td>
@@ -95,8 +95,8 @@
                                                     class="btn btn-sm btn-success edit-button">{{ ++$i }}</button>
                                             @endforeach
                                         </td>
-                                    @endforeach
-                                </tr>
+                                    </tr>
+                                @endforeach
                             @else
                                 <tr>
                                     <td colspan="14" class="text-center">Data tidak ada</td>

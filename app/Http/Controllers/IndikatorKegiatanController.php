@@ -16,6 +16,7 @@ class IndikatorKegiatanController extends Controller
      */
     public function index(Request $request)
     {
+
         if ($request->tahun != null) {
             $kegiatan = IndikatorKegiatan::whereHas('program', function ($q) use ($request) {
                 $q->where('tahun', $request->tahun);
@@ -69,7 +70,7 @@ class IndikatorKegiatanController extends Controller
         $insert->save();
 
         if ($insert) {
-            return redirect('kegiatan/indikator')
+            return redirect('indikator_kegiatan')
                 ->with('success', 'Data Indikator Kegiatan berhasil disimpan');
         } else {
             return back()->with('error', 'Data Gagal Disimpan');
@@ -96,12 +97,14 @@ class IndikatorKegiatanController extends Controller
     public function edit($id)
     {
         $master_kegiatan = Kegiatan::all();
+        $tahun = Program::all()->pluck('tahun')->unique();
         $indikator_kegiatan = IndikatorKegiatan::where('id', $id)->first();
 
         return view('indikator_kegiatan.create_indikator_kegiatan')
-            ->with('url_form', url('/kegiatan/indikator/' . $id))
+            ->with('url_form', url('/indikator_kegiatan/' . $id))
             ->with('master_kegiatan', $master_kegiatan)
-            ->with('indikator_kegiatan', $indikator_kegiatan);
+            ->with('indikator_kegiatan', $indikator_kegiatan)
+            ->with('tahun', $tahun);
     }
 
     /**
@@ -130,7 +133,7 @@ class IndikatorKegiatanController extends Controller
         ]);
 
         if ($update) {
-            return redirect('kegiatan/indikator')
+            return redirect('indikator_kegiatan')
                 ->with('success', 'Data Indikator Kegiatan berhasil diedit');
         } else {
             return back()->with('error', 'Data Gagal Disimpan');
@@ -148,7 +151,7 @@ class IndikatorKegiatanController extends Controller
         $delete = IndikatorKegiatan::where('id', $id)->delete();
 
         if ($delete) {
-            return redirect('kegiatan/indikator')
+            return redirect('indikator_kegiatan')
                 ->with('success', 'Data Indikator Kegiatan berhasil dihapus');
         } else {
             return back()->with('error', 'Data Gagal dihapus');

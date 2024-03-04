@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kinerja;
+use App\Models\Realisasi;
 use App\Models\SubKegiatan;
 use Illuminate\Http\Request;
 
@@ -30,18 +31,6 @@ class IndikatorKinerjaController extends Controller
 
     public function store(Request $request)
     {
-        // $request->validate([
-
-        //     'indikator' => 'required',
-        //     'target' => 'required|numeric',
-        //     'satuan' => 'required',
-        //     'pagu' => 'required|numeric',
-        // ]);
-
-        // $data = Indikator_program::create($request->except(['_token']));
-        // return redirect('indikator_program')
-        //                 ->with('success', 'Data Indikator Program Berhasil Ditambahkan');
-        $cariProgram = Kinerja::where('id', $request->nama_subkegiatan)->first();
         $insert = Kinerja::create([
             'subkegiatan_id' => $request->input('subkegiatan_id'),
             'indikator' => $request->input('indikator'),
@@ -49,21 +38,36 @@ class IndikatorKinerjaController extends Controller
             'satuan' => $request->input('satuan'),
             'pagu' => $request->input('pagu'),
         ]);
+
         if ($insert) {
-            return redirect('/indikator_kinerja')
-                ->with('success', 'Data Indikator program berhasil disimpan');
-        } else {
-            return back()->with('error', 'Data Gagal Disimpan');
+            $insert_realisasi = [];
+            for ($i = 1; $i <= 4; $i++) {
+                $insert_realisasi[] = [
+                    'kinerja_id' => $insert->id,
+                    'triwulan' => $i,
+                    'kinerja' => 0,
+                    'satuan' => 0,
+                    'realisasi_anggaran' => 0,
+                    'faktor_pendorong' => '',
+                    'faktor_penghambat' => '',
+                    'masalah' => '',
+                    'solusi' => '',
+                ];
+            }
+
+            $realisasi = Realisasi::insert($insert_realisasi);
+
+            if ($realisasi) {
+                return redirect('/indikator_kinerja')
+                    ->with('success', 'Data Indikator Kinerja berhasil disimpan');
+            } else {
+                return back()->with('error', 'Data Gagal Disimpan');
+            }
         }
     }
 
     public function edit($id)
     {
-        // $indikator_kinerja = Indikator_kinerja::find($id);
-        // return view('indikator_kinerja.create_indikator_kinerja')
-        //             ->with('indikator_kinerja', $indikator_kinerja)
-        //             ->with('url_form', url('/indikator_kinerja/'. $id));
-
         $master_subkegiatan = SubKegiatan::all();
         $indikator_kinerja = Kinerja::where('id', $id)->first();
 
@@ -75,29 +79,6 @@ class IndikatorKinerjaController extends Controller
 
     public function update(Request $request, $id)
     {
-        // $request->validate([
-        //     'nomor_rekening' => 'required|string|max:30',
-        //     'sub_kegiatan' => 'required|string|max:20',
-        //     'indikator' => 'required|string|max:20',
-        //     'target' => 'required|string|max:20',
-        //     'satuan' => 'required|string|max:20',
-        //     'pagu' => 'required|string|max:20',
-        // ]);
-
-        // $data = Indikator_kinerja::where('id', '=', $id)->update($request->except(['_token', '_method']));
-        // return redirect('indikator_kinerja')
-        //                 ->with('success', 'Data Indikator Kinerja Berhasil Diubah');
-
-        // $request->validate([
-        //     'sub_kegiatan' => 'required',
-        //     'indikator' => 'required',
-        //     'target' => 'required|numeric',
-        //     'satuan' => 'required',
-        //     'pagu' => 'required|numeric',
-        // ]);
-
-        $cariKegiatan = SubKegiatan::where('id', $request->sub_kegiatan)->first();
-
         $update = Kinerja::where('id', $id)->update([
             'subkegiatan_id' => $request->input('subkegiatan_id'),
             'indikator' => $request->input('indikator'),
@@ -116,10 +97,6 @@ class IndikatorKinerjaController extends Controller
 
     public function destroy($id)
     {
-        // Indikator_kinerja::where('id', '=', $id)->delete();
-        // return redirect('indikator_kinerja')
-        //                 ->with('success', 'data Berhasil Dihapus');
-
         $delete = Kinerja::where('id', $id)->delete();
 
         if ($delete) {
