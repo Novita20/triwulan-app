@@ -13,6 +13,7 @@ use App\Http\Controllers\SubKegiatanController;
 use App\Http\Controllers\TriwulanController;
 use App\Models\IndikatorKegiatan;
 use App\Models\IndikatorProgram;
+use App\Models\Realisasi;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -50,10 +51,12 @@ Route::middleware(['auth'])->group(function () {
 
     //Route Pengaturan
     Route::resource('/pengaturan', PengaturanController::class);
-    // Route::post('/pengaturan/{id}', [namaclass, namamethod]);
 
     // Route Realisasi
-    Route::resource('realisasi', RealisasiController::class);
+    Route::resource('realisasi', RealisasiController::class)->except('update');
+    Route::put('realisasi/update', [RealisasiController::class, 'update'])->name('realisasi.update');
+    Route::get('get_realisasi', [RealisasiController::class, 'getRealisasi'])->name('getrealisasi');
+    Route::get('get_realisasi/{id}', [RealisasiController::class, 'getRealisasiById'])->name('getrealisasibyID');
 
     // Route Triwulan
     Route::resource('triwulan', TriwulanController::class);

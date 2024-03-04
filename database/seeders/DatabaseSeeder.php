@@ -88,6 +88,28 @@ class DatabaseSeeder extends Seeder
                 'faktor_penghambat' => 'Tidak ada',
                 'masalah' => 'Tidak ada',
                 'solusi' => 'Tidak ada',
+            ],
+            [
+                'kinerja_id' => 1,
+                'triwulan' => 3,
+                'kinerja' => 100,
+                'satuan' => 'orang',
+                'realisasi_anggaran' => 1000000,
+                'faktor_pendorong' => 'Sesuai',
+                'faktor_penghambat' => 'Tidak ada',
+                'masalah' => 'Tidak ada',
+                'solusi' => 'Tidak ada',
+            ],
+            [
+                'kinerja_id' => 1,
+                'triwulan' => 4,
+                'kinerja' => 100,
+                'satuan' => 'orang',
+                'realisasi_anggaran' => 1000000,
+                'faktor_pendorong' => 'Sesuai',
+                'faktor_penghambat' => 'Tidak ada',
+                'masalah' => 'Tidak ada',
+                'solusi' => 'Tidak ada',
             ]
         ]);
     }
