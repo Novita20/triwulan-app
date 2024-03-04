@@ -45,17 +45,17 @@
 
                 <div class="card-body">
 
-                    <div class="row g-3 align-items-center">
+                    {{-- <div class="row g-3 align-items-center">
                         <div class="col-auto">
                             <form action="/pengaturan" method="GET">
                                 <input type="pengaturan" id="pengaturan" name="pengaturan" class="form-control"
                                     placeholder="Cari...">
                             </form>
                         </div>
-                    </div>
+                    </div> --}}
 
 
-                    <a href="{{ url('pengaturan/create') }}" class="btn btn-sm btn-success my-2">Tambah Data</a>
+                    {{-- <a href="{{ url('pengaturan/create') }}" class="btn btn-sm btn-success my-2">Tambah Data</a> --}}
                     
                     <table class="table table-bordered table-striped">
                         <thead>
@@ -104,9 +104,9 @@
                     </div>
                 </div>
                 <!-- /.card-body -->
-                <div class="card-footer">
+                {{-- <div class="card-footer">
                     Terima Kasih
-                </div>
+                </div> --}}
                 <!-- /.card-footer-->
             </div>
             <!-- /.card -->

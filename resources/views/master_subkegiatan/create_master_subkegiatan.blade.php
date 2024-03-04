@@ -118,16 +118,7 @@
 
                     <button class="btn btn-primary" type="submit">Simpan</button>
             </div>
-            <!-- /.card-body -->
-            <div class="card-footer">
-                Terima Kasih
-            </div>
-            <!-- /.card-footer-->
-    </div>
-    <!-- /.card -->
-
     </section>
-    <!-- /.content -->
     </div>
 @endsection
 
