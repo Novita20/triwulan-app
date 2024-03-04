@@ -7,7 +7,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Indikator Kegiatan</h1>
+                        <h1>Indikator Kinerja</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -77,13 +77,13 @@
                                     <td>{{ $datas->pagu }}</td>
                                     <td>
                                         <a href="{{ url('/indikator_kinerja/' . $datas->id . '/edit') }}"
-                                            class="btn btn-sm btn-warning">edit</a>
+                                            class="btn btn-sm btn-warning"><i class="fas fa-pen" style="color: white"></a>
 
                                         <form method="POST" action="{{ url('/indikator_kinerja/' . $datas->id) }}">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-danger"
-                                                onclick="confirmDelete()">hapus</button>
+                                                onclick="confirmDelete()"><i class="fas fa-trash"></i></button>
                                         </form>
                                     </td>
                                 </tr>

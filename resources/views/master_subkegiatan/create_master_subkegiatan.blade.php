@@ -60,13 +60,13 @@
                     </div>
                     <div class="form-group">
                         <label>Pilih Bidang</label>
-                        <select class="form-control" name="nama_bidang" id="nama_bidang">
+                        <select class="form-control" name="bidang_id" id="bidang_id">
                             <option selected>--PILIH--</option>
                             @foreach($bidang as $b)
-                            <option value="{{ $b->nama_bidang }}">{{ $b->nama_bidang }}</option>
+                            <option value="{{ $b->id }}">{{ $b->nama_bidang }}</option>
                             @endforeach
                           </select>
-                        @error('nama_bidang')
+                        @error('bidang_id')
                             <span class="error invalid-feedback">{{ $message }} </span>
                         @enderror
                     </div>

@@ -84,13 +84,13 @@
                                         <td>
                                             <!-- Bikin tombol edit dan delete -->
                                             <a href="{{ url('/sub_kegiatan/' . $t->id . '/edit') }}"
-                                                class="btn btn-sm btn-warning">edit</a>
+                                                class="btn btn-sm btn-warning"><i class="fas fa-pen" style="color: white"></i></a>
 
                                             <form method="POST" action="{{ url('/sub_kegiatan/' . $t->id) }}">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-sm btn-danger"
-                                                    onclick="confirmDelete()">hapus</button>
+                                                    onclick="confirmDelete()"><i class="fas fa-trash"></i></button>
                                             </form>
                                         </td>
                                     </tr>
