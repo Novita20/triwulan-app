@@ -79,7 +79,7 @@
                                         <form action="{{ route('program.destroy', $programs->id) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-danger" onclick="confirm()">
+                                            <button type="submit" class="btn btn-sm btn-danger" onclick="confirmDelete()">
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </form>
@@ -101,4 +101,13 @@
 @endpush
 
 @push('custom_js')
+    <script>
+        function confirmDelete() {
+            if (confirm('Apakah Anda yakin? Data akan dihapus. Apakah Anda ingin melanjutkan?')) {
+                document.getElementById('form').submit();
+            } else {
+                event.preventDefault();
+            }
+        }
+    </script>
 @endpush
