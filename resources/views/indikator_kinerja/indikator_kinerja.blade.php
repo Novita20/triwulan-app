@@ -77,7 +77,8 @@
                                     <td>{{ $datas->pagu }}</td>
                                     <td>
                                         <a href="{{ url('/indikator_kinerja/' . $datas->id . '/edit') }}"
-                                            class="btn btn-sm btn-warning"><i class="fas fa-pen" style="color: white"></a>
+                                            class="btn btn-sm btn-warning"><i class="fas fa-pen" style="color: white">
+                                            </i></a>
 
                                         <form method="POST" action="{{ url('/indikator_kinerja/' . $datas->id) }}">
                                             @csrf

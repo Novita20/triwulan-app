@@ -68,7 +68,7 @@ class IndikatorKinerjaController extends Controller
         $indikator_kinerja = Kinerja::where('id', $id)->first();
 
         return view('indikator_kinerja.create_indikator_kinerja')
-            ->with('url_form', url('/indikator_kinerja' . $id))
+            ->with('url_form', url('/indikator_kinerja/' . $id))
             ->with('master_subkegiatan', $master_subkegiatan)
             ->with('indikator_kinerja', $indikator_kinerja);
     }
