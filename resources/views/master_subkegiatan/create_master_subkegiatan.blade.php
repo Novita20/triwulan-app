@@ -50,8 +50,11 @@
                                 $currentYear = date('Y');
                                 $startYear = 2022; // Tahun awal
                             @endphp
-                            @for($year = $currentYear; $year >= $startYear; $year--)
-                                <option value="{{ $year }}" {{ isset($master_subkegiatan) && $master_subkegiatan->tahun == $year ? 'selected' : '' }}>{{ $year }}</option>
+                            @for ($year = $currentYear; $year >= $startYear; $year--)
+                                {{-- <option value="{{ $year }}" {{ isset($master_subkegiatan) && $master_subkegiatan->tahun == $year ? 'selected' : '' }}>{{ $year }}</option> --}}
+                                <option
+                                    value="{{ $year }}"{{ isset($master_subkegiatan) && $master_subkegiatan->tahun == $year ? 'selected' : '' }}>
+                                    {{ $year }}</option>
                             @endfor
                         </select>
                         @error('tahun')
@@ -61,11 +64,11 @@
                     <div class="form-group">
                         <label>Pilih Bidang</label>
                         <select class="form-control" name="bidang_id" id="bidang_id">
-                            <option selected>--PILIH--</option>
-                            @foreach($bidang as $b)
-                            <option value="{{ $b->id }}">{{ $b->nama_bidang }}</option>
+                            <option>--PILIH--</option>
+                            @foreach ($bidang as $b)
+                                <option value="{{ $b->id }}" {{isset($master_subkegiatan) ?($master_subkegiatan->bidang_id == $b->id) ? 'selected':'':''}}>{{ $b->nama_bidang }}</option>
                             @endforeach
-                          </select>
+                        </select>
                         @error('bidang_id')
                             <span class="error invalid-feedback">{{ $message }} </span>
                         @enderror
@@ -73,11 +76,11 @@
                     <div class="form-group">
                         <label>Pilih Program</label>
                         <select class="form-control" name="program_id" id="program_id" onchange="pilihProgram()">
-                            <option selected>--PILIH--</option>
-                            @foreach($program as $p)
-                            <option value="{{ $p->id }}">{{ $p->nama_program }}</option>
+                            <option>--PILIH--</option>
+                            @foreach ($program as $p)
+                                <option value="{{ $p->id }}" {{isset($master_subkegiatan) ?($master_subkegiatan->kegiatan->program_id == $p->id) ? 'selected':'':''}}>{{ $p->nama_program }}</option>
                             @endforeach
-                          </select>
+                        </select>
                         @error('program_id')
                             <span class="error invalid-feedback">{{ $message }} </span>
                         @enderror
@@ -85,11 +88,11 @@
                     <div class="form-group">
                         <label>Pilih Kegiatan</label>
                         <select class="form-control" name="kegiatan_id" id="kegiatan_id">
-                            <option selected>--PILIH--</option>
-                            @foreach($master_kegiatan as $k)
-                            <option value="{{ $k->id }}">{{ $k->nama_kegiatan }}</option>
+                            <option>--PILIH--</option>
+                            @foreach ($master_kegiatan as $k)
+                                <option value="{{ $k->id }}" {{isset($master_subkegiatan) ?($master_subkegiatan->kegiatan_id == $k->id) ? 'selected':'':''}}>{{ $k->nama_kegiatan }}</option>
                             @endforeach
-                          </select>
+                        </select>
                         @error('kegiatan_id')
                             <span class="error invalid-feedback">{{ $message }} </span>
                         @enderror
@@ -133,42 +136,43 @@
         th {}
 
         /* .card{
-          background:green;
-          color:aliceblue;
-          transition: 0.5s;
-      }
+                  background:green;
+                  color:aliceblue;
+                  transition: 0.5s;
+              }
 
-      .card:hover{
-          background: aqua;
-          color: blue;
-          transform:scale(0.9);
-      } */
+              .card:hover{
+                  background: aqua;
+                  color: blue;
+                  transform:scale(0.9);
+              } */
     </style>
 @endpush
 
 @push('custom_js')
-<script>
-    const pilihProgram = () => {
-        let program = document.querySelector('#program').value;
-        $.ajax({
-            url: '/get-kegiatan',
-            method: 'GET',
-            data: {
-                program: program,
-            },
-            success: function(response) {
-                let kegiatan = document.querySelector('#kegiatan');
-                let option = '';
-                option += '<option selected>--PILIH--</option>';
-                response.forEach(res => {
-                    option += `<option value="${res.nama_kegiatan}">${res.nama_kegiatan}</option>`
-                });
-                kegiatan.innerHTML = option;
-            },
-            error: function(xhr, status, error) {
-                console.error(xhr.responseText);
-            }
-        });
-    }
-</script>
+    <script>
+        const pilihProgram = () => {
+            let program = document.querySelector('#program').value;
+            $.ajax({
+                url: '/get-kegiatan',
+                method: 'GET',
+                data: {
+                    program: program,
+                },
+                success: function(response) {
+                    let kegiatan = document.querySelector('#kegiatan');
+                    let option = '';
+                    option += '<option selected>--PILIH--</option>';
+                    response.forEach(res => {
+                        option +=
+                            `<option value="${res.nama_kegiatan}">${res.nama_kegiatan}</option>`
+                    });
+                    kegiatan.innerHTML = option;
+                },
+                error: function(xhr, status, error) {
+                    console.error(xhr.responseText);
+                }
+            });
+        }
+    </script>
 @endpush
