@@ -45,10 +45,14 @@ class PengaturanController extends Controller
     {
         $request->validate([
             'triwulan' => 'required|string|max:30',
+            'status' => 'required'
             
         ]);
 
-        $data = Pengaturan::create($request->except(['_token']));
+        $data = Pengaturan::create([
+            'triwulan' => $request->triwulan,
+            'status' =>  $request->status
+        ]);
         return redirect('pengaturan')
                         ->with('success', 'Data Indikator Kinerja Berhasil Ditambahkan');
     }
@@ -87,12 +91,9 @@ class PengaturanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'triwulan' => 'required|string|max:30',
-            
-        ]);
-
-        $data = Pengaturan::where('id', '=', $id)->update($request->except(['_token', '_method']));
+        $data = Pengaturan::find($id);
+        $data->status = $data->status == 1 ? 0 : 1;
+        $data->save();
         return redirect('pengaturan')
                         ->with('success', 'Data Indikator Kinerja Berhasil Diubah');
     }

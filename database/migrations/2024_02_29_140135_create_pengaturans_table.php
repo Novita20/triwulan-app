@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('pengaturans', function (Blueprint $table) {
             $table->id();
             $table->string('triwulan');
+            $table->boolean('status');
             $table->timestamps();
         });
     }

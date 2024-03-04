@@ -55,7 +55,7 @@
                     </div> --}}
 
 
-                    {{-- <a href="{{ url('pengaturan/create') }}" class="btn btn-sm btn-success my-2">Tambah Data</a> --}}
+                    <a href="{{ url('pengaturan/create') }}" class="btn btn-sm btn-success my-2">Tambah Data</a>
                     
                     <table class="table table-bordered table-striped">
                         <thead>
@@ -83,8 +83,10 @@
                                                     onclick="confirmDelete()">hapus</button>
                                             </form> --}}
                                             <form method="POST" action="{{ url('/pengaturan/' . $t->id) }}">
-                                                <button type="submit" class="btn btn-sm btn-danger"
-                                                    onclick="confirmOpen()">Pengisian</button>
+                                                @csrf
+                                                @method('PUT')
+                                                <button type="submit" class="btn btn-sm {{ $t->status == 0 ? 'btn-danger' : 'btn-success' }}"
+                                                    onclick="confirmOpen({{ $t->status }})">Pengisian</button>
                                             </form>
                                         </td>
                                     </tr>
@@ -141,8 +143,8 @@
 </script> --}}
 
     <script>
-        function confirmOpen() {
-            if (confirm('buka pengisian?')) {
+        function confirmOpen(status) {
+            if (confirm(status == 0 ? 'buka pengisian?' : 'tutup pengisian?')) {
                 document.getElementById('form').submit();
             }else {
                 event.preventDefault();

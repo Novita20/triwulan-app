@@ -44,6 +44,7 @@
 
                     <div class="form-group">
                         <label>Triwulan</label>
+                        <input type="hidden" name="status" value="0">
                         <input class="form-control @error('triwulan') is-invalid @enderror"
                             value="{{ isset($pengaturan) ? $pengaturan->triwulan : old('triwulan') }}"
                             name="triwulan" type="text" />
