@@ -60,7 +60,7 @@ class SubKegiatanController extends Controller
         // $data = Master_subkegiatan::create($request->except(['_token']));
         SubKegiatan::create([
             'tahun' => $request->input('tahun'),
-            'nama_bidang' => $request->input('nama_bidang'),
+            'bidang_id' => $request->input('bidang_id'),
             'program_id' => $request->input('nama_program'),
             'kegiatan_id' => $request->input('kegiatan_id'),
             'no_rekening' => $request->input('no_rekening'),
@@ -95,7 +95,7 @@ class SubKegiatanController extends Controller
     
         $subKegiatan = SubKegiatan::findOrFail($id);
         $subKegiatan->tahun = $request->input('tahun');
-        $subKegiatan->nama_bidang = $request->input('nama_bidang');
+        $subKegiatan->bidang_id = $request->input('bidang_id');
         $subKegiatan->kegiatan_id = $request->input('kegiatan_id');
         $subKegiatan->no_rekening = $request->input('no_rekening');
         $subKegiatan->nama_subkegiatan = $request->input('nama_subkegiatan');

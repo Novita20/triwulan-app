@@ -16,13 +16,15 @@ class Kinerja extends Model
 
     protected $table = 'kinerja';
 
-    protected $fillable = [
-        'subkegiatan_id',
-        'indikator',
-        'target',
-        'satuan',
-        'pagu'
-    ];
+    // protected $fillable = [
+    //     'subkegiatan_id',
+    //     'indikator',
+    //     'target',
+    //     'satuan',
+    //     'pagu'
+    // ];
+
+    protected $guarded = ['id'];
 
     public function subkegiatan(): BelongsTo
     {
