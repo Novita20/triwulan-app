@@ -104,11 +104,6 @@
                     </table>
                 </div>
 
-                <div class="row">
-                    <div class="col-md-12">
-                        {{ $master_subkegiatan->links() }}
-                    </div>
-                </div>
             </div>
         </section>
     </div>
