@@ -14,6 +14,7 @@ class Pengaturan extends Model
 
     protected $fillable = [
         'triwulan',
+        'status',
     ];
 
     public function program(): BelongsTo

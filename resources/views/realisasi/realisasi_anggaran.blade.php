@@ -91,8 +91,8 @@
                                         </td>
                                         <td>
                                             @foreach ($realisasi as $i => $item)
-                                                <button realisasi-id="{{ $item->id }}"
-                                                    class="btn btn-sm btn-success edit-button">{{ ++$i }}</button>
+                                                <button realisasi-id="{{ $item->id }}" {{ $pengaturan[$i]['status'] == 0 ? 'disabled' : '' }} 
+                                                    class="btn btn-sm {{ $pengaturan[$i]['status'] == 0 ? 'btn-secondary' : 'btn-success' }} edit-button">{{ ++$i }}</button>
                                             @endforeach
                                         </td>
                                     </tr>

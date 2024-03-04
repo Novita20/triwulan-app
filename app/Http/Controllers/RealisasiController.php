@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kinerja;
+use App\Models\Pengaturan;
 use App\Models\Realisasi;
 use Illuminate\Http\Request;
 
@@ -13,9 +14,11 @@ class RealisasiController extends Controller
      */
     public function index()
     {
+        $pengaturan = (Pengaturan::orderBy('triwulan', 'asc')->get())->toArray();
         $data = Realisasi::with('indkinerja')->get()->groupBy('kinerja_id');
         return view('realisasi.realisasi_anggaran', [
-            'data' => $data
+            'data' => $data,
+            'pengaturan' => $pengaturan
         ]);
     }
 
