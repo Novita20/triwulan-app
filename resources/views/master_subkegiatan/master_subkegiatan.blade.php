@@ -45,19 +45,19 @@
 
                 <div class="card-body">
 
-                    <div class="row g-3 align-items-center">
+                    {{-- <div class="row g-3 align-items-center">
                         <div class="col-auto">
                             <form action="/sub_kegiatan/" method="GET">
                                 <input type="master_subkegiatan" id="master_subkegiatan" name="master_subkegiatan" class="form-control"
                                     placeholder="Cari...">
                             </form>
                         </div>
-                    </div>
+                    </div> --}}
 
-
+                    
                     <a href="{{ url('sub_kegiatan/create') }}" class="btn btn-sm btn-success my-2">Tambah Data</a>
 
-                    <table class="table table-bordered table-striped">
+                    <table id ="table-data" class="table table-bordered table-striped">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -104,21 +104,8 @@
                     </table>
                 </div>
 
-                <div class="row">
-                    <div class="col-md-12">
-                        {{ $master_subkegiatan->links() }}
-                    </div>
-                </div>
-                <!-- /.card-body -->
-                <div class="card-footer">
-                    Terima Kasih
-                </div>
-                <!-- /.card-footer-->
             </div>
-            <!-- /.card -->
-
         </section>
-        <!-- /.content -->
     </div>
 
 @endsection
@@ -142,10 +129,6 @@
 @endpush
 
 @push('custom_js')
-    {{-- <script>
-  alert('Halaman Home')
-</script> --}}
-
     <script>
         function confirmDelete() {
             if (confirm('Apakah Anda yakin? Data akan dihapus. Apakah Anda ingin melanjutkan?')) {
