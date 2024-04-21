@@ -89,12 +89,12 @@
                                             <button class="btn btn-sm btn-warning modal_keterangan"
                                                 id-kinerja={{ $realisasi->first()->kinerja_id }}>Keterangan</button>
                                         </td>
-                                        <td>
+                                        {{-- <td>
                                             @foreach ($realisasi as $i => $item)
                                                 <button realisasi-id="{{ $item->id }}" {{ $pengaturan[$i]['status'] == 0 ? 'disabled' : '' }} 
                                                     class="btn btn-sm {{ $pengaturan[$i]['status'] == 0 ? 'btn-secondary' : 'btn-success' }} edit-button">{{ ++$i }}</button>
                                             @endforeach
-                                        </td>
+                                        </td> --}}
                                     </tr>
                                 @endforeach
                             @else
