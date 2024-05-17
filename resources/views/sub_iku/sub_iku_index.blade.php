@@ -1,4 +1,7 @@
 @extends('layout.template')
+@php
+    use Illuminate\Support\Collection;
+@endphp
 
 @section('content')
     <div class="content-wrapper">
@@ -49,6 +52,7 @@
                     </a>
                     <table class="table table-bordered table-striped">
                         <thead>
+                            {{-- @dd($data) --}}
                             <tr>
                                 <th colspan="14" style="text-align: center;">SUB IKU</th>
                             </tr>
@@ -65,39 +69,71 @@
                                 <th colspan="5" style="align-content: center;">Target Kinerja Sasaran Pada Tahun</th>
                             </tr>
                             <tr>
-                                <th>2022</th>
-                                <th>2023</th>
-                                <th>2024</th>
-                                <th>2025</th>
-                                <th>2026</th>
+                                @foreach ($tahun as $item)
+                                    <th>{{ $item->tahun }}</th>
+                                @endforeach
                             <tr>
 
                         </thead>
                         <tbody>
+                            @foreach ($data as $i => $item)
+                                <tr>
+                                    <td>{{ $i }}</td>
+                                    <td>{{ $item->misi_rpjmd }}</td>
+                                    <td>{{ $item->tujuan_rpjmd }}</td>
+                                    <td>{{ $item->sasaran_rpjmd }}</td>
+                                    <td>{{ $item->tujuan_pd }}</td>
+                                    @foreach ($item->sub_iku_sasaran as $item_sasaran)
+                                        <td>{{ $item_sasaran->sasaran_pd }}</td>
+                                        <td>{{ $item_sasaran->indikator_tujuan }}</td>
+                                        <td>{{ $item_sasaran->formula }}</td>
+                                        <td>{{ $item_sasaran->angka_kinerja }} {{ $item_sasaran->satuan }}</td>
+                                        @foreach ($tahun as $tahuns)
+                                            @php
+                                                $found = false;
+                                            @endphp
 
-                        </tbody>
-                    </table>
-                </div>
+                                            @foreach ($item_sasaran->sub_iku_kinerja as $item_kinerja)
+                                                @if ($tahuns->id == $item_kinerja->sub_iku_tahun_id)
+                                                    <td>{{ $item_kinerja->angka_kinerja }} {{ $item_kinerja->satuan }}
+                                                    </td>
+                                                    @php
+                                                        $found = true;
+                                                    @endphp
+                                                @break
+                                            @endif
+                                        @endforeach
+
+                                        @if (!$found)
+                                            <td></td>
+                                        @endif
+                                    @endforeach
+                                @endforeach
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
-        </section>
-    </div>
+        </div>
+    </section>
+</div>
 @endsection
 
 
 @push('custom_css')
-    <style>
-        th {}
+<style>
+    th {}
 
-        .card {
-            overflow: auto;
-        }
+    .card {
+        overflow: auto;
+    }
 
-        .table {
-            overflow: auto;
-        }
+    .table {
+        overflow: auto;
+    }
 
-        th {
-            text-align: center;
-        }
-    </style>
+    th {
+        text-align: center;
+    }
+</style>
 @endpush

@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\SubIku;
+use App\Models\SubIkuKinerja;
+use App\Models\SubIkuSasaran;
+use App\Models\SubIkuTahun;
 use Illuminate\Http\Request;
 
 class SubIkuController extends Controller
@@ -11,7 +15,9 @@ class SubIkuController extends Controller
      */
     public function index()
     {
-        return view('sub_iku.sub_iku_index');
+        $tahun = SubIkuTahun::all();
+        $data = SubIku::all();
+        return view('sub_iku.sub_iku_index')->with('data', $data)->with('tahun', $tahun);
     }
 
     /**
