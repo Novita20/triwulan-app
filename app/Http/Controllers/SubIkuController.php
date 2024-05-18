@@ -25,7 +25,8 @@ class SubIkuController extends Controller
      */
     public function create()
     {
-        //
+        return view('sub_iku/create_sub_iku')
+            ->with('url_form', url('indikator_program'));
     }
 
     /**
@@ -33,7 +34,13 @@ class SubIkuController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'misi' => 'required',
+            'tujuan' => 'required',
+            'formula' => 'required|image',
+            'target_number_' => 'required',
+            'deskripsi_' => 'required',
+        ]);
     }
 
     /**
