@@ -32,18 +32,68 @@
 
                         <div class="form-group">
                             <label>Tujuan RPJMD</label>
-                            <input class="form-control @error('target') is-invalid @enderror"
-                                value="{{ isset($indikator_program) ? $indikator_program->target : old('tujuan') }}"
+                            <input class="form-control @error('tujuanrp') is-invalid @enderror"
+                                value="{{ isset($indikator_program) ? $indikator_program->tujuanrp : old('tujuan') }}"
                                 name="tujuan" type="text" />
-                            @error('target')
+                            @error('tujuanrp')
                                 <span class="error invalid-feedback">{{ $message }}</span>
                             @enderror
                         </div>
+
+                        <div class="form-group">
+                            <label>Sasaran RPJMD</label>
+                            <input class="form-control @error('sasaranrp') is-invalid @enderror"
+                                value="{{ isset($indikator_program) ? $indikator_program->sasaranrp : old('tujuan') }}"
+                                name="tujuan" type="text" />
+                            @error('sasaranrp')
+                                <span class="error invalid-feedback">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label>Tujuan PD</label>
+                            <input class="form-control @error('tujuanpd') is-invalid @enderror"
+                                value="{{ isset($indikator_program) ? $indikator_program->tujuanpd : old('tujuan') }}"
+                                name="tujuan" type="text" />
+                            @error('tujuanpd')
+                                <span class="error invalid-feedback">{{ $message }}</span>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label>Sasaran PD</label>
+                            <input class="form-control @error('sasaranpd') is-invalid @enderror"
+                                value="{{ isset($indikator_program) ? $indikator_program->sasaranpd : old('tujuan') }}"
+                                name="tujuan" type="text" />
+                            @error('sasaranpd')
+                                <span class="error invalid-feedback">{{ $message }}</span>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label>Indikator Tujuan / Sasaran PD</label>
+                            <input class="form-control @error('indikator') is-invalid @enderror"
+                                value="{{ isset($indikator_program) ? $indikator_program->indikator : old('tujuan') }}"
+                                name="tujuan" type="text" />
+                            @error('indikator')
+                                <span class="error invalid-feedback">{{ $message }}</span>
+                            @enderror
+                        </div>
+
                         <div class="form-group">
                             <label>Upload Formula/Rumus</label>
                             <input class="form-control-file @error('formula') is-invalid @enderror" name="formula"
                                 type="file" accept="image/*" />
                             @error('formula')
+                                <span class="error invalid-feedback">{{ $message }}</span>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label>Kondisi Awal Kinerja Tahun 2021</label>
+                            <input class="form-control @error('kondisi') is-invalid @enderror"
+                                value="{{ isset($indikator_program) ? $indikator_program->kondisi : old('tujuan') }}"
+                                name="tujuan" type="text" />
+                            @error('kondisi')
                                 <span class="error invalid-feedback">{{ $message }}</span>
                             @enderror
                         </div>
