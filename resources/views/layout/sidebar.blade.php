@@ -112,7 +112,7 @@
                             <a href="{{ url('/indikator_kinerja') }}"
                                 class="nav-link {{ request()->is('/') ? 'active' : '' }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Kinerja</p>
+                                <p>Sub Kegiatan</p>
                             </a>
                         </li>
                     </ul>

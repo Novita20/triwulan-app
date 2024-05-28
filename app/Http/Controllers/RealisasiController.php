@@ -6,6 +6,7 @@ use App\Models\Kinerja;
 use App\Models\Pengaturan;
 use App\Models\Realisasi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RealisasiController extends Controller
 {
@@ -15,7 +16,9 @@ class RealisasiController extends Controller
     public function index()
     {
         $pengaturan = (Pengaturan::orderBy('triwulan', 'asc')->get())->toArray();
-        $data = Realisasi::with('indkinerja')->get()->groupBy('kinerja_id');
+        // $data = Realisasi::with('indkinerja')->get()->groupBy('kinerja_id');
+        $data = Realisasi::where('status', Auth::user()->id)->with('indkinerja')->get()->groupBy('kinerja_id');
+        // dd($data);
         return view('realisasi.realisasi_anggaran', [
             'data' => $data,
             'pengaturan' => $pengaturan
