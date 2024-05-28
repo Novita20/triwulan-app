@@ -9,6 +9,7 @@ use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\PengaturanController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\RealisasiController;
+use App\Http\Controllers\SubIkuController;
 use App\Http\Controllers\SubKegiatanController;
 use App\Http\Controllers\TriwulanController;
 use App\Models\IndikatorKegiatan;
@@ -60,6 +61,9 @@ Route::middleware(['auth'])->group(function () {
 
     // Route Triwulan
     Route::resource('triwulan', TriwulanController::class);
+
+    // Sub IKU
+    Route::resource('sub_iku', SubIkuController::class);
 });
 
 Route::get('logout', [LoginController::class, 'logout']);
