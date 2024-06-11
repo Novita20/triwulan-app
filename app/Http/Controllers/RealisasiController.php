@@ -6,16 +6,82 @@ use App\Models\Kinerja;
 use App\Models\Pengaturan;
 use App\Models\Realisasi;
 use Illuminate\Http\Request;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class RealisasiController extends Controller
 {
+    public function downloadExcel()
+    {
+        // Ambil data dari database
+        $data = Realisasi::with('indkinerja.subkegiatan.kegiatan.program')->get()->groupBy('kinerja_id');
+
+        // Debug data
+        if ($data->isEmpty()) {
+            // Tambahkan logging atau debugging untuk memastikan data tidak kosong
+            dd('Data is empty');
+        } else {
+            dd($data); // Lihat data yang diambil
+        }
+
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        // Menambahkan header tabel
+        $sheet->setCellValue('A1', 'Program');
+        $sheet->setCellValue('B1', 'Sub Kegiatan');
+        $sheet->setCellValue('C1', 'Target');
+        $sheet->setCellValue('D1', 'Pagu');
+        $sheet->setCellValue('E1', 'Triwulan 1 Kinerja');
+        $sheet->setCellValue('F1', 'Triwulan 1 Anggaran');
+        $sheet->setCellValue('G1', 'Triwulan 2 Kinerja');
+        $sheet->setCellValue('H1', 'Triwulan 2 Anggaran');
+        $sheet->setCellValue('I1', 'Triwulan 3 Kinerja');
+        $sheet->setCellValue('J1', 'Triwulan 3 Anggaran');
+        $sheet->setCellValue('K1', 'Triwulan 4 Kinerja');
+        $sheet->setCellValue('L1', 'Triwulan 4 Anggaran');
+        $sheet->setCellValue('M1', 'Keterangan');
+
+        // Menambahkan data dari database
+        $row = 2;
+        foreach ($data as $realisasiGroup) {
+            $realisasi = $realisasiGroup->first();
+            if (!$realisasi) continue;
+
+            $sheet->setCellValue('A' . $row, $realisasi->indkinerja->subkegiatan->kegiatan->program->nama_program ?? 'N/A');
+            $sheet->setCellValue('B' . $row, $realisasi->indkinerja->subkegiatan->nama_subkegiatan ?? 'N/A');
+            $sheet->setCellValue('C' . $row, $realisasi->indkinerja->target ?? 'N/A');
+            $sheet->setCellValue('D' . $row, $realisasi->indkinerja->pagu ?? 'N/A');
+
+            // Asumsikan bahwa data realisasi diurutkan berdasarkan triwulan
+            $colIndex = 'E';
+            foreach ($realisasiGroup as $item) {
+                $sheet->setCellValue($colIndex . $row, $item->kinerja ?? 'N/A');
+                $colIndex++;
+                $sheet->setCellValue($colIndex . $row, $item->realisasi_anggaran ?? 'N/A');
+                $colIndex++;
+            }
+
+            $sheet->setCellValue('M' . $row, 'Keterangan'); // Sesuaikan dengan data keterangan jika ada
+            $row++;
+        }
+
+        $writer = new Xlsx($spreadsheet);
+        $fileName = 'realisasi_anggaran.xlsx';
+        $temp_file = tempnam(sys_get_temp_dir(), $fileName);
+        $writer->save($temp_file);
+
+        return response()->download($temp_file, $fileName)->deleteFileAfterSend(true);
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $pengaturan = (Pengaturan::orderBy('triwulan', 'asc')->get())->toArray();
+        $pengaturan = Pengaturan::orderBy('triwulan', 'asc')->get();
         $data = Realisasi::with('indkinerja')->get()->groupBy('kinerja_id');
+        // dd($data);
         return view('realisasi.realisasi_anggaran', [
             'data' => $data,
             'pengaturan' => $pengaturan

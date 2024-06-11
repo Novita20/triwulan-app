@@ -11,10 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sub_iku', function (Blueprint $table) {
-            $table->id();
-            
-            $table->timestamps();
+        Schema::table("pengaturans", function (Blueprint $table) {
+            $table->boolean('status')->after('triwulan');
         });
     }
 
@@ -23,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sub_iku');
+        Schema::table("pengaturans",  function (Blueprint $table) {
+            $table->dropColumn("status");
+        });
     }
 };

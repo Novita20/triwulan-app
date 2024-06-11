@@ -34,7 +34,6 @@
                 </div>
 
                 <div class="card-body">
-
                     <div class="row g-3 align-items-center">
                         <div class="col-auto">
                             <form action="/realisasi" method="GET">
@@ -42,34 +41,48 @@
                                     placeholder="Cari...">
                             </form>
                         </div>
+                        <div class="col-auto">
+                            <a href="{{ route('realisasi.download') }}" class="btn btn-success">Download Excel</a>
+                        </div>
                     </div>
                     <table class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th colspan="14" style="text-align: center;">Realisasi</th>
+                                <th colspan="22" style="text-align: center;">Realisasi</th>
                             </tr>
                             <tr>
-                                <th rowspan="2" style="text-align: center;">Program</th>
-                                <th rowspan="2" style="text-align: center;">Sub Kegiatan</th>
-                                <th rowspan="2" style="text-align: center;">Target</th>
-                                <th rowspan="2" style="text-align: center;">Pagu</th>
-                                <th colspan="2">Triwulan 1</th>
-                                <th colspan="2">Triwulan 2</th>
-                                <th colspan="2">Triwulan 3</th>
-                                <th colspan="2">Triwulan 4</th>
-                                <th rowspan="2">Keterangan</th>
-                                <th rowspan="2">Edit Triwulan</th>
+                                <th rowspan="3" style="text-align: center;">Program</th>
+                                <th rowspan="3" style="text-align: center;">Sub Kegiatan</th>
+                                <th rowspan="3" style="text-align: center;">Target</th>
+                                <th rowspan="3" style="text-align: center;">Pagu</th>
+                                <th colspan="4">Triwulan 1</th>
+                                <th colspan="4">Triwulan 2</th>
+                                <th colspan="4">Triwulan 3</th>
+                                <th colspan="4">Triwulan 4</th>
+                                <th rowspan="3">Keterangan</th>
+                                <th rowspan="3">Edit Triwulan</th>
+
                             </tr>
                             <tr>
-                                <th>Kinerja</th>
-                                <th>Anggaran</th>
-                                <th>Kinerja</th>
-                                <th>Anggaran</th>
-                                <th>Kinerja</th>
-                                <th>Anggaran</th>
-                                <th>Kinerja</th>
-                                <th>Anggaran</th>
+                                @php
+                                    for ($i=0; $i < 4; $i++):
+                                @endphp
+                                <th colspan="2">Kinerja</th>
+                                <th colspan="2">Anggaran</th>
+                                @php
+                                    endfor;
+                                @endphp
+                            </tr>
                             <tr>
+                                @php
+                                    for ($i=0; $i < 8; $i++):
+                                @endphp
+                                <th>Angka</th>
+                                <th>%</th>
+                                @php
+                                    endfor;
+                                @endphp
+                            </tr>
 
                         </thead>
                         <tbody>
@@ -83,18 +96,33 @@
                                         <td>{{ $realisasi->first()->indkinerja->pagu }}</td>
                                         @foreach ($realisasi as $item)
                                             <td>{{ $item->kinerja }}</td>
+                                            <td>%</td>
                                             <td>{{ $item->realisasi_anggaran }}</td>
+                                            <td>%</td>
                                         @endforeach
+                                        @php
+                                            $count = 4 - $realisasi->count();
+                                            for ($i=0; $i < $count * 2; $i++):
+                                        @endphp
+                                        <td></td>
+                                        <td></td>
+                                        @php
+                                            endfor;
+                                        @endphp
                                         <td>
                                             <button class="btn btn-sm btn-warning modal_keterangan"
                                                 id-kinerja={{ $realisasi->first()->kinerja_id }}>Keterangan</button>
                                         </td>
-                                        {{-- <td>
+                                        <td>
+                                            @if ($pengaturan->count() == 0)
+                                                <p>Harap Isi Pengaturan</p>
+                                            @else
                                             @foreach ($realisasi as $i => $item)
-                                                <button realisasi-id="{{ $item->id }}" {{ $pengaturan[$i]['status'] == 0 ? 'disabled' : '' }} 
-                                                    class="btn btn-sm {{ $pengaturan[$i]['status'] == 0 ? 'btn-secondary' : 'btn-success' }} edit-button">{{ ++$i }}</button>
+                                                <button realisasi-id="{{ $item->id }}" {{ $item->status == 0 ? 'disabled' : '' }}
+                                                    class="btn btn-sm {{  $item->status == 0 ? 'btn-secondary' : 'btn-success' }} edit-button">{{ ++$i }}</button>
                                             @endforeach
-                                        </td> --}}
+                                            @endif
+                                        </td>
                                     </tr>
                                 @endforeach
                             @else
