@@ -83,13 +83,14 @@
                                                 <td>{{ $item->pagu }}</td>
                                                 <td>
                                                     <a href="{{ url('/indikator_kegiatan/' . $item->id . '/edit') }}"
-                                                        class="btn btn-sm btn-warning">edit</a>
+                                                        class="btn btn-sm btn-warning"><i class="fas fa-pen"
+                                                        style="color: white"></i></a>
                                                     <form method="POST"
                                                         action="{{ url('/indikator_kegiatan/' . $item->id) }}">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="btn btn-sm btn-danger"
-                                                            onclick="confirmDelete()">hapus</button>
+                                                            onclick="confirmDelete()"><i class="fas fa-trash"></i></button>
                                                     </form>
                                                 </td>
                                             </tr>

@@ -96,34 +96,21 @@
                                         <td>{{ $realisasi->first()->indkinerja->pagu }}</td>
                                         @foreach ($realisasi as $item)
                                             <td>{{ $item->kinerja }}</td>
-                                            <td>%</td>
                                             <td>{{ $item->realisasi_anggaran }}</td>
-                                            <td>%</td>
                                         @endforeach
-                                        @php
-                                            $count = 4 - $realisasi->count();
-                                            for ($i=0; $i < $count * 2; $i++):
-                                        @endphp
-                                        <td></td>
-                                        <td></td>
-                                        @php
-                                            endfor;
-                                        @endphp
                                         <td>
                                             <button class="btn btn-sm btn-warning modal_keterangan"
                                                 id-kinerja={{ $realisasi->first()->kinerja_id }}>Keterangan</button>
                                         </td>
-                                        <td>
-                                            @if ($pengaturan->count() == 0)
-                                                <p>Harap Isi Pengaturan</p>
-                                            @else
+                                        {{-- <td>
                                             @foreach ($realisasi as $i => $item)
-                                                <button realisasi-id="{{ $item->id }}" {{ $item->status == 0 ? 'disabled' : '' }}
-                                                    class="btn btn-sm {{  $item->status == 0 ? 'btn-secondary' : 'btn-success' }} edit-button">{{ ++$i }}</button>
+                                                <button realisasi-id="{{ $item->id }}" {{ $pengaturan[$i]['status'] == 0 ? 'disabled' : '' }}
+                                                    class="btn btn-sm {{ $pengaturan[$i]['status'] == 0 ? 'btn-secondary' : 'btn-success' }} edit-button">{{ ++$i }}</button>
                                             @endforeach
-                                            @endif
-                                        </td>
+                                        </td> --}}
                                     </tr>
+                                @endforeach
+
                                 @endforeach
                             @else
                                 <tr>
@@ -281,6 +268,7 @@
             })
 
             $('.modal_keterangan').on('click', function() {
+                $('.form-container').empty();
                 $('#modal_keterangan').modal('show')
                 var kinerja_id = $(this).attr('id-kinerja')
 
