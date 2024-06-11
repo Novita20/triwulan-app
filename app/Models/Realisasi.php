@@ -18,6 +18,7 @@ class Realisasi extends Model
 
     protected $fillable = [
         'kinerja_id',
+        'status',
         'kinerja',
         'triwulan',
         'satuan',

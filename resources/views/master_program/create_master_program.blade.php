@@ -7,12 +7,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Indikator Program</h1>
+                        <h1>Tambah Program</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Indikator Program</a></li>
-                            <li class="breadcrumb-item active">Indikator Program</li>
+                            <li class="breadcrumb-item"><a href="#">Master Program</a></li>
+                            <li class="breadcrumb-item active">Master Program</li>
                         </ol>
                     </div>
                 </div>

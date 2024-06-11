@@ -75,27 +75,30 @@
                         <tbody>
                             @if ($data->count() > 0)
                                 @foreach ($data as $realisasi)
-                                    <tr>
-                                        <td>{{ $realisasi->first()->indkinerja->subkegiatan->kegiatan->program->nama_program }}
-                                        </td>
-                                        <td>{{ $realisasi->first()->indkinerja->subkegiatan->nama_subkegiatan }}</td>
-                                        <td>{{ $realisasi->first()->indkinerja->target }}</td>
-                                        <td>{{ $realisasi->first()->indkinerja->pagu }}</td>
-                                        @foreach ($realisasi as $item)
-                                            <td>{{ $item->kinerja }}</td>
-                                            <td>{{ $item->realisasi_anggaran }}</td>
+                                @foreach($realisasi as $r)
+                                <tr>
+                                    <td>{{ $r->indkinerja->subkegiatan->kegiatan->program->nama_program }}
+                                    </td>
+                                    <td>{{ $r->indkinerja->subkegiatan->nama_subkegiatan }}</td>
+                                    <td>{{ $r->indkinerja->target }}</td>
+                                    <td>{{ $r->indkinerja->pagu }}</td>
+                                    @foreach ($realisasi as $item)
+                                        <td>{{ $item->kinerja }}</td>
+                                        <td>{{ $item->realisasi_anggaran }}</td>
+                                    @endforeach
+                                    <td>
+                                        <button class="btn btn-sm btn-warning modal_keterangan"
+                                            id-kinerja={{ $r->kinerja_id }}>Keterangan</button>
+                                    </td>
+                                    <td>
+                                        @foreach ($realisasi as $i => $item)
+                                            <button realisasi-id="{{ $item->id }}" {{ $pengaturan[$i]['status'] == 0 ? 'disabled' : '' }} 
+                                                class="btn btn-sm {{ $pengaturan[$i]['status'] == 0 ? 'btn-secondary' : 'btn-success' }} edit-button">{{ ++$i }}</button>
                                         @endforeach
-                                        <td>
-                                            <button class="btn btn-sm btn-warning modal_keterangan"
-                                                id-kinerja={{ $realisasi->first()->kinerja_id }}>Keterangan</button>
-                                        </td>
-                                        {{-- <td>
-                                            @foreach ($realisasi as $i => $item)
-                                                <button realisasi-id="{{ $item->id }}" {{ $pengaturan[$i]['status'] == 0 ? 'disabled' : '' }} 
-                                                    class="btn btn-sm {{ $pengaturan[$i]['status'] == 0 ? 'btn-secondary' : 'btn-success' }} edit-button">{{ ++$i }}</button>
-                                            @endforeach
-                                        </td> --}}
-                                    </tr>
+                                    </td>
+                                </tr>
+                                @endforeach
+                                    
                                 @endforeach
                             @else
                                 <tr>
@@ -253,6 +256,7 @@
             })
 
             $('.modal_keterangan').on('click', function() {
+                $('.form-container').empty();
                 $('#modal_keterangan').modal('show')
                 var kinerja_id = $(this).attr('id-kinerja')
 
