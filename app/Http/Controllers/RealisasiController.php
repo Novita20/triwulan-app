@@ -80,7 +80,7 @@ class RealisasiController extends Controller
      */
     public function index()
     {
-        $pengaturan = (Pengaturan::orderBy('triwulan', 'asc')->get())->toArray();
+        $pengaturan = Pengaturan::orderBy('triwulan', 'asc')->get();
         $data = Realisasi::with('indkinerja')->get()->groupBy('kinerja_id');
         return view('realisasi.realisasi_anggaran', [
             'data' => $data,
