@@ -16,9 +16,7 @@ return new class extends Migration
             $table->foreignId("sub_iku_id")->constrained("sub_iku")->cascadeOnDelete();
             $table->string("sasaran_pd", 255);
             $table->string("indikator_tujuan", 255);
-            $table->string("formula", 100);
-            $table->double("angka_kinerja");
-            $table->string("satuan", 10);
+            $table->string("formula", 150);
             $table->timestamps();
         });
     }

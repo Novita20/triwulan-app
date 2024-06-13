@@ -18,12 +18,12 @@ class RealisasiController extends Controller
         $data = Realisasi::with('indkinerja.subkegiatan.kegiatan.program')->get()->groupBy('kinerja_id');
 
         // Debug data
-        if ($data->isEmpty()) {
-            // Tambahkan logging atau debugging untuk memastikan data tidak kosong
-            dd('Data is empty');
-        } else {
-            dd($data); // Lihat data yang diambil
-        }
+        // if ($data->isEmpty()) {
+        //     // Tambahkan logging atau debugging untuk memastikan data tidak kosong
+        //     dd('Data is empty');
+        // } else {
+        //     dd($data); // Lihat data yang diambil
+        // }
 
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();

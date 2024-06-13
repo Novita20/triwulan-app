@@ -42,7 +42,7 @@
                         <div class="col-auto">
                             <form action="/realisasi" method="GET">
                                 <input type="realisasi" id="realisasi" name="realisasi" class="form-control"
-                                    placeholder="Cari...">
+                                       placeholder="Cari...">
                             </form>
                         </div>
                     </div>
@@ -52,54 +52,55 @@
                     </a>
                     <table class="table table-bordered table-striped">
                         <thead>
-                            {{-- @dd($data) --}}
-                            <tr>
-                                <th colspan="14" style="text-align: center;">SUB IKU</th>
-                            </tr>
-                            <tr>
-                                <th rowspan="2" style="align-content: center">No</th>
-                                <th rowspan="2" style="align-content: center;">MISI RPJMD</th>
-                                <th rowspan="2" style="align-content: center;">TUJUAN RPJMD</th>
-                                <th rowspan="2" style="align-content: center;">SASARAN RPJMD</th>
-                                <th rowspan="2" style="align-content: center;">TUJUAN PD</th>
-                                <th rowspan="2" style="align-content: center;">SASARAN PD</th>
-                                <th rowspan="2" style="align-content: center;">INDIKATOR TUJUAN / SASARAN DP</th>
-                                <th rowspan="2" style="align-content: center;">FORMULA / RUMUS</th>
-                                <th rowspan="2" style="align-content: center;">Kondisi Awal Kinerja Tahun 2021</th>
-                                <th colspan="5" style="align-content: center;">Target Kinerja Sasaran Pada Tahun</th>
-                            </tr>
-                            <tr>
-                                @foreach ($tahun as $item)
-                                    <th>{{ $item->tahun }}</th>
-                                @endforeach
-                            <tr>
-
+                        {{-- @dd($data) --}}
+                        <tr>
+                            <th colspan="14" style="text-align: center;">SUB IKU</th>
+                        </tr>
+                        <tr>
+                            <th rowspan="2" style="align-content: center">No</th>
+                            <th rowspan="2" style="align-content: center;">MISI RPJMD</th>
+                            <th rowspan="2" style="align-content: center;">TUJUAN RPJMD</th>
+                            <th rowspan="2" style="align-content: center;">SASARAN RPJMD</th>
+                            <th rowspan="2" style="align-content: center;">TUJUAN PD</th>
+                            <th rowspan="2" style="align-content: center;">SASARAN PD</th>
+                            <th rowspan="2" style="align-content: center;">INDIKATOR TUJUAN / SASARAN DP</th>
+                            <th rowspan="2" style="align-content: center;">FORMULA / RUMUS</th>
+                            <th rowspan="2" style="align-content: center;">Kondisi Awal Kinerja Tahun 2021</th>
+                            <th colspan="5" style="align-content: center;">Target Kinerja Sasaran Pada Tahun</th>
+                        </tr>
+                        <tr>
+                            @foreach (range(date('Y'), date('Y') + 4) as $year)
+                                <th>{{ $year }}</th>
+                        @endforeach
+                        <tr>
                         </thead>
                         <tbody>
-                            @foreach ($data as $i => $item)
-                                <tr>
-                                    <td>{{ $i }}</td>
-                                    <td>{{ $item->misi_rpjmd }}</td>
-                                    <td>{{ $item->tujuan_rpjmd }}</td>
-                                    <td>{{ $item->sasaran_rpjmd }}</td>
-                                    <td>{{ $item->tujuan_pd }}</td>
-                                    @foreach ($item->sub_iku_sasaran as $item_sasaran)
-                                        <td>{{ $item_sasaran->sasaran_pd }}</td>
-                                        <td>{{ $item_sasaran->indikator_tujuan }}</td>
-                                        <td>{{ $item_sasaran->formula }}</td>
-                                        <td>{{ $item_sasaran->angka_kinerja }} {{ $item_sasaran->satuan }}</td>
-                                        @foreach ($tahun as $tahuns)
-                                            @php
-                                                $found = false;
-                                            @endphp
+                        @foreach ($data as $i => $item)
+                            <tr>
+                                <td>{{ $i+1 }}</td>
+                                <td>{{ $item->misi_rpjmd }}</td>
+                                <td>{{ $item->tujuan_rpjmd }}</td>
+                                <td>{{ $item->sasaran_rpjmd }}</td>
+                                <td>{{ $item->tujuan_pd }}</td>
+                                @foreach ($item->sub_iku_sasaran as $item_sasaran)
+                                    <td>{{ $item_sasaran->sasaran_pd }}</td>
+                                    <td>{{ $item_sasaran->indikator_tujuan }}</td>
+                                    <td>
+                                        <img src="{{ asset('storage/').'/'.$item_sasaran->formula }}">
+                                    </td>
+                                    <td>{{ $item->kondisi_awal  }}</td>
+                                    @php
+                                        $found = false;
+                                    @endphp
 
-                                            @foreach ($item_sasaran->sub_iku_kinerja as $item_kinerja)
-                                                @if ($tahuns->id == $item_kinerja->sub_iku_tahun_id)
-                                                    <td>{{ $item_kinerja->angka_kinerja }} {{ $item_kinerja->satuan }}
-                                                    </td>
-                                                    @php
-                                                        $found = true;
-                                                    @endphp
+                                    @foreach ($item_sasaran->sub_iku_kinerja as $item_kinerja)
+                                        @foreach (range(date('Y'), date('Y') + 4) as $year)
+                                            @if ($year == $item_kinerja->tahun)
+                                                <td>{{ $item_kinerja->angka_kinerja }} {{ $item_kinerja->satuan }}
+                                                </td>
+                                                @php
+                                                    $found = true;
+                                                @endphp
                                                 @break
                                             @endif
                                         @endforeach
@@ -111,29 +112,30 @@
                                 @endforeach
                             </tr>
                         @endforeach
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </div>
-    </section>
-</div>
+        </section>
+    </div>
 @endsection
 
 
 @push('custom_css')
-<style>
-    th {}
+    <style>
+        th {
+        }
 
-    .card {
-        overflow: auto;
-    }
+        .card {
+            overflow: auto;
+        }
 
-    .table {
-        overflow: auto;
-    }
+        .table {
+            overflow: auto;
+        }
 
-    th {
-        text-align: center;
-    }
-</style>
+        th {
+            text-align: center;
+        }
+    </style>
 @endpush

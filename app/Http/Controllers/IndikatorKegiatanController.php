@@ -67,9 +67,9 @@ class IndikatorKegiatanController extends Controller
         $insert->target = $request->target;
         $insert->satuan = $request->satuan;
         $insert->pagu = $request->pagu;
-        $insert->save();
+        $r = $insert->save();
 
-        if ($insert) {
+        if ($r) {
             return redirect('indikator_kegiatan')
                 ->with('success', 'Data Indikator Kegiatan berhasil disimpan');
         } else {

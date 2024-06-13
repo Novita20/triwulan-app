@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string("tujuan_rpjmd", 255);
             $table->string("sasaran_rpjmd", 255);
             $table->string("tujuan_pd", 255);
+            $table->string("kondisi_awal",100);
             $table->timestamps();
         });
     }

@@ -96,9 +96,9 @@
                                         <td>{{ $realisasi->first()->indkinerja->pagu }}</td>
                                         @foreach ($realisasi as $item)
                                             <td>{{ $item->kinerja }}</td>
-                                            <td>%</td>
+                                            <td>{{ $item->kinerja == 0?0:$item->kinerja/$item->indkinerja->target*100 }}%</td>
                                             <td>{{ $item->realisasi_anggaran }}</td>
-                                            <td>%</td>
+                                            <td>{{ $item->realisasi_anggaran == 0?0:$item->realisasi_anggaran/$item->indkinerja->pagu*100 }}%</td>
                                         @endforeach
                                         @php
                                             $count = 4 - $realisasi->count();
@@ -117,7 +117,7 @@
                                             @if ($pengaturan->count() == 0)
                                                 <p>Harap Isi Pengaturan</p>
                                             @else
-                                            @foreach ($realisasi as $i => $item)
+                                            @foreach ($pengaturan as $i => $item)
                                                 <button realisasi-id="{{ $item->id }}" {{ $item->status == 0 ? 'disabled' : '' }}
                                                     class="btn btn-sm {{  $item->status == 0 ? 'btn-secondary' : 'btn-success' }} edit-button">{{ ++$i }}</button>
                                             @endforeach
@@ -292,6 +292,7 @@
                         'kinerja_id': kinerja_id,
                     },
                     success: function(data) {
+                        $('.form-container').html("")
                         $.each(data, function(index, realisasi) {
                             var form = $('<div class="col-6">')
                             form.append('<form>');

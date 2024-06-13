@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('sub_iku_kinerja', function (Blueprint $table) {
             $table->id();
             $table->foreignId("sub_iku_sasaran_id")->constrained("sub_iku_sasaran")->cascadeOnDelete();
-            $table->foreignId("sub_iku_tahun_id")->constrained("sub_iku_tahun")->cascadeOnDelete();
+            $table->foreignId("tahun");
             $table->double("angka_kinerja");
             $table->string("satuan", 10);
             $table->timestamps();

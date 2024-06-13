@@ -54,11 +54,13 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/pengaturan', PengaturanController::class);
 
     // Route Realisasi
+    // realisasi/{id}
+    Route::get('realisasi/download', [RealisasiController::class, 'downloadExcel'])->name('realisasi.download');
     Route::resource('realisasi', RealisasiController::class)->except('update');
     Route::put('realisasi/update', [RealisasiController::class, 'update'])->name('realisasi.update');
     Route::get('get_realisasi', [RealisasiController::class, 'getRealisasi'])->name('getrealisasi');
     Route::get('get_realisasi/{id}', [RealisasiController::class, 'getRealisasiById'])->name('getrealisasibyID');
-    Route::get('/realisasi/download', [RealisasiController::class, 'downloadExcel'])->name('realisasi.download');
+
 
     // Route Triwulan
     Route::resource('triwulan', TriwulanController::class);

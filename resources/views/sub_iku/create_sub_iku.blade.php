@@ -16,7 +16,7 @@
                 </div>
 
                 <div class="card-body">
-                    <form action="{{ $url_form }}" method="POST">
+                    <form action="{{ $url_form }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         {!! isset($indikator_program) ? method_field('PUT') : '' !!}
 
@@ -32,39 +32,39 @@
 
                         <div class="form-group">
                             <label>Tujuan RPJMD</label>
-                            <input class="form-control @error('tujuanrp') is-invalid @enderror"
-                                value="{{ isset($indikator_program) ? $indikator_program->tujuanrp : old('tujuan') }}"
-                                name="tujuan" type="text" />
-                            @error('tujuanrp')
+                            <input class="form-control @error('tujuan_rp') is-invalid @enderror"
+                                value="{{ isset($indikator_program) ? $indikator_program->tujuanrp : old('tujuan_rp') }}"
+                                name="tujuan_rp" type="text" />
+                            @error('tujuan_rp')
                                 <span class="error invalid-feedback">{{ $message }}</span>
                             @enderror
                         </div>
 
                         <div class="form-group">
                             <label>Sasaran RPJMD</label>
-                            <input class="form-control @error('sasaranrp') is-invalid @enderror"
-                                value="{{ isset($indikator_program) ? $indikator_program->sasaranrp : old('tujuan') }}"
-                                name="tujuan" type="text" />
-                            @error('sasaranrp')
+                            <input class="form-control @error('sasaran') is-invalid @enderror"
+                                value="{{ isset($indikator_program) ? $indikator_program->sasaranrp : old('sasaran') }}"
+                                name="sasaran" type="text" />
+                            @error('sasaran')
                                 <span class="error invalid-feedback">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label>Tujuan PD</label>
-                            <input class="form-control @error('tujuanpd') is-invalid @enderror"
-                                value="{{ isset($indikator_program) ? $indikator_program->tujuanpd : old('tujuan') }}"
-                                name="tujuan" type="text" />
-                            @error('tujuanpd')
+                            <input class="form-control @error('tujuan_pd') is-invalid @enderror"
+                                value="{{ isset($indikator_program) ? $indikator_program->tujuanpd : old('tujuan_pd') }}"
+                                name="tujuan_pd" type="text" />
+                            @error('tujuan_pd')
                                 <span class="error invalid-feedback">{{ $message }}</span>
                             @enderror
                         </div>
 
                         <div class="form-group">
                             <label>Sasaran PD</label>
-                            <input class="form-control @error('sasaranpd') is-invalid @enderror"
-                                value="{{ isset($indikator_program) ? $indikator_program->sasaranpd : old('tujuan') }}"
-                                name="tujuan" type="text" />
-                            @error('sasaranpd')
+                            <input class="form-control @error('sasaran_pd') is-invalid @enderror"
+                                value="{{ isset($indikator_program) ? $indikator_program->sasaranpd : old('sasaran_pd') }}"
+                                name="sasaran_pd" type="text" />
+                            @error('sasaran_pd')
                                 <span class="error invalid-feedback">{{ $message }}</span>
                             @enderror
                         </div>
@@ -72,8 +72,8 @@
                         <div class="form-group">
                             <label>Indikator Tujuan / Sasaran PD</label>
                             <input class="form-control @error('indikator') is-invalid @enderror"
-                                value="{{ isset($indikator_program) ? $indikator_program->indikator : old('tujuan') }}"
-                                name="tujuan" type="text" />
+                                value="{{ isset($indikator_program) ? $indikator_program->indikator : old('indikator') }}"
+                                name="indikator" type="text" />
                             @error('indikator')
                                 <span class="error invalid-feedback">{{ $message }}</span>
                             @enderror
@@ -91,8 +91,8 @@
                         <div class="form-group">
                             <label>Kondisi Awal Kinerja Tahun 2021</label>
                             <input class="form-control @error('kondisi') is-invalid @enderror"
-                                value="{{ isset($indikator_program) ? $indikator_program->kondisi : old('tujuan') }}"
-                                name="tujuan" type="text" />
+                                value="{{ isset($indikator_program) ? $indikator_program->kondisi : old('kondisi') }}"
+                                name="kondisi" type="text" />
                             @error('kondisi')
                                 <span class="error invalid-feedback">{{ $message }}</span>
                             @enderror
@@ -127,7 +127,7 @@
                                             <td>
                                                 <input
                                                     class="form-control @error('target_number_{{ $i }}') is-invalid @enderror"
-                                                    name="target_number_{{ $i }}" type="number" />
+                                                    name="target_number_{{ $i }}" type="number" value="{{ old('target_number_'.$i) }}" />
                                                 @error('target_number_{{ $i }}')
                                                     <span class="error invalid-feedback">{{ $message }}</span>
                                                 @enderror
@@ -135,7 +135,7 @@
                                             <td>
                                                 <input
                                                     class="form-control @error('deskripsi_{{ $i }}') is-invalid @enderror"
-                                                    name="deskripsi_{{ $i }}" type="text" />
+                                                    name="deskripsi_{{ $i }}" type="text" value="{{ old('deskripsi_'.$i) }}"  />
                                                 @error('deskripsi_{{ $i }}')
                                                     <span class="error invalid-feedback">{{ $message }}</span>
                                                 @enderror

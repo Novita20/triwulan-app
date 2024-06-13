@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\SubIku;
 use App\Models\SubIkuKinerja;
 use App\Models\SubIkuSasaran;
-use App\Models\SubIkuTahun;
 use Illuminate\Http\Request;
+use Mockery\Exception;
 
 class SubIkuController extends Controller
 {
@@ -15,9 +15,8 @@ class SubIkuController extends Controller
      */
     public function index()
     {
-        $tahun = SubIkuTahun::all();
         $data = SubIku::all();
-        return view('sub_iku.sub_iku_index')->with('data', $data)->with('tahun', $tahun);
+        return view('sub_iku.sub_iku_index')->with('data', $data);
     }
 
     /**
@@ -26,7 +25,7 @@ class SubIkuController extends Controller
     public function create()
     {
         return view('sub_iku/create_sub_iku')
-            ->with('url_form', url('indikator_program'));
+            ->with('url_form', url('sub_iku'));
     }
 
     /**
@@ -34,13 +33,71 @@ class SubIkuController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $data = $request->validate([
             'misi' => 'required',
-            'tujuan' => 'required',
+            "sasaran" => "required",
+            'tujuan_pd' => 'required',
+            'sasaran_pd' => 'required',
+            'tujuan_rp' => 'required',
+            'indikator' => 'required',
             'formula' => 'required|image',
-            'target_number_' => 'required',
-            'deskripsi_' => 'required',
+            'kondisi' => 'required',
+            "tahun_1" => "required",
+            "tahun_2" => "required",
+            "tahun_3" => "required",
+            "tahun_4" => "required",
+            "tahun_5" => "required",
+            "target_number_1" => "required",
+            "target_number_2" => "required",
+            "target_number_3" => "required",
+            "target_number_4" => "required",
+            "target_number_5" => "required",
+            "deskripsi_1" => "required",
+            "deskripsi_2" => "required",
+            "deskripsi_3" => "required",
+            "deskripsi_4" => "required",
+            "deskripsi_5" => "required",
         ]);
+
+        try {
+            \DB::beginTransaction();
+            $iku = new SubIku();
+            $iku->misi_rpjmd = $data['misi'];
+            $iku->tujuan_rpjmd = $data['tujuan_rp'];
+            $iku->sasaran_rpjmd  = $data['sasaran_pd'];
+            $iku->tujuan_pd = $data['tujuan_pd'];
+            $iku->kondisi_awal = $data['kondisi'];
+            $iku->save();
+
+            $file = $request->file('formula');
+            $fileName = time().'_'.$file->getClientOriginalName();
+            $file->storeAs('sub_iku', $fileName);
+
+            $ikuSasaran = new SubIkuSasaran();
+            $ikuSasaran->sasaran_pd = $data['sasaran_pd'];
+            $ikuSasaran->indikator_tujuan = $data['indikator'];
+            $ikuSasaran->sub_iku_id = $iku->id;
+            $ikuSasaran->formula ="sub_iku/". $fileName;
+            $ikuSasaran->save();
+
+            for ($i = 1; $i <= 5; $i++) {
+                $kinerja = new SubIkuKinerja();
+                $kinerja->sub_iku_sasaran_id = $ikuSasaran->id;
+                $kinerja->tahun = $data['tahun_'.$i];
+                $kinerja->angka_kinerja = $data['target_number_'.$i];
+                $kinerja->satuan = $data['deskripsi_'.$i];
+                $kinerja->save();
+            }
+
+            \DB::commit();
+
+            return redirect('sub_iku')
+                    ->with('success', 'Data Indikator Kegiatan berhasil disimpan');
+        }catch (Exception $e){
+            \DB::rollBack();
+            dd($e->getMessage());
+            return back()->with('error', 'Data Gagal Disimpan');
+        }
     }
 
     /**
