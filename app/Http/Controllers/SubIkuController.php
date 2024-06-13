@@ -6,6 +6,8 @@ use App\Models\SubIku;
 use App\Models\SubIkuKinerja;
 use App\Models\SubIkuSasaran;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Mockery\Exception;
 
 class SubIkuController extends Controller
@@ -69,15 +71,23 @@ class SubIkuController extends Controller
             $iku->kondisi_awal = $data['kondisi'];
             $iku->save();
 
-            $file = $request->file('formula');
-            $fileName = time().'_'.$file->getClientOriginalName();
-            $file->storeAs('sub_iku', $fileName);
+            if (!Storage::exists('sub_iku')) {
+                Storage::makeDirectory('sub_iku');
+            }
 
             $ikuSasaran = new SubIkuSasaran();
             $ikuSasaran->sasaran_pd = $data['sasaran_pd'];
             $ikuSasaran->indikator_tujuan = $data['indikator'];
             $ikuSasaran->sub_iku_id = $iku->id;
-            $ikuSasaran->formula ="sub_iku/". $fileName;
+            if ($request->file('formula')->isValid()) {
+                $file = $request->file('formula');
+                $extension = $file->getClientOriginalExtension();
+                $newName = Str::uuid() . '.' . $extension; // Gunakan UUID untuk nama file yang unik
+
+                // Simpan file dengan nama baru
+                $path = $file->storeAs('sub_iku', $newName);
+                $ikuSasaran->formula ="sub_iku/". $newName;
+            }
             $ikuSasaran->save();
 
             for ($i = 1; $i <= 5; $i++) {

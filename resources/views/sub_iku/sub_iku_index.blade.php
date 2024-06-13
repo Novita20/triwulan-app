@@ -86,7 +86,7 @@
                                     <td>{{ $item_sasaran->sasaran_pd }}</td>
                                     <td>{{ $item_sasaran->indikator_tujuan }}</td>
                                     <td>
-                                        <img src="{{ asset('storage/').'/'.$item_sasaran->formula }}">
+                                        <img class="img-size-50" src="{{ asset('storage').'/'.$item_sasaran->formula }}">
                                     </td>
                                     <td>{{ $item->kondisi_awal  }}</td>
                                     @php

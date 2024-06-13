@@ -77,8 +77,8 @@
                                         @foreach ($master_kegiatan as $index => $item)
                                             <tr>
                                                 <td>{{ $index + 1 }}</td>
-                                                <td>{{ $item->program->no_rekening }}</td>
-                                                <td>{{ $item->program->nama_program }}</td>
+                                                <td>{{ $item->program?->no_rekening }}</td>
+                                                <td>{{ $item->program?->nama_program }}</td>
                                                 <td>{{ $item->no_rekening }}</td>
                                                 <td>{{ $item->nama_kegiatan }}</td>
                                                 <td>
