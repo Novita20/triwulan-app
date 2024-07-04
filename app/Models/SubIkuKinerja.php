@@ -22,4 +22,9 @@ class SubIkuKinerja extends Model
     {
         return $this->belongsTo(SubIkuTahun::class);
     }
+
+    public function subIku(): BelongsTo
+    {
+        return $this->belongsTo(SubIku::class, 'sub_iku_id');
+    }
 }

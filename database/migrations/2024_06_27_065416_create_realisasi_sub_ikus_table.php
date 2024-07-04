@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\SubIkuKinerja;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,13 +12,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sub_iku_kinerja', function (Blueprint $table) {
+        Schema::create('realisasi_sub_ikus', function (Blueprint $table) {
             $table->id();
             $table->foreignId("sub_iku_id")->constrained("sub_iku")->cascadeOnDelete();
-            $table->foreignId("sub_iku_sasaran_id")->constrained("sub_iku_sasaran")->cascadeOnDelete();
-            $table->foreignId("tahun");
-            $table->double("angka_kinerja");
-            $table->string("satuan", 10);
+            $table->foreignId("sub_iku_kinerja_id")->constrained("sub_iku_kinerja")->cascadeOnDelete();
+            $table->integer('kinerja')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sub_iku_kinerja');
+        Schema::dropIfExists('realisasi_sub_ikus');
     }
 };

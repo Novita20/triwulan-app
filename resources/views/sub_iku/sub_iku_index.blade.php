@@ -82,11 +82,11 @@
                                 <td>{{ $item->tujuan_rpjmd }}</td>
                                 <td>{{ $item->sasaran_rpjmd }}</td>
                                 <td>{{ $item->tujuan_pd }}</td>
-                                @foreach ($item->sub_iku_sasaran as $item_sasaran)
+                                @foreach ($item->subIkuSasaran as $item_sasaran)
                                     <td>{{ $item_sasaran->sasaran_pd }}</td>
                                     <td>{{ $item_sasaran->indikator_tujuan }}</td>
                                     <td>
-                                        <img class="img-size-50" src="{{ asset('storage').'/'.$item_sasaran->formula }}">
+                                        <img class="img-size-50" src="{{ asset('storage').'/'.$item_sasaran->formula }}" alt="{{ $item_sasaran->formula }}">
                                     </td>
                                     <td>{{ $item->kondisi_awal  }}</td>
 
@@ -106,6 +106,8 @@
 
                                         @if (!$found)
                                             <td></td>
+                                        @else
+                                            @break
                                         @endif
                                     @endforeach
                                 @endforeach

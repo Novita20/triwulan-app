@@ -37,7 +37,7 @@
                     <div class="row g-3 align-items-center">
                         <div class="col-auto">
                             <form action="/realisasi" method="GET">
-                                <input type="realisasi" id="realisasi" name="realisasi" class="form-control"
+                                <input type="text" id="realisasi" name="realisasi" class="form-control"
                                     placeholder="Cari...">
                             </form>
                         </div>

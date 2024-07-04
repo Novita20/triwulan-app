@@ -149,7 +149,7 @@
                     </ul>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ url('/realisasi') }}"
+                            <a href="{{ route('sub_iku.realisasi') }}"
                                 class="nav-link {{ request()->is('/') ? 'active' : '' }}" class="nav-link">
                                 <i class="fas fa-file nav-icon"></i>
                                 <p>Realisasi IKU B</p>
