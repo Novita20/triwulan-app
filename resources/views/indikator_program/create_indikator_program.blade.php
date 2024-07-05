@@ -66,7 +66,7 @@
                             <label>Pagu (Rp)</label>
                             <input class="form-control @error('pagu') is-invalid @enderror"
                                 value="{{ isset($indikator_program) ? $indikator_program->pagu : old('pagu') }}"
-                                name="pagu" type="text" />
+                                name="pagu" type="number" />
                             @error('pagu')
                                 <span class="error invalid-feedback">{{ $message }}</span>
                             @enderror

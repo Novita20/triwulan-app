@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId("sub_iku_id")->constrained("sub_iku")->cascadeOnDelete();
             $table->foreignId("sub_iku_sasaran_id")->constrained("sub_iku_sasaran")->cascadeOnDelete();
-            $table->foreignId("tahun");
+            $table->string("tahun", 4);
             $table->double("angka_kinerja");
             $table->string("satuan", 10);
             $table->timestamps();

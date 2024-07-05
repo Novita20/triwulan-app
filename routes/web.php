@@ -68,10 +68,13 @@ Route::middleware(['auth'])->group(function () {
 
     // Realisasi Sub IKU
     Route::get('sub_iku/realisasi', [RealisasiSubIkuController::class, 'index'])->name("sub_iku.realisasi");
+    Route::get('sub_iku/realisasi/download', [RealisasiSubIkuController::class, 'download'])->name("sub_iku.realisasi.download");
+    Route::get('sub_iku/realisasi/{id}/kinerja', [RealisasiSubIkuController::class, 'get'])->name("sub_iku.realisasi.kinerja");
+    Route::get('sub_iku/realisasi/{id}/edit', [RealisasiSubIkuController::class, 'edit'])->name("sub_iku.realisasi.edit");
+    Route::put('sub_iku/realisasi/update', [RealisasiSubIkuController::class, 'update'])->name("sub_iku.realisasi.update");
 
     // Sub IKU
     Route::resource('sub_iku', SubIkuController::class);
-
 });
 
 Route::get('logout', [LoginController::class, 'logout']);
