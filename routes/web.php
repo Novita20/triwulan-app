@@ -9,6 +9,7 @@ use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\PengaturanController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\RealisasiController;
+use App\Http\Controllers\RealisasiSubIkuController;
 use App\Http\Controllers\SubIkuController;
 use App\Http\Controllers\SubKegiatanController;
 use App\Http\Controllers\TriwulanController;
@@ -64,6 +65,13 @@ Route::middleware(['auth'])->group(function () {
 
     // Route Triwulan
     Route::resource('triwulan', TriwulanController::class);
+
+    // Realisasi Sub IKU
+    Route::get('sub_iku/realisasi', [RealisasiSubIkuController::class, 'index'])->name("sub_iku.realisasi");
+    Route::get('sub_iku/realisasi/download', [RealisasiSubIkuController::class, 'download'])->name("sub_iku.realisasi.download");
+    Route::get('sub_iku/realisasi/{id}/kinerja', [RealisasiSubIkuController::class, 'get'])->name("sub_iku.realisasi.kinerja");
+    Route::get('sub_iku/realisasi/{id}/edit', [RealisasiSubIkuController::class, 'edit'])->name("sub_iku.realisasi.edit");
+    Route::put('sub_iku/realisasi/update', [RealisasiSubIkuController::class, 'update'])->name("sub_iku.realisasi.update");
 
     // Sub IKU
     Route::resource('sub_iku', SubIkuController::class);

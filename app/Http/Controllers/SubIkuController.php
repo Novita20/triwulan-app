@@ -92,6 +92,7 @@ class SubIkuController extends Controller
 
             for ($i = 1; $i <= 5; $i++) {
                 $kinerja = new SubIkuKinerja();
+                $kinerja->sub_iku_id = $iku->id;
                 $kinerja->sub_iku_sasaran_id = $ikuSasaran->id;
                 $kinerja->tahun = $data['tahun_'.$i];
                 $kinerja->angka_kinerja = $data['target_number_'.$i];
@@ -105,8 +106,7 @@ class SubIkuController extends Controller
                     ->with('success', 'Data Indikator Kegiatan berhasil disimpan');
         }catch (Exception $e){
             \DB::rollBack();
-            dd($e->getMessage());
-            return back()->with('error', 'Data Gagal Disimpan');
+            return back()->with('error', $e->getMessage());
         }
     }
 

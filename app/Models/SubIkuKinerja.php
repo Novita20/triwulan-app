@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class SubIkuKinerja extends Model
 {
@@ -13,13 +14,13 @@ class SubIkuKinerja extends Model
     protected $table = "sub_iku_kinerja";
     protected $guarded = ["id"];
 
-    public function sub_iku_sasaran(): BelongsTo
+    public function subIku(): BelongsTo
     {
-        return $this->belongsTo(SubIkuSasaran::class);
+        return $this->belongsTo(SubIku::class, 'sub_iku_id');
     }
 
-    public function sub_iku_tahun(): BelongsTo
+    public function realisasiSubIku(): HasOne
     {
-        return $this->belongsTo(SubIkuTahun::class);
+        return $this->hasOne(RealisasiSubIku::class, 'sub_iku_kinerja_id');
     }
 }

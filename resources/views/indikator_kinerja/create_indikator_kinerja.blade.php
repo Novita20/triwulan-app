@@ -65,7 +65,7 @@
                             <label>Pagu (Rp)</label>
                             <input class="form-control @error('pagu') is-invalid @enderror"
                                 value="{{ isset($indikator_kinerja) ? $indikator_kinerja->pagu : old('pagu') }}"
-                                name="pagu" type="text" />
+                                name="pagu" type="number" />
                             @error('pagu')
                                 <span class="error invalid-feedback">{{ $message }}</span>
                             @enderror

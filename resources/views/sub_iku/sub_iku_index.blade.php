@@ -41,7 +41,7 @@
                     <div class="row g-3 align-items-center">
                         <div class="col-auto">
                             <form action="/realisasi" method="GET">
-                                <input type="realisasi" id="realisasi" name="realisasi" class="form-control"
+                                <input type="text" id="realisasi" name="realisasi" class="form-control"
                                        placeholder="Cari...">
                             </form>
                         </div>
@@ -82,31 +82,32 @@
                                 <td>{{ $item->tujuan_rpjmd }}</td>
                                 <td>{{ $item->sasaran_rpjmd }}</td>
                                 <td>{{ $item->tujuan_pd }}</td>
-                                @foreach ($item->sub_iku_sasaran as $item_sasaran)
+                                @foreach ($item->subIkuSasaran as $item_sasaran)
                                     <td>{{ $item_sasaran->sasaran_pd }}</td>
                                     <td>{{ $item_sasaran->indikator_tujuan }}</td>
                                     <td>
-                                        <img class="img-size-50" src="{{ asset('storage').'/'.$item_sasaran->formula }}">
+                                        <img class="img-size-50" src="{{ asset('storage').'/'.$item_sasaran->formula }}" alt="{{ $item_sasaran->formula }}">
                                     </td>
                                     <td>{{ $item->kondisi_awal  }}</td>
-                                    @php
-                                        $found = false;
-                                    @endphp
 
-                                    @foreach ($item_sasaran->sub_iku_kinerja as $item_kinerja)
-                                        @foreach (range(date('Y'), date('Y') + 4) as $year)
+                                    @foreach (range(date('Y'), date('Y') + 4) as $year)
+                                        @php
+                                            $found = false;
+                                        @endphp
+                                        @foreach ($item_sasaran->sub_iku_kinerja as $item_kinerja)
                                             @if ($year == $item_kinerja->tahun)
                                                 <td>{{ $item_kinerja->angka_kinerja }} {{ $item_kinerja->satuan }}
                                                 </td>
                                                 @php
                                                     $found = true;
                                                 @endphp
-                                                @break
                                             @endif
                                         @endforeach
 
                                         @if (!$found)
                                             <td></td>
+                                        @else
+                                            @break
                                         @endif
                                     @endforeach
                                 @endforeach
