@@ -48,24 +48,26 @@
                     <table class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th colspan="22" style="text-align: center;">Realisasi</th>
+                                <th colspan="27" style="text-align: center;">Realisasi</th>
                             </tr>
                             <tr>
                                 <th rowspan="3" style="text-align: center;">Program</th>
                                 <th rowspan="3" style="text-align: center;">Sub Kegiatan</th>
                                 <th rowspan="3" style="text-align: center;">Target</th>
+                                <th rowspan="3" style="text-align: center;">Satuan</th>
                                 <th rowspan="3" style="text-align: center;">Pagu</th>
                                 <th colspan="4">Triwulan 1</th>
                                 <th colspan="4">Triwulan 2</th>
                                 <th colspan="4">Triwulan 3</th>
                                 <th colspan="4">Triwulan 4</th>
+                                <th colspan="4" >Total</th>
                                 <th rowspan="3">Keterangan</th>
                                 <th rowspan="3">Edit Triwulan</th>
 
                             </tr>
                             <tr>
                                 @php
-                                    for ($i=0; $i < 4; $i++):
+                                    for ($i=0; $i < 5; $i++):
                                 @endphp
                                 <th colspan="2">Kinerja</th>
                                 <th colspan="2">Anggaran</th>
@@ -75,7 +77,7 @@
                             </tr>
                             <tr>
                                 @php
-                                    for ($i=0; $i < 8; $i++):
+                                    for ($i=0; $i < 10; $i++):
                                 @endphp
                                 <th>Angka</th>
                                 <th>%</th>
@@ -93,13 +95,26 @@
                                         </td>
                                         <td>{{ $realisasi->first()->indkinerja->subkegiatan->nama_subkegiatan }}</td>
                                         <td>{{ $realisasi->first()->indkinerja->target }}</td>
+                                        <td>{{ $realisasi->first()->indkinerja->satuan }}</td>
                                         <td>{{ $realisasi->first()->indkinerja->pagu }}</td>
+                                        @php
+                                            $totKinerja = 0;
+                                            $totAnggaran = 0;
+                                        @endphp
                                         @foreach ($realisasi as $item)
                                             <td>{{ $item->kinerja }}</td>
                                             <td>{{ $item->kinerja == 0?0:$item->kinerja/$item->indkinerja->target*100 }}%</td>
-                                            <td>{{ $item->realisasi_anggaran }}</td>
+                                            <td>{{ "Rp " . number_format($item->realisasi_anggaran, 0, ',', '.') }}</td>
                                             <td>{{ $item->realisasi_anggaran == 0?0:$item->realisasi_anggaran/$item->indkinerja->pagu*100 }}%</td>
+                                            @php
+                                                $totKinerja += $item->kinerja;
+                                                $totAnggaran += $item->realisasi_anggaran;
+                                            @endphp
                                         @endforeach
+                                        <td>{{ $totKinerja }}</td>
+                                        <td>{{ $totKinerja == 0?0:$totKinerja/$item->indkinerja->target*100 }}%</td>
+                                        <td>{{ "Rp " . number_format($totAnggaran, 0, ',', '.') }}</td>
+                                        <td>{{ $totAnggaran == 0?0:$totAnggaran/$item->indkinerja->pagu*100 }}%</td>
                                         @php
                                             $count = 4 - $realisasi->count();
                                             for ($i=0; $i < $count * 2; $i++):
