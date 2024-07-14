@@ -55,7 +55,7 @@
                             <th rowspan="3" style="text-align: center;">TUJUAN RPJMD</th>
                             <th rowspan="3" style="text-align: center;">SASARAN RPJMD</th>
                             <th rowspan="3" style="text-align: center;">INDIKATOR TUJUAN / SASARAN DP</th>
-                            @foreach (range(date('Y'), date('Y') + 4) as $year)
+                            @foreach (range($first_year, $first_year + 4) as $year)
                                 <th colspan="2">{{ $year }}</th>
                             @endforeach
                             <th rowspan="3">Keterangan</th>

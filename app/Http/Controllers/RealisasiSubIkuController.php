@@ -14,10 +14,13 @@ class RealisasiSubIkuController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        $first_year = $request->get('year', 2022);
         $data = SubIku::with(["subIkuSasaran", "subIkuKinerja.realisasiSubIku" ])->get();
-        return view("sub_iku.realisasi.realisasi_sub_iku")->with("data", $data);
+        return view("sub_iku.realisasi.realisasi_sub_iku")
+            ->with("data", $data)
+            ->with('first_year', $first_year);
     }
 
     public function get(string $id)
