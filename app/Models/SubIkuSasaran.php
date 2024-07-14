@@ -18,4 +18,9 @@ class SubIkuSasaran extends Model
     {
         return $this->belongsTo(SubIku::class);
     }
+
+    public function sub_iku_kinerja(): HasMany
+    {
+        return $this->hasMany(SubIkuKinerja::class);
+    }
 }

@@ -170,9 +170,9 @@ class RealisasiController extends Controller
         return response()->json($data);
     }
 
-    public function getRealisasiById($id)
+    public function getRealisasiById($id, $pid)
     {
-        $data = Realisasi::where('id', $id)->first();
+        $data = Realisasi::where(['triwulan'=> $pid, 'kinerja_id' => $id])->first();
 
         return response()->json($data);
     }

@@ -61,7 +61,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('realisasi', RealisasiController::class)->except('update');
     Route::put('realisasi/update', [RealisasiController::class, 'update'])->name('realisasi.update');
     Route::get('get_realisasi', [RealisasiController::class, 'getRealisasi'])->name('getrealisasi');
-    Route::get('get_realisasi/{id}', [RealisasiController::class, 'getRealisasiById'])->name('getrealisasibyID');
+    Route::get('get_realisasi/{id}/{pid}', [RealisasiController::class, 'getRealisasiById'])->name('getrealisasibyID');
 
 
     // Route Triwulan

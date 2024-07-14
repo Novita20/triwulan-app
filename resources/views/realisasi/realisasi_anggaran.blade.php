@@ -132,9 +132,9 @@
                                             @if ($pengaturan->count() == 0)
                                                 <p>Harap Isi Pengaturan</p>
                                             @else
-                                            @foreach ($pengaturan as $i => $item)
-                                                <button realisasi-id="{{ $item->id }}" {{ $item->status == 0 ? 'disabled' : '' }}
-                                                    class="btn btn-sm {{  $item->status == 0 ? 'btn-secondary' : 'btn-success' }} edit-button">{{ ++$i }}</button>
+                                            @foreach ($pengaturan as $i => $p)
+                                                <button data-pid="{{ $p->id }}" data-id="{{ $realisasi->first()->kinerja_id }}" {{ $p->status == 0 ? 'disabled' : '' }}
+                                                    class="btn btn-sm {{  $p->status == 0 ? 'btn-secondary' : 'btn-success' }} edit-button">{{ ++$i }}</button>
                                             @endforeach
                                             @endif
                                         </td>
@@ -279,10 +279,12 @@
     <script>
         $(document).ready(function() {
             $('.edit-button').on('click', function() {
-                var realisasi_id = $(this).attr('realisasi-id');
+                var pengaturanId = $(this).data('pid');
+                var kinerjaId = $(this).data('id');
+                console.log(pengaturanId, kinerjaId);
                 $('#modal_edit').modal('show')
 
-                $.get('/get_realisasi/' + realisasi_id).done(function(data) {
+                $.get('/get_realisasi/' + kinerjaId+ "/" + pengaturanId).done(function(data) {
                     $('#modal_edit_label').text('Edit Data Triwulan ' + data.triwulan)
                     $('#realisasi_id').val(data.id)
                     $('#kinerja').val(data.kinerja)
