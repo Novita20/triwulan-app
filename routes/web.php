@@ -37,6 +37,7 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('/beranda', [HomeController::class, 'index']);
     Route::get('/', [HomeController::class, 'index']);
 
     Route::resource('program', ProgramController::class);

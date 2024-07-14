@@ -32,16 +32,19 @@ class RealisasiController extends Controller
         $sheet->setCellValue('A1', 'Program');
         $sheet->setCellValue('B1', 'Sub Kegiatan');
         $sheet->setCellValue('C1', 'Target');
-        $sheet->setCellValue('D1', 'Pagu');
-        $sheet->setCellValue('E1', 'Triwulan 1 Kinerja');
-        $sheet->setCellValue('F1', 'Triwulan 1 Anggaran');
-        $sheet->setCellValue('G1', 'Triwulan 2 Kinerja');
-        $sheet->setCellValue('H1', 'Triwulan 2 Anggaran');
-        $sheet->setCellValue('I1', 'Triwulan 3 Kinerja');
-        $sheet->setCellValue('J1', 'Triwulan 3 Anggaran');
-        $sheet->setCellValue('K1', 'Triwulan 4 Kinerja');
-        $sheet->setCellValue('L1', 'Triwulan 4 Anggaran');
-        $sheet->setCellValue('M1', 'Keterangan');
+        $sheet->setCellValue('D1', 'Satuan');
+        $sheet->setCellValue('E1', 'Pagu');
+        $sheet->setCellValue('F1', 'Triwulan 1 Kinerja');
+        $sheet->setCellValue('G1', 'Triwulan 1 Anggaran');
+        $sheet->setCellValue('H1', 'Triwulan 2 Kinerja');
+        $sheet->setCellValue('I1', 'Triwulan 2 Anggaran');
+        $sheet->setCellValue('J1', 'Triwulan 3 Kinerja');
+        $sheet->setCellValue('K1', 'Triwulan 3 Anggaran');
+        $sheet->setCellValue('L1', 'Triwulan 4 Kinerja');
+        $sheet->setCellValue('M1', 'Triwulan 4 Anggaran');
+        $sheet->setCellValue('N1', 'Total Kinerja');
+        $sheet->setCellValue('O1', 'Total Anggaran');
+        $sheet->setCellValue('P1', 'Keterangan');
 
         // Menambahkan data dari database
         $row = 2;
@@ -52,18 +55,25 @@ class RealisasiController extends Controller
             $sheet->setCellValue('A' . $row, $realisasi->indkinerja->subkegiatan->kegiatan->program->nama_program ?? 'N/A');
             $sheet->setCellValue('B' . $row, $realisasi->indkinerja->subkegiatan->nama_subkegiatan ?? 'N/A');
             $sheet->setCellValue('C' . $row, $realisasi->indkinerja->target ?? 'N/A');
-            $sheet->setCellValue('D' . $row, $realisasi->indkinerja->pagu ?? 'N/A');
+            $sheet->setCellValue('D' . $row, $realisasi->indkinerja->satuan ?? 'N/A');
+            $sheet->setCellValue('E' . $row, $realisasi->indkinerja->pagu ?? 'N/A');
 
             // Asumsikan bahwa data realisasi diurutkan berdasarkan triwulan
-            $colIndex = 'E';
+            $colIndex = 'F';
+            $totKinerja = 0;
+            $totAnggaran = 0;
             foreach ($realisasiGroup as $item) {
                 $sheet->setCellValue($colIndex . $row, $item->kinerja ?? 'N/A');
                 $colIndex++;
+                $totKinerja += $item->kinerja??0;
                 $sheet->setCellValue($colIndex . $row, $item->realisasi_anggaran ?? 'N/A');
                 $colIndex++;
+                $totAnggaran += $item->realisasi_anggaran??0;
             }
+            $sheet->setCellValue("N".$row, $totKinerja);
+            $sheet->setCellValue("O".$row, $totAnggaran);
 
-            $sheet->setCellValue('M' . $row, 'Keterangan'); // Sesuaikan dengan data keterangan jika ada
+            $sheet->setCellValue('P' . $row, 'Keterangan'); // Sesuaikan dengan data keterangan jika ada
             $row++;
         }
 

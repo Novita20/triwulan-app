@@ -30,7 +30,7 @@
                 <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                 <li class="nav-item">
-                    <a href="{{ url('/beranda') }}" class="nav-link {{ request()->is('/') ? 'active' : '' }}"
+                    <a href="{{ url('/beranda') }}" class="nav-link {{ request()->is('beranda') ? 'active' : '' }}"
                         class="nav-link">
                         <i class="nav-icon fas fa-home"></i>
                         <p>
@@ -40,7 +40,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ url('/pengaturan') }}" class="nav-link {{ request()->is('/') ? 'active' : '' }}"
+                    <a href="{{ url('/pengaturan') }}" class="nav-link {{ request()->is('pengaturan') ? 'active' : '' }}"
                         class="nav-link">
                         <i class="nav-icon fas fa-cogs"></i>
                         <p>
@@ -59,7 +59,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ url('/program') }}" class="nav-link {{ request()->is('/') ? 'active' : '' }}"
+                            <a href="{{ url('/program') }}" class="nav-link {{ request()->is('program') ? 'active' : '' }}"
                                 class="nav-link">
 
                                 <i class="fas fa-file nav-icon"></i>
@@ -67,7 +67,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ url('/kegiatan') }}" class="nav-link {{ request()->is('/') ? 'active' : '' }}"
+                            <a href="{{ url('/kegiatan') }}" class="nav-link {{ request()->is('kegiatan') ? 'active' : '' }}"
                                 class="nav-link">
 
                                 <i class="fas fa-file nav-icon"></i>
@@ -76,7 +76,7 @@
                         </li>
                         <li class="nav-item">
                             <a href="{{ url('/sub_kegiatan') }}"
-                                class="nav-link {{ request()->is('/') ? 'active' : '' }}" class="nav-link">
+                                class="nav-link {{ request()->is('sub_kegiatan') ? 'active' : '' }}" class="nav-link">
                                 <i class="fas fa-file nav-icon"></i>
                                 <p>Sub Kegiatan</p>
                             </a>
@@ -96,21 +96,21 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="{{ url('indikator_program') }}"
-                                class="nav-link {{ request()->is('/') ? 'active' : '' }}" class="nav-link">
+                                class="nav-link {{ request()->is('indikator_program') ? 'active' : '' }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Program</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ url('/indikator_kegiatan') }}"
-                                class="nav-link {{ request()->is('/') ? 'active' : '' }}" class="nav-link">
+                                class="nav-link {{ request()->is('indikator_program') ? 'active' : '' }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Kegiatan</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ url('/indikator_kinerja') }}"
-                                class="nav-link {{ request()->is('/') ? 'active' : '' }}" class="nav-link">
+                                class="nav-link {{ request()->is('indikator_kinerja') ? 'active' : '' }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Sub Kegiatan</p>
                             </a>
@@ -120,7 +120,7 @@
 
 
                 <li class="nav-item">
-                    <a href="{{ url('/realisasi') }}" class="nav-link {{ request()->is('/') ? 'active' : '' }}"
+                    <a href="{{ url('/realisasi') }}" class="nav-link {{ request()->is('realisasi') ? 'active' : '' }}"
                         class="nav-link">
                         <i class="nav-icon fas fa-money-check-alt"></i>
                         <p>
@@ -140,7 +140,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ url('/sub_iku') }}" class="nav-link {{ request()->is('/') ? 'active' : '' }}"
+                            <a href="{{ url('/sub_iku') }}" class="nav-link {{ request()->is('sub_iku') ? 'active' : '' }}"
                                 class="nav-link">
                                 <i class="fas fa-file nav-icon"></i>
                                 <p>Sub IKU A</p>
@@ -150,7 +150,7 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="{{ route('sub_iku.realisasi') }}"
-                                class="nav-link {{ request()->is('/') ? 'active' : '' }}" class="nav-link">
+                                class="nav-link {{ request()->is('sub_iku/realisasi') ? 'active' : '' }}" class="nav-link">
                                 <i class="fas fa-file nav-icon"></i>
                                 <p>Realisasi IKU B</p>
                             </a>
