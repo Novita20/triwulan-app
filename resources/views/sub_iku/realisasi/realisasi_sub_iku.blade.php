@@ -35,13 +35,37 @@
                 <div class="card-body">
                     <div class="row g-3 align-items-center">
                         <div class="col-auto">
-                            <form action="{{ route("sub_iku.realisasi") }}" method="GET">
-                                <input type="text" id="realisasi" name="realisasi" class="form-control"
-                                       placeholder="Cari...">
+                            <form action="{{ route('sub_iku.realisasi') }}" method="GET">
+                                <div class="input-group input-group">
+                                    <input type="text" id="realisasi" name="nama" class="form-control"
+                                           placeholder="Cari misi RPJMD...">
+                                    <span class="input-group-append">
+                                        <button type="submit" class="btn btn-primary">Cari</button>
+                                    </span>
+                                </div>
                             </form>
                         </div>
                         <div class="col-auto">
                             <a href="{{ route('sub_iku.realisasi.download') }}" class="btn btn-success">Download Excel</a>
+                        </div>
+                        <div class="col-auto">
+                            <form action="{{ route('sub_iku.realisasi') }}">
+                                <div class="input-group input-group">
+                                    <select name="year" class="form-control">
+                                        <option value="">Pilih Awal Tahun</option>
+                                        @php
+                                            $currentYear = date('Y');
+                                            $startYear = 2022;
+                                        @endphp
+                                        @for ($tahun = $currentYear; $tahun >= $startYear; $tahun--)
+                                            <option value="{{ $tahun }}" @if($tahun == $first_year) selected @endif >{{ $tahun }}</option>
+                                        @endfor
+                                    </select>
+                                    <span class="input-group-append">
+                                        <button type="submit" class="btn btn-primary">Cari</button>
+                                    </span>
+                                </div>
+                            </form>
                         </div>
                     </div>
                     <br>
