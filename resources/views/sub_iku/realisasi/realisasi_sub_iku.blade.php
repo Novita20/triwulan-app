@@ -89,12 +89,25 @@
                                  <td>{{ $item->tujuan_rpjmd }}</td>
                                  <td>{{ $item->sasaran_rpjmd }}</td>
                                  <td>{{ $item->subIkuSasaran->first()->indikator_tujuan }}</td>
-                                @foreach($item->subIkuKinerja as $item_kinerja)
-                                    <td>{{ $item_kinerja->realisasiSubIku->kinerja ?? 0 }}</td>
-                                    <td>
-                                        @php($kj = $item_kinerja->realisasiSubIku->kinerja ?? 0)
-                                        {{ $kj === 0 ? 0 : ($kj / $item_kinerja->angka_kinerja) * 100 }}
-                                    </td>
+                                @foreach (range($first_year, $first_year + 4) as $year)
+                                    @php
+                                        $found = [];
+                                        $found[$year] = false;
+                                    @endphp
+                                    @foreach($item->subIkuKinerja as $item_kinerja)
+                                        @if($item_kinerja->tahun == $year && !$found[$year])
+                                            <td>{{ $item_kinerja->realisasiSubIku->kinerja ?? 0 }}</td>
+                                            <td>
+                                                @php($kj = $item_kinerja->realisasiSubIku->kinerja ?? 0)
+                                                {{ $kj === 0 ? 0 : ($kj / $item_kinerja->angka_kinerja) * 100 }}
+                                            </td>
+                                            @php($found[$year] = true)
+                                        @endif
+                                    @endforeach
+                                    @if($found[$year] === false)
+                                        <td>0</td>
+                                        <td>0%</td>
+                                    @endif
                                 @endforeach
                                 <td>
                                     <button data-toggle="modal" data-target="#keteranganModal" ket-id="{{ $item->id }}"
