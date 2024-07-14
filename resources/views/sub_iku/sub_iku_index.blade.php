@@ -88,7 +88,7 @@
                                     <td>
                                         <img class="img-size-50" src="{{ asset('storage').'/'.$item_sasaran->formula }}" alt="{{ $item_sasaran->formula }}">
                                     </td>
-                                    <td>{{ $item->kondisi_awal  }}</td>
+                                    <td>{{ $item->kondisi_awal }}</td>
 
                                     @foreach (range(date('Y'), date('Y') + 4) as $year)
                                         @php
