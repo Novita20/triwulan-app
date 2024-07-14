@@ -15,10 +15,12 @@ class SubIkuController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $req)
     {
+        $year = $req->get('year', 2022);
         $data = SubIku::all();
-        return view('sub_iku.sub_iku_index')->with('data', $data);
+        return view('sub_iku.sub_iku_index')->with('data', $data)
+            ->with('first_year', $year);
     }
 
     /**
