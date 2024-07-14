@@ -106,7 +106,7 @@
                                     @endforeach
                                     @if($found[$year] === false)
                                         <td>0</td>
-                                        <td>0%</td>
+                                        <td>0</td>
                                     @endif
                                 @endforeach
                                 <td>
