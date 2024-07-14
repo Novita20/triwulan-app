@@ -69,9 +69,9 @@
                             <th colspan="5" style="align-content: center;">Target Kinerja Sasaran Pada Tahun</th>
                         </tr>
                         <tr>
-                            @foreach (range(date('Y'), date('Y') + 4) as $year)
+                            @foreach (range($first_year, $first_year + 4) as $year)
                                 <th>{{ $year }}</th>
-                        @endforeach
+                            @endforeach
                         <tr>
                         </thead>
                         <tbody>
@@ -89,25 +89,23 @@
                                         <img class="img-size-50" src="{{ asset('storage').'/'.$item_sasaran->formula }}" alt="{{ $item_sasaran->formula }}">
                                     </td>
                                     <td>{{ $item->kondisi_awal }}</td>
-
-                                    @foreach (range(date('Y'), date('Y') + 4) as $year)
+                                    @foreach (range($first_year, $first_year + 4) as $year)
                                         @php
-                                            $found = false;
+                                            $found = [];
+                                            $found[$year] = false;
                                         @endphp
                                         @foreach ($item_sasaran->sub_iku_kinerja as $item_kinerja)
-                                            @if ($year == $item_kinerja->tahun)
+                                            @if ($year == $item_kinerja->tahun && !$found[$year])
                                                 <td>{{ $item_kinerja->angka_kinerja }} {{ $item_kinerja->satuan }}
                                                 </td>
                                                 @php
-                                                    $found = true;
+                                                    $found[$year] = true;
                                                 @endphp
                                             @endif
                                         @endforeach
 
-                                        @if (!$found)
-                                            <td></td>
-                                        @else
-                                            @break
+                                        @if ($found[$year] === false)
+                                            <td>-</td>
                                         @endif
                                     @endforeach
                                 @endforeach
