@@ -38,18 +38,44 @@
 
                 <div class="card-body">
 
-                    <div class="row g-3 align-items-center">
+                    <div class="row g-3 align-items-center mb-3">
                         <div class="col-auto">
-                            <form action="/realisasi" method="GET">
-                                <input type="text" id="realisasi" name="realisasi" class="form-control"
-                                       placeholder="Cari...">
+                            <form action="{{ route('sub_iku.index') }}" method="GET">
+                                <div class="input-group input-group">
+                                    <input type="text" id="realisasi" name="nama" class="form-control"
+                                       placeholder="Cari misi RPJMD...">
+                                    <span class="input-group-append">
+                                        <button type="submit" class="btn btn-primary">Cari</button>
+                                    </span>
+                                </div>
                             </form>
+                        </div>
+                        <div class="col-auto">
+                            <form action="{{ route('sub_iku.index') }}">
+                                <div class="input-group input-group">
+                                    <select name="year" class="form-control">
+                                        <option value="">Pilih Awal Tahun</option>
+                                        @php
+                                            $currentYear = date('Y');
+                                            $startYear = 2022;
+                                        @endphp
+                                        @for ($tahun = $currentYear; $tahun >= $startYear; $tahun--)
+                                            <option value="{{ $tahun }}" @if($tahun == $first_year) selected @endif >{{ $tahun }}</option>
+                                        @endfor
+                                    </select>
+                                    <span class="input-group-append">
+                                        <button type="submit" class="btn btn-primary">Cari</button>
+                                    </span>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-auto">
+                            <a href="{{ route('sub_iku.create') }}" class="btn btn-success my-2">
+                                Tambah Data
+                            </a>
                         </div>
                     </div>
 
-                    <a href="{{ route('sub_iku.create') }}" class="btn btn-sm btn-success my-2">
-                        Tambah Data
-                    </a>
                     <table class="table table-bordered table-striped">
                         <thead>
                         {{-- @dd($data) --}}

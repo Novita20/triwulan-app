@@ -18,7 +18,12 @@ class SubIkuController extends Controller
     public function index(Request $req)
     {
         $year = $req->get('year', 2022);
-        $data = SubIku::all();
+        $program = $req->get('nama');
+        if ($program) {
+            $data = SubIku::where('misi_rpjmd', 'like', "%$program%")->get();
+        }else{
+            $data = SubIku::all();
+        }
         return view('sub_iku.sub_iku_index')->with('data', $data)
             ->with('first_year', $year);
     }

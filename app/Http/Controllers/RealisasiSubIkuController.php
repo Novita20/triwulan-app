@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\RealisasiSubIku;
 use App\Models\SubIku;
 use App\Models\SubIkuKinerja;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
@@ -14,10 +15,16 @@ class RealisasiSubIkuController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = SubIku::with(["subIkuSasaran", "subIkuKinerja.realisasiSubIku" ])->get();
-        return view("sub_iku.realisasi.realisasi_sub_iku")->with("data", $data);
+        $first_year = $request->get('year', 2022);
+        $program = $request->get('nama');
+        $data = SubIku::when($program, function (Builder $query) use ($program){
+            $query->where('misi_rpjmd', 'like', "%$program%");
+        })->with(["subIkuSasaran", "subIkuKinerja.realisasiSubIku" ])->get();
+        return view("sub_iku.realisasi.realisasi_sub_iku")
+            ->with("data", $data)
+            ->with('first_year', $first_year);
     }
 
     public function get(string $id)
