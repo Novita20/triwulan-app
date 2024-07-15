@@ -110,13 +110,13 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @for ($i = 0; $i < 5; $i++)
+                                    @for ($i = 1; $i <= 5; $i++)
                                         <tr>
                                             <td>
                                                 <select
                                                     class="form-control @error('tahun_{{ $i }}') is-invalid @enderror"
                                                     name="tahun_{{ $i }}">
-                                                    @foreach (range((2022+$i), date('Y') + 10) as $year)
+                                                    @foreach (range((2022+($i-1)), date('Y') + 10) as $year)
                                                         <option value="{{ $year }}">{{ $year }}</option>
                                                     @endforeach
                                                 </select>
