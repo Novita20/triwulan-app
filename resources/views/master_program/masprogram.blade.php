@@ -90,7 +90,7 @@
                     </table>
                 </div>
                 <div class="card-footer">
-                    Terima Kasih
+
                 </div>
             </div>
         </section>

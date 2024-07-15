@@ -98,7 +98,7 @@
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
-                    Terima Kasih
+
                 </div>
                 <!-- /.card-footer-->
             </div>
