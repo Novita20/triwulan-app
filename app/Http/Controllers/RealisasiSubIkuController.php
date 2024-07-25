@@ -19,12 +19,13 @@ class RealisasiSubIkuController extends Controller
     {
         $first_year = $request->get('year', 2022);
         $program = $request->get('nama');
-        $data = SubIku::when($program, function (Builder $query) use ($program){
+        $data = SubIku::when($program, function (Builder $query) use ($program) {
             $query->where('misi_rpjmd', 'like', "%$program%");
-        })->with(["subIkuSasaran", "subIkuKinerja.realisasiSubIku" ])->get();
+        })->with(["subIkuSasaran", "subIkuKinerja.realisasiSubIku"])->get();
         return view("sub_iku.realisasi.realisasi_sub_iku")
             ->with("data", $data)
-            ->with('first_year', $first_year);
+            ->with('first_year', $first_year)
+            ->with('triwulan', '1');
     }
 
     public function get(string $id)
@@ -53,10 +54,10 @@ class RealisasiSubIkuController extends Controller
         $currentYear = date('Y');
         $columns = ['E', 'G', 'I', 'K', 'M'];
         foreach ($columns as $index => $column) {
-            $sheet->mergeCells($column.'2:'.chr(ord($column) + 1).'2')->setCellValue($column.'2', $currentYear + $index);
-            $sheet->mergeCells($column.'3:'.chr(ord($column) + 1).'3')->setCellValue($column.'3', 'Kinerja');
-            $sheet->setCellValue($column.'4', 'Angka');
-            $sheet->setCellValue(chr(ord($column) + 1).'4', '%');
+            $sheet->mergeCells($column . '2:' . chr(ord($column) + 1) . '2')->setCellValue($column . '2', $currentYear + $index);
+            $sheet->mergeCells($column . '3:' . chr(ord($column) + 1) . '3')->setCellValue($column . '3', 'Kinerja');
+            $sheet->setCellValue($column . '4', 'Angka');
+            $sheet->setCellValue(chr(ord($column) + 1) . '4', '%');
         }
 
         // Atur lebar kolom agar lebih rapi
@@ -66,20 +67,20 @@ class RealisasiSubIkuController extends Controller
 
         // Anda dapat mengisi data mulai dari baris ke-5
         $row = 5;
-        $data = SubIku::with(["subIkuSasaran", "subIkuKinerja.realisasiSubIku" ])->get();
+        $data = SubIku::with(["subIkuSasaran", "subIkuKinerja.realisasiSubIku"])->get();
         foreach ($data as $subIku) {
-            $sheet->setCellValue('A'.$row, $subIku->misi_rpjmd);
-            $sheet->setCellValue('B'.$row, $subIku->tujuan_rpjmd);
-            $sheet->setCellValue('C'.$row, $subIku->sasaran_rpjmd);
-            $sheet->setCellValue('D'.$row, $subIku->subIkuSasaran->first()->indikator_tujuan);
+            $sheet->setCellValue('A' . $row, $subIku->misi_rpjmd);
+            $sheet->setCellValue('B' . $row, $subIku->tujuan_rpjmd);
+            $sheet->setCellValue('C' . $row, $subIku->sasaran_rpjmd);
+            $sheet->setCellValue('D' . $row, $subIku->subIkuSasaran->first()->indikator_tujuan);
 
             $realisasi = $subIku->subIkuKinerja;
             $col = 'E';
             foreach ($realisasi as $item) {
                 $ki = $item->realisasiSubIku?->kinerja ?? 0;
-                $sheet->setCellValue($col.$row, $ki);
+                $sheet->setCellValue($col . $row, $ki);
                 $col++;
-                $sheet->setCellValue($col.$row, $ki === 0 ? 0: ($ki / $item->angka_kinerja) * 100);
+                $sheet->setCellValue($col . $row, $ki === 0 ? 0 : ($ki / $item->angka_kinerja) * 100);
                 $col++;
             }
 
@@ -150,7 +151,7 @@ class RealisasiSubIkuController extends Controller
             }
             RealisasiSubIku::create($data);
             return back()->with("success", "Data berhasil disimpan");
-        }catch (\Exception $e) {
+        } catch (\Exception $e) {
             return back()->with("error", "Terjadi kesalahan");
         }
     }

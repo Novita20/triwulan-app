@@ -68,7 +68,7 @@
                             </form>
                         </div>
                     </div>
-                    <br>
+
                     <table class="table table-bordered table-striped">
                         <thead>
                         <tr>
@@ -79,9 +79,18 @@
                             <th rowspan="3" style="text-align: center;">TUJUAN RPJMD</th>
                             <th rowspan="3" style="text-align: center;">SASARAN RPJMD</th>
                             <th rowspan="3" style="text-align: center;">INDIKATOR TUJUAN / SASARAN DP</th>
-                            @foreach (range($first_year, $first_year + 4) as $year)
+                            <th rowspan="3" style="text-align: center;">TARGET IKU</th>
+                            <th rowspan="3" style="text-align: center;">SATUAN</th>
+                            {{-- @foreach (range($first_year, $first_year + 4) as $year)
                                 <th colspan="2">{{ $year }}</th>
-                            @endforeach
+
+                            @endforeach --}}
+
+                            <th colspan="2">Triwulan 1</th>
+                            <th colspan="2">Triwulan 2</th>
+                            <th colspan="2">Triwulan 3</th>
+                            <th colspan="2">Triwulan 4</th>
+                            <th colspan="2" >Total</th>
                             <th rowspan="3">Keterangan</th>
                             <th rowspan="3">Edit Tahunan</th>
                         </tr>
@@ -89,7 +98,7 @@
                             @php
                                 for ($i=0; $i < 5; $i++):
                             @endphp
-                            <th colspan="2">Kinerja</th>
+                            <th colspan="2">Realisasi IKU</th>
                             @php
                                 endfor;
                             @endphp
@@ -113,26 +122,33 @@
                                  <td>{{ $item->tujuan_rpjmd }}</td>
                                  <td>{{ $item->sasaran_rpjmd }}</td>
                                  <td>{{ $item->subIkuSasaran->first()->indikator_tujuan }}</td>
-                                @foreach (range($first_year, $first_year + 4) as $year)
-                                    @php
-                                        $found = [];
-                                        $found[$year] = false;
-                                    @endphp
-                                    @foreach($item->subIkuKinerja as $item_kinerja)
-                                        @if($item_kinerja->tahun == $year && !$found[$year])
-                                            <td>{{ $item_kinerja->realisasiSubIku->kinerja ?? 0 }}</td>
-                                            <td>
-                                                @php($kj = $item_kinerja->realisasiSubIku->kinerja ?? 0)
-                                                {{ $kj === 0 ? 0 : ($kj / $item_kinerja->angka_kinerja) * 100 }}
-                                            </td>
-                                            @php($found[$year] = true)
-                                        @endif
-                                    @endforeach
-                                    @if($found[$year] === false)
-                                        <td>0</td>
-                                        <td>0</td>
-                                    @endif
+                                 @foreach($item->subIkuKinerja as $item_kinerja)
+                                 {{$target_kinerja = $item_kinerja->angka_kinerja}}
+                                 {{$satuan_kinerja = $item_kinerja->satuan}}
+                                 {{$angka_tribulan_1 = $item_kinerja->realisasiSubIku->kinerja ?? 0 }}
+
+                                 @php($kj = $item_kinerja->realisasiSubIku->kinerja ?? 0)
+
                                 @endforeach
+
+                                <td>{{$target_kinerja}}</td>
+                                <td>{{$satuan_kinerja}}</td>
+
+                                <td>{{ $angka_tribulan_1}}</td>
+                                <td>{{$kj === 0 ? 0 : ($kj / $target_kinerja) * 100}}</td>
+
+                                <td></td>
+                                <td></td>
+
+                                <td></td>
+                                <td></td>
+
+                                <td></td>
+                                <td></td>
+
+                                <td></td>
+                                <td></td>
+
                                 <td>
                                     <button data-toggle="modal" data-target="#keteranganModal" ket-id="{{ $item->id }}"
                                             class="btn btn-sm btn-warning ket-btn">Lihat</button>

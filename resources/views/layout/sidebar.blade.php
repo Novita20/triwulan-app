@@ -146,7 +146,7 @@
                             <a href="{{ url('/sub_iku') }}"
                                 class="nav-link {{ request()->is('sub_iku') ? 'active' : '' }}" class="nav-link">
                                 <i class="fas fa-file nav-icon"></i>
-                                <p>Sub IKU A</p>
+                                <p>Data IKU</p>
                             </a>
                         </li>
                     </ul>
@@ -156,7 +156,7 @@
                                 class="nav-link {{ request()->is('sub_iku/realisasi') ? 'active' : '' }}"
                                 class="nav-link">
                                 <i class="fas fa-file nav-icon"></i>
-                                <p>Realisasi IKU B</p>
+                                <p>Realisasi IKU</p>
                             </a>
                         </li>
                     </ul>

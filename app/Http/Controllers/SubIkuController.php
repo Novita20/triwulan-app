@@ -21,7 +21,7 @@ class SubIkuController extends Controller
         $program = $req->get('nama');
         if ($program) {
             $data = SubIku::where('misi_rpjmd', 'like', "%$program%")->get();
-        }else{
+        } else {
             $data = SubIku::all();
         }
         return view('sub_iku.sub_iku_index')->with('data', $data)
@@ -93,7 +93,7 @@ class SubIkuController extends Controller
 
                 // Simpan file dengan nama baru
                 $path = $file->storeAs('sub_iku', $newName);
-                $ikuSasaran->formula ="sub_iku/". $newName;
+                $ikuSasaran->formula = "sub_iku/" . $newName;
             }
             $ikuSasaran->save();
 
@@ -101,17 +101,17 @@ class SubIkuController extends Controller
                 $kinerja = new SubIkuKinerja();
                 $kinerja->sub_iku_id = $iku->id;
                 $kinerja->sub_iku_sasaran_id = $ikuSasaran->id;
-                $kinerja->tahun = $data['tahun_'.$i];
-                $kinerja->angka_kinerja = $data['target_number_'.$i];
-                $kinerja->satuan = $data['deskripsi_'.$i];
+                $kinerja->tahun = $data['tahun_' . $i];
+                $kinerja->angka_kinerja = $data['target_number_' . $i];
+                $kinerja->satuan = $data['deskripsi_' . $i];
                 $kinerja->save();
             }
 
             \DB::commit();
 
             return redirect('sub_iku')
-                    ->with('success', 'Data Indikator Kegiatan berhasil disimpan');
-        }catch (Exception $e){
+                ->with('success', 'Data Indikator Kegiatan berhasil disimpan');
+        } catch (Exception $e) {
             \DB::rollBack();
             return back()->with('error', $e->getMessage());
         }
